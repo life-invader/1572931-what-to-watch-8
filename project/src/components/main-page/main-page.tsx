@@ -1,14 +1,8 @@
 import React from 'react';
 import MovieCard from '../movie-card/movie-card';
-
-type MainPageMovieCardProps = {
-  name: string,
-  release: number,
-  genre: string,
-}
+import type {MainPageMovieCardProps} from './type';
 
 function MainPage({name, release, genre}: MainPageMovieCardProps): JSX.Element {
-
   return (
     <React.Fragment>
       <section className="film-card">

@@ -1,4 +1,4 @@
-function Addreview() {
+function AddReview() {
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
@@ -95,4 +95,4 @@ function Addreview() {
   );
 }
 
-export default Addreview;
+export default AddReview;
