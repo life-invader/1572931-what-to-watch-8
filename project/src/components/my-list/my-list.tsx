@@ -1,4 +1,4 @@
-function MyList() {
+function MyList(): JSX.Element {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">

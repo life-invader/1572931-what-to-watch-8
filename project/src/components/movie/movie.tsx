@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Movie() {
+function Movie(): JSX.Element {
   return (
     <React.Fragment>
       <section className="film-card film-card--full">
