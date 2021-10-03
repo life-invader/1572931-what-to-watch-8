@@ -1,11 +1,16 @@
 import MainPage from '../main-page/main-page';
 
 type AppMovieCardProps = {
-  name: string;
+  promoMovieInfo: {
+    name: string,
+    release: number,
+    genre: string
+  }
 };
 
-function App({name}: AppMovieCardProps): JSX.Element {
-  return <MainPage name={name}/>;
+function App({promoMovieInfo}: AppMovieCardProps): JSX.Element {
+  const {name, release, genre} = promoMovieInfo;
+  return <MainPage name={name} release={release} genre={genre} />;
 }
 
 export default App;

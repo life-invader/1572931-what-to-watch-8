@@ -2,12 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
 
-const movieInfo = {
-  name: 'Macbeth',
+const promoMovieInfo = {
+  name: 'The Grand Budapest Hotel',
+  release: 2014,
+  genre: 'Drama',
 };
 
 ReactDOM.render(
   <React.StrictMode>
-    <App name={movieInfo.name} />
+    <App promoMovieInfo={promoMovieInfo} />
   </React.StrictMode>,
   document.getElementById('root'));

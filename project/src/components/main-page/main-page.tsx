@@ -1,14 +1,13 @@
 import React from 'react';
 import MovieCard from '../movie-card/movie-card';
 
-// const MOVIE_CARDS_COUNT = 20;
-// const movieCards = new Array(MOVIE_CARDS_COUNT - 1);
-
 type MainPageMovieCardProps = {
   name: string,
+  release: number,
+  genre: string,
 }
 
-function MainPage({name}: MainPageMovieCardProps): JSX.Element {
+function MainPage({name, release, genre}: MainPageMovieCardProps): JSX.Element {
 
   return (
     <React.Fragment>
@@ -47,10 +46,10 @@ function MainPage({name}: MainPageMovieCardProps): JSX.Element {
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">The Grand Budapest Hotel</h2>
+              <h2 className="film-card__title">{name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">Drama</span>
-                <span className="film-card__year">2014</span>
+                <span className="film-card__genre">{genre}</span>
+                <span className="film-card__year">{release}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -110,27 +109,26 @@ function MainPage({name}: MainPageMovieCardProps): JSX.Element {
           </ul>
 
           <div className="catalog__films-list">
-            <MovieCard name={name} />
-            <MovieCard name={name} />
-            <MovieCard name={name} />
-            <MovieCard name={name} />
-            <MovieCard name={name} />
-            <MovieCard name={name} />
-            <MovieCard name={name} />
-            <MovieCard name={name} />
-            <MovieCard name={name} />
-            <MovieCard name={name} />
-            <MovieCard name={name} />
-            <MovieCard name={name} />
-            <MovieCard name={name} />
-            <MovieCard name={name} />
-            <MovieCard name={name} />
-            <MovieCard name={name} />
-            <MovieCard name={name} />
-            <MovieCard name={name} />
-            <MovieCard name={name} />
-            <MovieCard name={name} />
-            {/* {movieCards.map((movie, index) => <MovieCard key={Math.random()} name={movieName} />)} */}
+            <MovieCard />
+            <MovieCard />
+            <MovieCard />
+            <MovieCard />
+            <MovieCard />
+            <MovieCard />
+            <MovieCard />
+            <MovieCard />
+            <MovieCard />
+            <MovieCard />
+            <MovieCard />
+            <MovieCard />
+            <MovieCard />
+            <MovieCard />
+            <MovieCard />
+            <MovieCard />
+            <MovieCard />
+            <MovieCard />
+            <MovieCard />
+            <MovieCard />
           </div>
 
           <div className="catalog__more">
