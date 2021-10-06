@@ -5,8 +5,10 @@ import MyList from '../my-list/my-list';
 import Movie from '../movie/movie';
 import AddReview from '../add-review/add-review';
 import Player from '../player/player';
+import Page404 from '../page-404/page-404';
+import PrivateRoute from '../private-route/private-route';
 import type {AppMovieCardProps} from './type';
-import {AppRoutes} from '../../const';
+import {AppRoutes, AuthStatus} from '../../const';
 
 
 function App({promoMovieInfo}: AppMovieCardProps): JSX.Element {
@@ -25,9 +27,9 @@ function App({promoMovieInfo}: AppMovieCardProps): JSX.Element {
         <Route exact path={AppRoutes.SignIn}>
           <SignIn />
         </Route>
-        <Route exact path={AppRoutes.MyList}>
+        <PrivateRoute exact path={AppRoutes.MyList} AuthorizationStatus={AuthStatus.NoAuth}>
           <MyList />
-        </Route>
+        </PrivateRoute>
         <Route exact path={AppRoutes.Movie}>
           <Movie />
         </Route>
@@ -36,6 +38,9 @@ function App({promoMovieInfo}: AppMovieCardProps): JSX.Element {
         </Route>
         <Route exact path={AppRoutes.Player}>
           <Player />
+        </Route>
+        <Route>
+          <Page404 />
         </Route>
       </Switch>
     </BrowserRouter>
