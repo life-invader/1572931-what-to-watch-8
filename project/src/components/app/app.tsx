@@ -1,15 +1,18 @@
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
-import MainPage from '../main-page/main-page';
-import SignIn from '../sign-in/sign-in';
-import MyList from '../my-list/my-list';
-import Movie from '../movie/movie';
+import {
+  BrowserRouter,
+  Route,
+  Switch
+} from 'react-router-dom';
 import AddReview from '../add-review/add-review';
-import Player from '../player/player';
+import MainPage from '../main-page/main-page';
+import Movie from '../movie/movie';
+import MyList from '../my-list/my-list';
 import Page404 from '../page-404/page-404';
+import Player from '../player/player';
 import PrivateRoute from '../private-route/private-route';
-import type {AppMovieCardProps} from './type';
+import SignIn from '../sign-in/sign-in';
 import {AppRoutes, AuthStatus} from '../../const';
-
+import type {AppMovieCardProps} from './type';
 
 function App({promoMovieInfo}: AppMovieCardProps): JSX.Element {
   const {
