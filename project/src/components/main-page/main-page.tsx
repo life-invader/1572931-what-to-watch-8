@@ -1,8 +1,8 @@
 import React from 'react';
-import MovieCard from '../movie-card/movie-card';
+import MovieList from '../movie-list/movie-list';
 import type {MainPageMovieCardProps} from './type';
 
-function MainPage({name, release, genre}: MainPageMovieCardProps): JSX.Element {
+function MainPage({name, release, genre, movies}: MainPageMovieCardProps): JSX.Element {
   return (
     <React.Fragment>
       <section className="film-card">
@@ -102,28 +102,7 @@ function MainPage({name, release, genre}: MainPageMovieCardProps): JSX.Element {
             </li>
           </ul>
 
-          <div className="catalog__films-list">
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-          </div>
+          <MovieList movies={movies} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
