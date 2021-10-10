@@ -34,10 +34,10 @@ function App({promoMovieInfo, movies}: AppMovieCardProps): JSX.Element {
           <MyList movies={movies} />
         </PrivateRoute>
         <Route exact path={AppRoutes.Movie}>
-          <Movie />
+          <Movie movies={movies} />
         </Route>
         <Route exact path={AppRoutes.AddReview}>
-          <AddReview />
+          <AddReview movies={movies} />
         </Route>
         <Route exact path={AppRoutes.Player}>
           <Player />

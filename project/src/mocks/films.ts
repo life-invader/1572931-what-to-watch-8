@@ -4,7 +4,7 @@ export const mockMovies = [
     'name': 'The Grand Budapest Hotel',
     'poster_image': './img/the-grand-budapest-hotel-poster.jpg',
     'preview_image': './img/bg-the-grand-budapest-hotel.jpg',
-    'background_image': './img/the-grand-budapest-hotel-bg.jpg',
+    'background_image': './img/bg-the-grand-budapest-hotel.jpg',
     'background_color': '#ffffff',
     'video_link': 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm',
     'preview_video_link': 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm',
@@ -21,7 +21,7 @@ export const mockMovies = [
   {
     'id': 2,
     'name': 'Aviator',
-    'poster_image': './aviator.jpg',
+    'poster_image': './img/aviator.jpg',
     'preview_image': './img/aviator.jpg',
     'background_image': './img/aviator.jpg',
     'background_color': '#ffffff',
