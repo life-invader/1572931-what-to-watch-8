@@ -1,7 +1,8 @@
+import {Link} from 'react-router-dom';
 import {MovieCardType} from './type';
 
 function MovieCard({movie}: MovieCardType): JSX.Element {
-  const {'preview_image': previewImage, name} = movie;
+  const {'preview_image': previewImage, name, id} = movie;
 
   return (
     <article className="small-film-card catalog__films-card">
@@ -9,7 +10,7 @@ function MovieCard({movie}: MovieCardType): JSX.Element {
         <img src={previewImage} alt="Macbeth" width="280" height="175" />
       </div>
       <h3 className="small-film-card__title">
-        <a className="small-film-card__link" href="film-page.html">{name}</a>
+        <Link className="small-film-card__link" to={`/films/${id}`}>{name}</Link>
       </h3>
     </article>
   );

@@ -4,7 +4,7 @@ import type {MovieListType} from './type';
 function MovieList({movies}: MovieListType): JSX.Element {
   return (
     <div className="catalog__films-list">
-      { movies.map((movie) => <MovieCard key={Math.random()} movie={movie} />) }
+      { movies.map((movie) => <MovieCard key={movie.id} movie={movie} />) }
     </div>
   );
 }

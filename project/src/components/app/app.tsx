@@ -31,7 +31,7 @@ function App({promoMovieInfo, movies}: AppMovieCardProps): JSX.Element {
           <SignIn />
         </Route>
         <PrivateRoute exact path={AppRoutes.MyList} AuthorizationStatus={AuthStatus.Auth}>
-          <MyList />
+          <MyList movies={movies} />
         </PrivateRoute>
         <Route exact path={AppRoutes.Movie}>
           <Movie />
