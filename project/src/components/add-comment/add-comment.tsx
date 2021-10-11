@@ -4,11 +4,11 @@ function AddComment(): JSX.Element {
   const [value, setValue] = React.useState('');
   const [rating, setRating] = React.useState('');
 
-  function handleMessageChange(evt: any) {
+  function handleMessageChange(evt:  React.ChangeEvent<HTMLTextAreaElement>) {
     setValue(evt.target.value );
   }
 
-  function handleChangeRating(evt: any) {
+  function handleChangeRating(evt:  React.ChangeEvent<HTMLInputElement>) {
     setRating(evt.currentTarget.value);
   }
 
