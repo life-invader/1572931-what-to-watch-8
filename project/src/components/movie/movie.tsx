@@ -1,9 +1,10 @@
 import React from 'react';
 import {Link, useParams} from 'react-router-dom';
+import type {MovieType, ParamsType} from './type';
 
-function Movie({movies}: any): JSX.Element {
-  const params = useParams();
-  const movie = movies.filter((item) => item.id.toString() === params.id)[0];
+function Movie({movies}: MovieType): JSX.Element {
+  const {id}: ParamsType = useParams();
+  const movie = movies.filter((item) => item.id.toString() === id)[0];
   const {
     released,
     genre,
@@ -68,7 +69,7 @@ function Movie({movies}: any): JSX.Element {
                   </svg>
                   <span>My list</span>
                 </button>
-                <Link to={`/films/${params.id}/review`} className="btn film-card__button">Add review</Link>
+                <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>

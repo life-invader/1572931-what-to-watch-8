@@ -119,7 +119,7 @@ function MainPage({name, release, genre, movies}: MainPageMovieCardProps): JSX.E
           </div>
 
           <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
+            <p>© 2021 What to watch Ltd.</p>
           </div>
         </footer>
       </div>

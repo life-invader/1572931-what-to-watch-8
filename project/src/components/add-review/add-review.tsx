@@ -1,9 +1,10 @@
 import {Link, useParams} from 'react-router-dom';
 import AddComment from '../add-comment/add-comment';
+import {MovieType, ParamsType} from './type';
 
-function AddReview({movies}: any): JSX.Element {
-  const params = useParams();
-  const movie = movies.filter((item) => item.id.toString() === params.id)[0];
+function AddReview({movies}: MovieType): JSX.Element {
+  const {id}: ParamsType = useParams();
+  const movie = movies.filter((item) => item.id.toString() === id)[0];
   const {
     name,
     'poster_image': posterImage,

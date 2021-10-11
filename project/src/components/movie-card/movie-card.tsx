@@ -1,11 +1,11 @@
 import {Link} from 'react-router-dom';
 import {MovieCardType} from './type';
 
-function MovieCard({movie}: MovieCardType): JSX.Element {
+function MovieCard({movie, handleActiveMovie}: MovieCardType): JSX.Element {
   const {'preview_image': previewImage, name, id} = movie;
 
   return (
-    <article className="small-film-card catalog__films-card">
+    <article className="small-film-card catalog__films-card" onMouseOver={() => {handleActiveMovie(id);} } >
       <div className="small-film-card__image">
         <img src={previewImage} alt="Macbeth" width="280" height="175" />
       </div>
