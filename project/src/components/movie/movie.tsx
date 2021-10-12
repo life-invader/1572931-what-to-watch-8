@@ -1,6 +1,12 @@
 import React from 'react';
-import {Link, useParams} from 'react-router-dom';
-import type {MovieType, ParamsType} from './type';
+import {
+  Link,
+  useParams
+} from 'react-router-dom';
+import type {
+  MovieType,
+  ParamsType
+} from './type';
 
 function Movie({movies}: MovieType): JSX.Element {
   const {id}: ParamsType = useParams();

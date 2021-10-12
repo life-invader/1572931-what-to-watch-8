@@ -4,5 +4,5 @@ export type MainPageMovieCardProps = {
   name: string,
   release: number,
   genre: string,
-  movies: MoviesType[]
+  movies: MoviesType[],
 };

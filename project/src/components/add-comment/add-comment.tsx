@@ -5,7 +5,7 @@ function AddComment(): JSX.Element {
   const [rating, setRating] = React.useState('');
 
   function handleMessageChange(evt:  React.ChangeEvent<HTMLTextAreaElement>) {
-    setValue(evt.target.value );
+    setValue(evt.target.value);
   }
 
   function handleChangeRating(evt:  React.ChangeEvent<HTMLInputElement>) {

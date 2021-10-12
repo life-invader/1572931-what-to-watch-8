@@ -1,6 +1,12 @@
-import {Link, useParams} from 'react-router-dom';
+import {
+  Link,
+  useParams
+} from 'react-router-dom';
 import AddComment from '../add-comment/add-comment';
-import {MovieType, ParamsType} from './type';
+import {
+  MovieType,
+  ParamsType
+} from './type';
 
 function AddReview({movies}: MovieType): JSX.Element {
   const {id}: ParamsType = useParams();
