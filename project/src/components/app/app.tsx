@@ -14,7 +14,7 @@ import SignIn from '../sign-in/sign-in';
 import {AppRoutes, AuthStatus} from '../../const';
 import type {AppMovieCardProps} from './type';
 
-function App({promoMovieInfo}: AppMovieCardProps): JSX.Element {
+function App({promoMovieInfo, movies}: AppMovieCardProps): JSX.Element {
   const {
     name,
     release,
@@ -25,19 +25,19 @@ function App({promoMovieInfo}: AppMovieCardProps): JSX.Element {
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoutes.MainPage}>
-          <MainPage name={name} release={release} genre={genre} />
+          <MainPage name={name} release={release} genre={genre} movies={movies} />
         </Route>
         <Route exact path={AppRoutes.SignIn}>
           <SignIn />
         </Route>
-        <PrivateRoute exact path={AppRoutes.MyList} AuthorizationStatus={AuthStatus.NoAuth}>
-          <MyList />
+        <PrivateRoute exact path={AppRoutes.MyList} AuthorizationStatus={AuthStatus.Auth}>
+          <MyList movies={movies} />
         </PrivateRoute>
         <Route exact path={AppRoutes.Movie}>
-          <Movie />
+          <Movie movies={movies} />
         </Route>
         <Route exact path={AppRoutes.AddReview}>
-          <AddReview />
+          <AddReview movies={movies} />
         </Route>
         <Route exact path={AppRoutes.Player}>
           <Player />

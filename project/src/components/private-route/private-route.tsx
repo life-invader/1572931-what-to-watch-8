@@ -1,5 +1,11 @@
-import {Route, Redirect} from 'react-router-dom';
-import {AppRoutes, AuthStatus} from '../../const';
+import {
+  Route,
+  Redirect
+} from 'react-router-dom';
+import {
+  AppRoutes,
+  AuthStatus
+} from '../../const';
 import type {PrivateRouteType} from './type';
 
 function PrivateRoute(props: PrivateRouteType): JSX.Element {
