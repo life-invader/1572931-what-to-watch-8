@@ -1,14 +1,16 @@
+import {useEffect,useRef, useState} from 'react';
 import { Link } from 'react-router-dom';
 import VideoPlayer from '../video-player/video-player';
 import { MovieCardType } from './type';
-import React from 'react';
+
+const TIMER_DELAY = 1000;
 
 function MovieCard({ movie, handleActiveMovie }: MovieCardType): JSX.Element {
   const { 'preview_image': previewImage, name, id, 'preview_video_link': previewVideoLink } = movie;
-  const [play, setPlay] = React.useState(false);
-  const [hover, setHover] = React.useState(false);
+  const [play, setPlay] = useState(false);
+  const [hover, setHover] = useState(false);
 
-  const timer = React.useRef<NodeJS.Timeout | null>(null);
+  const timer = useRef<NodeJS.Timeout | null>(null);
   const clearTimer = () => {
     if (timer.current) {
       clearTimeout(timer.current);
@@ -16,13 +18,13 @@ function MovieCard({ movie, handleActiveMovie }: MovieCardType): JSX.Element {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     clearTimer();
     if (!hover) {
       setPlay(false);
     }
     if (hover) {
-      timer.current = setTimeout(() => setPlay(true), 1000);
+      timer.current = setTimeout(() => setPlay(true), TIMER_DELAY);
     }
     return clearTimer;
   }, [hover]);
