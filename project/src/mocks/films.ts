@@ -33,7 +33,7 @@ export const mockMovies = [
     'director': 'Wes Anderson',
     'starring': ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan'],
     'run_time': 234,
-    'genre': 'Comedy',
+    'genre': 'crime',
     'released': 2002,
     'is_favorite': true,
   },
@@ -71,7 +71,7 @@ export const mockMovies = [
     'director': 'Wes Anderson',
     'starring': ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan'],
     'run_time': 34,
-    'genre': 'Comedy',
+    'genre': 'documentary',
     'released': 1993,
     'is_favorite': false,
   },
@@ -128,7 +128,7 @@ export const mockMovies = [
     'director': 'Wes Anderson',
     'starring': ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan'],
     'run_time': 89,
-    'genre': 'Comedy',
+    'genre': 'horror',
     'released': 2010,
     'is_favorite': true,
   },
@@ -152,3 +152,16 @@ export const mockMovies = [
     'is_favorite': true,
   },
 ];
+
+export const Genres = {
+  AllGenres: 'all-genres',
+  Comedies: 'Comedy',
+  Crime: 'crime',
+  Documentary: 'documentary',
+  Dramas: 'dramas',
+  Horror: 'horror',
+  KidsNFamily: 'kids-and-family',
+  Romance: 'romance',
+  SciFi: 'sci-fi',
+  Thrillers: 'thrillers',
+};
