@@ -1,14 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-console */
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import MovieList from '../movie-list/movie-list';
-import type { MainPageMovieCardProps } from './type';
-import { setGenre, setDefaultGenre } from '../../store/action';
+import GenreLinks from '../genre-links/genre-links';
+import type { MainPageMovieCardProps, RootState } from './type';
 
-function MainPage({ name, release, genre }: any): JSX.Element {
-  const dispatch = useDispatch();
-  const movies = useSelector((state: any) => state.movies);
+function MainPage({ name, release, genre }: MainPageMovieCardProps): JSX.Element {
+  const movies = useSelector((state: RootState) => state.movies);
 
   return (
     <React.Fragment>
@@ -76,38 +73,7 @@ function MainPage({ name, release, genre }: any): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="#" className="catalog__genres-link" data-genre='all-genres' onClick={(evt) => dispatch(setDefaultGenre(evt))}>All genres</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link" data-genre='Comedy' onClick={(evt) => dispatch(setGenre(evt))}>Comedies</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link" data-genre='crime' onClick={(evt) => dispatch(setGenre(evt))}>Crime</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link" data-genre='documentary' onClick={(evt) => dispatch(setGenre(evt))}>Documentary</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link" data-genre='dramas' onClick={(evt) => dispatch(setGenre(evt))}>Dramas</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link" data-genre='horror' onClick={(evt) => dispatch(setGenre(evt))}>Horror</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link" data-genre='kids-and-family' onClick={(evt) => dispatch(setGenre(evt))}>Kids & Family</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link" data-genre='romance' onClick={(evt) => dispatch(setGenre(evt))}>Romance</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link" data-genre='sci-fi' onClick={(evt) => dispatch(setGenre(evt))}>Sci-Fi</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link" data-genre='thrillers' onClick={(evt) => dispatch(setGenre(evt))}>Thrillers</a>
-            </li>
-          </ul>
+          <GenreLinks />
 
           <MovieList movies={movies} />
 

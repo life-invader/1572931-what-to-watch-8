@@ -1,12 +1,12 @@
-/* eslint-disable no-console */
-/* eslint-disable quotes */
+import { ActionType } from '../const';
+import { setGenreAction, setDefaultGenreAction } from './type';
 
-export const setGenre = (evt: any): any => {
+export const setGenre = (evt: any): setGenreAction => {
   evt.preventDefault();
-  return { type: 'change-genre', payload: evt.target.dataset.genre };
+  return { type: ActionType.ChangeGenre, payload: evt.target.dataset.genre };
 };
 
-export const setDefaultGenre = (evt: any): any => {
+export const setDefaultGenre = (evt: any): setDefaultGenreAction => {
   evt.preventDefault();
-  return { type: 'all-genres', payload: evt.target.dataset.genre };
+  return { type: ActionType.DefaultGenre, payload: evt.target.dataset.genre };
 };

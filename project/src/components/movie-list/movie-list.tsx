@@ -11,7 +11,7 @@ function MovieList({movies}: MovieListType): JSX.Element {
 
   return (
     <div className="catalog__films-list">
-      { movies ? movies.map((movie) => <MovieCard key={movie.id} movie={movie} handleActiveMovie={handleActiveMovie} />) : '' }
+      { movies.length ? movies.map((movie) => <MovieCard key={movie.id} movie={movie} handleActiveMovie={handleActiveMovie} />) : '' }
     </div>
   );
 }
