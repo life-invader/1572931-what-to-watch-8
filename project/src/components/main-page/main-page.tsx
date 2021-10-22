@@ -2,7 +2,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import MovieList from '../movie-list/movie-list';
 import GenreLinks from '../genre-links/genre-links';
-import type { MainPageMovieCardProps, RootState } from './type';
+import type {
+  MainPageMovieCardProps,
+  RootState
+} from './type';
 
 function MainPage({ name, release, genre }: MainPageMovieCardProps): JSX.Element {
   const movies = useSelector((state: RootState) => state.movies);

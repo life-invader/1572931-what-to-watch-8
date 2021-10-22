@@ -1,5 +1,11 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { setGenre, setDefaultGenre } from '../../store/action';
+import {
+  useDispatch,
+  useSelector
+} from 'react-redux';
+import {
+  setGenre,
+  setDefaultGenre
+} from '../../store/action';
 import type { MoviesType } from '../../types/movies';
 import type { RootState } from './type';
 import { Genres } from '../../mocks/films';

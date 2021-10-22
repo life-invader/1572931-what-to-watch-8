@@ -1,5 +1,8 @@
 import { ActionType } from '../const';
-import { setGenreAction, setDefaultGenreAction } from './type';
+import {
+  setGenreAction,
+  setDefaultGenreAction
+} from './type';
 
 export const setGenre = (evt: any): setGenreAction => {
   evt.preventDefault();
