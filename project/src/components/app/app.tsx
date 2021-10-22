@@ -11,10 +11,13 @@ import Page404 from '../page-404/page-404';
 import Player from '../player/player';
 import PrivateRoute from '../private-route/private-route';
 import SignIn from '../sign-in/sign-in';
-import {AppRoutes, AuthStatus} from '../../const';
-import type {AppMovieCardProps} from './type';
+import {
+  AppRoutes,
+  AuthStatus
+} from '../../const';
+import type { AppMovieCardProps } from './type';
 
-function App({promoMovieInfo, movies}: AppMovieCardProps): JSX.Element {
+function App({ promoMovieInfo, movies }: AppMovieCardProps): JSX.Element {
   const {
     name,
     release,
@@ -25,7 +28,7 @@ function App({promoMovieInfo, movies}: AppMovieCardProps): JSX.Element {
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoutes.MainPage}>
-          <MainPage name={name} release={release} genre={genre} movies={movies} />
+          <MainPage name={name} release={release} genre={genre} />
         </Route>
         <Route exact path={AppRoutes.SignIn}>
           <SignIn />
