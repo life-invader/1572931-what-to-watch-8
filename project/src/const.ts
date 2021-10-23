@@ -16,4 +16,7 @@ export enum AuthStatus {
 export enum ActionType {
   ChangeGenre = 'change-genre',
   DefaultGenre = 'all-genres',
+  LoadMovies = 'load-movies',
+  RequireAuthorization = 'require-authoization',
+  RequireLogout = 'require-logout',
 }

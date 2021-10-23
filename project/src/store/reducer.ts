@@ -2,7 +2,7 @@ import {
   mockMovies,
   Genres
 } from '../mocks/films';
-import { ActionType } from '../const';
+import { ActionType, AuthStatus } from '../const';
 import type {
   Action,
   State
@@ -10,8 +10,9 @@ import type {
 
 const defaultState = {
   genre: Genres.AllGenres,
-  movies: mockMovies,
-  defaultMovies: mockMovies,
+  movies: [],
+  defaultMovies: [],
+  authorizationStatus: AuthStatus.Unknown,
 };
 
 // Пока без JSDoc
@@ -26,6 +27,12 @@ export const reducer = (state: State = defaultState, action: Action): State => {
       return { ...state, genre: action.payload, movies: mockMovies.filter((movie) => movie.genre === action.payload) };
     case ActionType.DefaultGenre:
       return { ...state, genre: action.payload, movies: mockMovies };
+    case ActionType.LoadMovies:
+      return { ...state, movies: action.payload, defaultMovies: action.payload };
+    case ActionType.RequireAuthorization:
+      return { ...state, authorizationStatus: action.payload };
+    case ActionType.RequireLogout:
+      return { ...state, authorizationStatus: AuthStatus.NoAuth };
     default:
       return state;
   }

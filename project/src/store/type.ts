@@ -1,5 +1,6 @@
-import { ActionType } from '../const';
-import type {MoviesType} from '../types/movies';
+import { ActionType, AuthStatus } from '../const';
+import type { MoviesType } from '../types/movies';
+import { requireAuthorization, requireLogout } from '../store/action';
 
 export type setGenreAction = {
   type: ActionType.ChangeGenre,
@@ -11,10 +12,11 @@ export type setDefaultGenreAction = {
   payload: string,
 }
 
-export type Action = setGenreAction | setDefaultGenreAction;
+export type Action = setGenreAction | setDefaultGenreAction | ReturnType<typeof requireAuthorization> | ReturnType<typeof requireLogout> | any;
 
 export type State = {
   genre: string,
   movies: MoviesType[],
   defaultMovies: MoviesType[],
+  authorizationStatus: AuthStatus,
 }
