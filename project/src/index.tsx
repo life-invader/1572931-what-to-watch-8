@@ -8,7 +8,8 @@ import { reducer } from './store/reducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import App from './components/app/app';
 import { createAPI } from './services/api';
-import { requireAuthorization, fetchMovies } from './store/action';
+import { requireAuthorization } from './store/action';
+import { fetchMovies } from './store/api-action';
 import { AuthStatus } from './const';
 import { mockMovies } from './mocks/films';
 

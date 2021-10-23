@@ -1,7 +1,4 @@
-import {
-  mockMovies,
-  Genres
-} from '../mocks/films';
+import { Genres } from '../mocks/films';
 import { ActionType, AuthStatus } from '../const';
 import type {
   Action,
@@ -24,9 +21,9 @@ const defaultState = {
 export const reducer = (state: State = defaultState, action: Action): State => {
   switch (action.type) {
     case ActionType.ChangeGenre:
-      return { ...state, genre: action.payload, movies: mockMovies.filter((movie) => movie.genre === action.payload) };
+      return { ...state, genre: action.payload, movies: state.defaultMovies.filter((movie) => movie.genre === action.payload) };
     case ActionType.DefaultGenre:
-      return { ...state, genre: action.payload, movies: mockMovies };
+      return { ...state, genre: action.payload, movies: state.defaultMovies };
     case ActionType.LoadMovies:
       return { ...state, movies: action.payload, defaultMovies: action.payload };
     case ActionType.RequireAuthorization:

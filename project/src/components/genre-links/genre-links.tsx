@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {
   useDispatch,
   useSelector
@@ -15,6 +16,7 @@ function GenreLinks(): JSX.Element {
   const currentGenre = useSelector((state: RootState) => state.genre);
   const defaultMovies = useSelector((state: RootState) => state.defaultMovies);
   const genres = [...new Set(defaultMovies.map((movie: MoviesType) => movie.genre))]; // Уникальные жанры без повторений
+  console.log(genres);
 
   return (
     <ul className="catalog__genres-list">
