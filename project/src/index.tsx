@@ -1,7 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware, compose } from 'redux';
+import {
+  createStore,
+  applyMiddleware,
+  compose
+} from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { reducer } from './store/reducer';
@@ -12,11 +15,12 @@ import { requireAuthorization } from './store/action';
 import { fetchMovies } from './store/api-action';
 import { AuthStatus } from './const';
 import { mockMovies } from './mocks/films';
+import type { ThunkAppDispatch } from './store/type';
 
 const api = createAPI(() => store.dispatch(requireAuthorization(AuthStatus.NoAuth)));
 const store = createStore(reducer, compose(applyMiddleware(thunk.withExtraArgument(api)), composeWithDevTools()));
 
-store.dispatch(fetchMovies());
+(store.dispatch as ThunkAppDispatch)(fetchMovies());
 
 const promoMovieInfo = {
   name: 'The Grand Budapest Hotel',

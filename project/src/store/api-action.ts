@@ -1,6 +1,9 @@
-import {loadMovies} from './action';
+import { loadMovies } from './action';
+import { APIRoute } from '../const';
+import type { MoviesType } from '../types/movies';
+import type { ThunkActionResult } from './type';
 
-export const fetchMovies = () => async (dispatch: any, _getState: any, api: any): Promise<any> => {
-  const {data} = await api.get('https://8.react.pages.academy/wtw/films');
+export const fetchMovies = (): ThunkActionResult => async (dispatch, _getState, api): Promise<void> => {
+  const { data } = await api.get<MoviesType[]>(APIRoute.Films);
   dispatch(loadMovies(data));
 };

@@ -1,4 +1,9 @@
-import axios, {AxiosInstance, AxiosResponse, AxiosError, AxiosRequestConfig} from 'axios';
+import axios, {
+  AxiosInstance,
+  AxiosResponse,
+  AxiosError,
+  AxiosRequestConfig
+} from 'axios';
 import { getToken } from './token';
 
 const URL = 'https://8.react.pages.academy/wtw';

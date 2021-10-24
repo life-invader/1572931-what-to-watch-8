@@ -7,6 +7,10 @@ export enum AppRoutes {
   Player = '/player/:id',
 }
 
+export enum APIRoute {
+  Films = '/films',
+}
+
 export enum AuthStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',

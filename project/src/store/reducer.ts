@@ -9,10 +9,9 @@ const defaultState = {
   genre: Genres.AllGenres,
   movies: [],
   defaultMovies: [],
-  authorizationStatus: AuthStatus.Unknown,
+  authorizationStatus: AuthStatus.Unknown, // authorizationStatus - пока не используется;
 };
 
-// Пока без JSDoc
 // reducer принимает 2 параметра.
 // 1) state это объект, с ключами: genre - текущий жанр; movies - массив, содержащий объекты, каждый объект содержит инфу про кино, фильтруется при смене жанра;
 //    defaultMovies - то же что и movies, но никогда не изменяется, отдается в случае сброса текущего жанра на дефолт, т.е. на 'все жанры'.
