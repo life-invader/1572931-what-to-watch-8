@@ -12,7 +12,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import App from './components/app/app';
 import { createAPI } from './services/api';
 import { requireAuthorization } from './store/action';
-import { fetchMovies } from './store/api-action';
+import { fetchMovies, checkAuth } from './store/api-action';
 import { AuthStatus } from './const';
 import { mockMovies } from './mocks/films';
 import type { ThunkAppDispatch } from './store/type';
@@ -21,6 +21,7 @@ const api = createAPI(() => store.dispatch(requireAuthorization(AuthStatus.NoAut
 const store = createStore(reducer, compose(applyMiddleware(thunk.withExtraArgument(api)), composeWithDevTools()));
 
 (store.dispatch as ThunkAppDispatch)(fetchMovies());
+store.dispatch(checkAuth());
 
 const promoMovieInfo = {
   name: 'The Grand Budapest Hotel',

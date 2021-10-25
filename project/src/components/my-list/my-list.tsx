@@ -1,8 +1,8 @@
 import MovieList from '../movie-list/movie-list';
-import type {MyListProps} from './type';
+import type { MyListProps } from './type';
 
-function MyList({movies}: MyListProps): JSX.Element {
-  const favouriteMovies = movies.filter((movie) => movie['is_favorite'] === true );
+function MyList({ movies }: MyListProps): JSX.Element {
+  const favouriteMovies = movies.filter((movie) => movie['is_favorite'] === true);
 
   return (
     <div className="user-page">
