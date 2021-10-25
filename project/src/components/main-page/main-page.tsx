@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import MovieList from '../movie-list/movie-list';
 import GenreLinks from '../genre-links/genre-links';
+import Spinner from '../spinner/spinner';
 import type {
   MainPageMovieCardProps,
   RootState
@@ -77,9 +78,7 @@ function MainPage({ name, release, genre }: MainPageMovieCardProps): JSX.Element
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <GenreLinks />
-
-          <MovieList movies={movies} />
-
+          {movies.length > 0 ? <MovieList movies={movies} /> : <Spinner />}
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
           </div>

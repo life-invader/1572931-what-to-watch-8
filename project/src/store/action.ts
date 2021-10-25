@@ -1,8 +1,9 @@
-import { ActionType } from '../const';
+import { ActionType, AuthStatus } from '../const';
 import {
   setGenreAction,
   setDefaultGenreAction
 } from './type';
+import type { MoviesType } from '../types/movies';
 
 export const setGenre = (evt: any): setGenreAction => {
   evt.preventDefault();
@@ -13,3 +14,7 @@ export const setDefaultGenre = (evt: any): setDefaultGenreAction => {
   evt.preventDefault();
   return { type: ActionType.DefaultGenre, payload: evt.target.dataset.genre };
 };
+
+export const loadMovies = (movies: MoviesType[]) => ({ type: ActionType.LoadMovies, payload: movies }) as const;
+export const requireAuthorization = (authStatus: AuthStatus) => ({ type: ActionType.RequireAuthorization, payload: authStatus }) as const;
+export const requireLogout = () => ({ type: ActionType.RequireLogout }) as const;

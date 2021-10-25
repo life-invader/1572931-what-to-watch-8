@@ -7,6 +7,10 @@ export enum AppRoutes {
   Player = '/player/:id',
 }
 
+export enum APIRoute {
+  Films = '/films',
+}
+
 export enum AuthStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
@@ -16,4 +20,7 @@ export enum AuthStatus {
 export enum ActionType {
   ChangeGenre = 'change-genre',
   DefaultGenre = 'all-genres',
+  LoadMovies = 'load-movies',
+  RequireAuthorization = 'require-authoization',
+  RequireLogout = 'require-logout',
 }
