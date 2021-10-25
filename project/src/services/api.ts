@@ -13,9 +13,9 @@ enum HttpCode {
   Unauthorized = 401,
 }
 
-type onUnautharizedCallback = () => void;
+type onUnAutharizedCallback = () => void;
 
-export const createAPI = (onUnautharized: onUnautharizedCallback): AxiosInstance => {
+export const createAPI = (onUnautharized: onUnAutharizedCallback): AxiosInstance => {
   const api = axios.create({ timeout: TIMEOUT, baseURL: URL });
   api.interceptors.response.use(
     (response: AxiosResponse) => response,

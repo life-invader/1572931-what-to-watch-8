@@ -2,7 +2,7 @@ import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { AxiosInstance } from 'axios';
 import { ActionType, AuthStatus } from '../const';
 import type { MoviesType } from '../types/movies';
-import { requireAuthorization, requireLogout, loadMovies } from '../store/action';
+import { requireAuthorization, requireLogout, loadMovies } from './action';
 
 export type setGenreAction = {
   type: ActionType.ChangeGenre,
