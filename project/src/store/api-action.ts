@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { loadMovies, requireAuthorization } from './action';
@@ -14,6 +15,6 @@ export const checkAuth = () => async (dispatch: any, getState: any, api: any): P
   api.get(APIRoute.Login)
     .then((response: any) => {
       console.log(response);
-      dispatch(requireAuthorization(AuthStatus.Auth));
+      dispatch(requireAuthorization(response.payload));
     });
 };
