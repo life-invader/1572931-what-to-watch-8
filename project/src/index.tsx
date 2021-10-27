@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {
   createStore,
-  applyMiddleware,
-  compose
+  applyMiddleware
 } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
@@ -13,12 +12,13 @@ import App from './components/app/app';
 import { createAPI } from './services/api';
 import { requireAuthorization } from './store/action';
 import { fetchMovies, checkAuth } from './store/api-action';
+import { redirect } from './store/middleware';
 import { AuthStatus } from './const';
 import { mockMovies } from './mocks/films';
 import type { ThunkAppDispatch } from './store/type';
 
 const api = createAPI(() => store.dispatch(requireAuthorization(AuthStatus.NoAuth)));
-const store = createStore(reducer, compose(applyMiddleware(thunk.withExtraArgument(api)), composeWithDevTools()));
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api)), applyMiddleware(redirect)));
 
 (store.dispatch as ThunkAppDispatch)(fetchMovies());
 store.dispatch(checkAuth());

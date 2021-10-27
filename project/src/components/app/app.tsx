@@ -1,5 +1,5 @@
 import {
-  BrowserRouter,
+  Router as BrowserRouter,
   Route,
   Switch
 } from 'react-router-dom';
@@ -11,6 +11,7 @@ import Page404 from '../page-404/page-404';
 import Player from '../player/player';
 import PrivateRoute from '../private-route/private-route';
 import SignIn from '../sign-in/sign-in';
+import browserHistory from '../../browser-history';
 import {
   AppRoutes,
   AuthStatus
@@ -25,7 +26,7 @@ function App({ promoMovieInfo, movies }: AppMovieCardProps): JSX.Element {
   } = promoMovieInfo;
 
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={AppRoutes.MainPage}>
           <MainPage name={name} release={release} genre={genre} />

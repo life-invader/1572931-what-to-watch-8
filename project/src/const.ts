@@ -24,4 +24,5 @@ export enum ActionType {
   LoadMovies = 'load-movies',
   RequireAuthorization = 'require-authoization',
   RequireLogout = 'require-logout',
+  Redirect = 'redirect',
 }

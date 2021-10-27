@@ -18,3 +18,4 @@ export const setDefaultGenre = (evt: any): setDefaultGenreAction => {
 export const loadMovies = (movies: MoviesType[]) => ({ type: ActionType.LoadMovies, payload: movies }) as const;
 export const requireAuthorization = (authStatus: AuthStatus) => ({ type: ActionType.RequireAuthorization, payload: authStatus }) as const;
 export const requireLogout = () => ({ type: ActionType.RequireLogout }) as const;
+export const redirectToRoute = (url: string): any => ({type: ActionType.Redirect, payload: url});
