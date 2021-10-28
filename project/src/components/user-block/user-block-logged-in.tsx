@@ -1,4 +1,14 @@
-function UserBlockLoggedIn() {
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { logOut } from '../../store/api-action';
+
+function UserBlockLoggedIn(): JSX.Element {
+  const dispatch = useDispatch();
+  const logoutButtonClickHandler = (evt: React.MouseEvent) => {
+    evt.preventDefault();
+    dispatch(logOut());
+  };
+
   return (
     <ul className="user-block">
       <li className="user-block__item">
@@ -7,7 +17,7 @@ function UserBlockLoggedIn() {
         </div>
       </li>
       <li className="user-block__item">
-        <a className="user-block__link">Sign out</a>
+        <a className="user-block__link" onClick={logoutButtonClickHandler}>Sign out</a>
       </li>
     </ul>
   );

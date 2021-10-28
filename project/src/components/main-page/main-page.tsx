@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React from 'react';
 import { useSelector } from 'react-redux';
 import MovieList from '../movie-list/movie-list';
@@ -7,15 +6,13 @@ import Spinner from '../spinner/spinner';
 import UserBlockLoggedIn from '../user-block/user-block-logged-in';
 import UserBlockNotLoggedIn from '../user-block/user-block-not-logged-in';
 import { AuthStatus } from '../../const';
-import type {
-  MainPageMovieCardProps,
-  RootState
-} from './type';
+import type { MainPageMovieCardProps } from './type';
+import type { State } from '../../store/type';
 
 function MainPage({ name, release, genre }: MainPageMovieCardProps): JSX.Element {
-  const movies = useSelector((state: RootState) => state.movies);
-  const auth = useSelector((state: any) => state.authorizationStatus);
-  console.log(auth);
+  const movies = useSelector((state: State) => state.movies);
+  const auth = useSelector((state: State) => state.authorizationStatus);
+
   return (
     <React.Fragment>
       <section className="film-card">

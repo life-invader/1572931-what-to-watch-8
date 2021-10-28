@@ -21,7 +21,7 @@ const api = createAPI(() => store.dispatch(requireAuthorization(AuthStatus.NoAut
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api)), applyMiddleware(redirect)));
 
 (store.dispatch as ThunkAppDispatch)(fetchMovies());
-store.dispatch(checkAuth());
+(store.dispatch as ThunkAppDispatch)(checkAuth());
 
 const promoMovieInfo = {
   name: 'The Grand Budapest Hotel',

@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { logIn } from '../../store/api-action';
 import { AppRoutes } from '../../const';
@@ -9,7 +9,7 @@ function SignIn(): JSX.Element {
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useDispatch();
 
-  const handleSubmit = (evt: any) => {
+  const handleSubmit = (evt: React.MouseEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
     if (emailRef.current && passwordRef.current) {
