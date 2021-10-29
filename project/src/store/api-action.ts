@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { loadMovies, requireAuthorization, requireLogout } from './action';
 import { AppRoutes, APIRoute, AuthStatus } from '../const';
 import { setToken, dropToken } from '../services/token';

@@ -1,7 +1,9 @@
+import { useSelector } from 'react-redux';
 import MovieList from '../movie-list/movie-list';
-import type { MyListProps } from './type';
+import type { State } from '../../store/type';
 
-function MyList({ movies }: MyListProps): JSX.Element {
+function MyList(): JSX.Element {
+  const movies = useSelector((state: State) => state.movies);
   const favouriteMovies = movies.filter((movie) => movie['is_favorite'] === true);
 
   return (

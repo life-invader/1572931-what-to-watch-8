@@ -18,7 +18,7 @@ import {
 } from '../../const';
 import type { AppMovieCardProps } from './type';
 
-function App({ promoMovieInfo, movies }: AppMovieCardProps): JSX.Element {
+function App({ promoMovieInfo }: AppMovieCardProps): JSX.Element {
   const {
     name,
     release,
@@ -35,13 +35,13 @@ function App({ promoMovieInfo, movies }: AppMovieCardProps): JSX.Element {
           <SignIn />
         </Route>
         <PrivateRoute exact path={AppRoutes.MyList} AuthorizationStatus={AuthStatus.Auth}>
-          <MyList movies={movies} />
+          <MyList />
         </PrivateRoute>
         <Route exact path={AppRoutes.Movie}>
-          <Movie movies={movies} />
+          <Movie />
         </Route>
         <Route exact path={AppRoutes.AddReview}>
-          <AddReview movies={movies} />
+          <AddReview />
         </Route>
         <Route exact path={AppRoutes.Player}>
           <Player />
