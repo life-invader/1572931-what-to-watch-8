@@ -2,19 +2,27 @@ import {
   Link,
   useParams
 } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import AddComment from '../add-comment/add-comment';
+import UserBlockLoggedIn from '../user-block/user-block-logged-in';
+import UserBlockNotLoggedIn from '../user-block/user-block-not-logged-in';
+import type { ParamsType } from './type';
+import type { State } from '../../store/type';
 import {
-  MovieType,
-  ParamsType
-} from './type';
+  AppRoutes,
+  AuthStatus
+} from '../../const';
 
-function AddReview({movies}: MovieType): JSX.Element {
-  const {id}: ParamsType = useParams();
+function AddReview(): JSX.Element {
+  const movies = useSelector((state: State) => state.movies);
+  const auth = useSelector((state: State) => state.authorizationStatus);
+
+  const { id }: ParamsType = useParams();
   const movie = movies.filter((item) => item.id.toString() === id)[0];
   const {
     name,
     'poster_image': posterImage,
-    'background_image': backgroundImage ,
+    'background_image': backgroundImage,
   } = movie;
 
   return (
@@ -28,7 +36,7 @@ function AddReview({movies}: MovieType): JSX.Element {
 
         <header className="page-header">
           <div className="logo">
-            <Link to="/" className="logo__link">
+            <Link to={AppRoutes.MainPage} className="logo__link">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
@@ -46,16 +54,8 @@ function AddReview({movies}: MovieType): JSX.Element {
             </ul>
           </nav>
 
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          {auth === AuthStatus.Auth ? <UserBlockLoggedIn /> : <UserBlockNotLoggedIn />}
+
         </header>
 
         <div className="film-card__poster film-card__poster--small">

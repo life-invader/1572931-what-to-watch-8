@@ -15,14 +15,14 @@ enum HttpCode {
 
 type onUnAutharizedCallback = () => void;
 
-export const createAPI = (onUnautharized: onUnAutharizedCallback): AxiosInstance => {
+export const createAPI = (onUnAutharized: onUnAutharizedCallback): AxiosInstance => {
   const api = axios.create({ timeout: TIMEOUT, baseURL: URL });
   api.interceptors.response.use(
     (response: AxiosResponse) => response,
     (error: AxiosError) => {
       const { response } = error;
       if (response?.status === HttpCode.Unauthorized) {
-        return onUnautharized();
+        onUnAutharized();
       }
       return Promise.reject(error);
     });

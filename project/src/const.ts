@@ -9,6 +9,8 @@ export enum AppRoutes {
 
 export enum APIRoute {
   Films = '/films',
+  Login = '/login',
+  Logout = '/logout',
 }
 
 export enum AuthStatus {
@@ -23,4 +25,18 @@ export enum ActionType {
   LoadMovies = 'load-movies',
   RequireAuthorization = 'require-authoization',
   RequireLogout = 'require-logout',
+  Redirect = 'redirect',
 }
+
+export const Genres = {
+  AllGenres: 'All genres',
+  Comedies: 'Comedy',
+  Crime: 'Crime',
+  Documentary: 'Documentary',
+  Dramas: 'Dramas',
+  Horror: 'Horror',
+  KidsNFamily: 'Kids & family',
+  Romance: 'Romance',
+  SciFi: 'Sci-fi',
+  Thrillers: 'Thrillers',
+};

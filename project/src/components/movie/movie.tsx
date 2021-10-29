@@ -1,15 +1,21 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import {
   Link,
   useParams
 } from 'react-router-dom';
-import type {
-  MovieType,
-  ParamsType
-} from './type';
+import UserBlockLoggedIn from '../user-block/user-block-logged-in';
+import UserBlockNotLoggedIn from '../user-block/user-block-not-logged-in';
+import { AppRoutes, AuthStatus } from '../../const';
+import type { ParamsType } from './type';
+import type { State } from '../../store/type';
 
-function Movie({movies}: MovieType): JSX.Element {
-  const {id}: ParamsType = useParams();
+function Movie(): JSX.Element {
+  const auth = useSelector((state: State) => state.authorizationStatus);
+
+  const movies = useSelector((state: State) => state.movies);
+  const { id }: ParamsType = useParams();
+
   const movie = movies.filter((item) => item.id.toString() === id)[0];
   const {
     released,
@@ -20,7 +26,7 @@ function Movie({movies}: MovieType): JSX.Element {
     director,
     starring,
     'poster_image': posterImage,
-    'background_image': backgroundImage ,
+    'background_image': backgroundImage,
   } = movie;
 
   return (
@@ -35,23 +41,14 @@ function Movie({movies}: MovieType): JSX.Element {
 
           <header className="page-header film-card__head">
             <div className="logo">
-              <Link to="/" className="logo__link">
+              <Link to={AppRoutes.MainPage} className="logo__link">
                 <span className="logo__letter logo__letter--1">W</span>
                 <span className="logo__letter logo__letter--2">T</span>
                 <span className="logo__letter logo__letter--3">W</span>
               </Link>
             </div>
 
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a className="user-block__link">Sign out</a>
-              </li>
-            </ul>
+            {auth === AuthStatus.Auth ? <UserBlockLoggedIn /> : <UserBlockNotLoggedIn />}
           </header>
 
           <div className="film-card__wrap">

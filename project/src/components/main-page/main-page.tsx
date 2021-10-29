@@ -3,13 +3,15 @@ import { useSelector } from 'react-redux';
 import MovieList from '../movie-list/movie-list';
 import GenreLinks from '../genre-links/genre-links';
 import Spinner from '../spinner/spinner';
-import type {
-  MainPageMovieCardProps,
-  RootState
-} from './type';
+import UserBlockLoggedIn from '../user-block/user-block-logged-in';
+import UserBlockNotLoggedIn from '../user-block/user-block-not-logged-in';
+import { AuthStatus } from '../../const';
+import type { MainPageMovieCardProps } from './type';
+import type { State } from '../../store/type';
 
 function MainPage({ name, release, genre }: MainPageMovieCardProps): JSX.Element {
-  const movies = useSelector((state: RootState) => state.movies);
+  const movies = useSelector((state: State) => state.movies);
+  const auth = useSelector((state: State) => state.authorizationStatus);
 
   return (
     <React.Fragment>
@@ -29,16 +31,8 @@ function MainPage({ name, release, genre }: MainPageMovieCardProps): JSX.Element
             </a>
           </div>
 
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          {auth === AuthStatus.Auth ? <UserBlockLoggedIn /> : <UserBlockNotLoggedIn />}
+
         </header>
 
         <div className="film-card__wrap">

@@ -8,7 +8,7 @@ import {
 } from '../../store/action';
 import type { MoviesType } from '../../types/movies';
 import type { RootState } from './type';
-import { Genres } from '../../mocks/films';
+import { Genres } from '../../const';
 
 function GenreLinks(): JSX.Element {
   const dispatch = useDispatch();
