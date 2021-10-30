@@ -35,7 +35,7 @@ function Movie(): JSX.Element | null {
 
     axios.get(`${URL}${APIRoute.Films}/${id}/similar`)
       .then((response) => setSimilarMovies(response.data));
-  }, []);
+  }, [dispatch, history, id]);
 
   if (!currentMovie) {
     return null;

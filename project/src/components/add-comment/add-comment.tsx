@@ -4,7 +4,11 @@ import { useParams } from 'react-router-dom';
 import { createAPI } from '../../services/api';
 import { useDispatch } from 'react-redux';
 import { redirectToRoute } from '../../store/action';
-// import { AppRoutes } from '../../const';
+import { URL } from '../../services/api';
+import { APIRoute } from '../../const';
+
+const MIN_COMMENT_LENGTH = 50;
+const MAX_COMMENT_LENGTH = 400;
 
 function AddComment(): JSX.Element {
   const api = createAPI(() => toast.error('Ошибка авторизации', { position: toast.POSITION.TOP_LEFT }));
@@ -30,8 +34,8 @@ function AddComment(): JSX.Element {
       return false;
     }
 
-    if ((comment.length > 400 || comment.length <= 40)) {
-      toast.warn('Комментарий должен быть не короче 50 символов и не длиннее 400 символов', { position: toast.POSITION.TOP_LEFT, hideProgressBar: false });
+    if ((comment.length > MAX_COMMENT_LENGTH || comment.length <= MIN_COMMENT_LENGTH)) {
+      toast.warn(`Комментарий должен быть не короче ${MIN_COMMENT_LENGTH} символов и не длиннее ${MAX_COMMENT_LENGTH} символов`, { position: toast.POSITION.TOP_LEFT, hideProgressBar: false });
       return false;
     }
 
@@ -45,12 +49,12 @@ function AddComment(): JSX.Element {
       return;
     }
 
-    api.post(`https://8.react.pages.academy/wtw/comments/${id}`, { rating, comment })
+    api.post(`${URL}/${id}`, { rating, comment })
       .then(() => {
         toast.success('Успешно отправлено!', { position: toast.POSITION.TOP_LEFT });
         setComment('');
         setRating('');
-        dispatch(redirectToRoute(`/films/${id}`));
+        dispatch(redirectToRoute(`${APIRoute.Films}/${id}`));
       })
       .catch(() => toast.error('Что-то пошло не так!', { position: toast.POSITION.TOP_LEFT }));
   };
