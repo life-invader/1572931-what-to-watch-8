@@ -40,9 +40,9 @@ function App({ promoMovieInfo }: AppMovieCardProps): JSX.Element {
         <Route exact path={AppRoutes.Movie}>
           <Movie />
         </Route>
-        <Route exact path={AppRoutes.AddReview}>
+        <PrivateRoute exact path={AppRoutes.AddReview} AuthorizationStatus={AuthStatus.Auth}>
           <AddReview />
-        </Route>
+        </PrivateRoute>
         <Route exact path={AppRoutes.Player}>
           <Player />
         </Route>

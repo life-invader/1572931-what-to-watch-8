@@ -14,16 +14,16 @@ import {
 } from '../../const';
 
 function AddReview(): JSX.Element {
-  const movies = useSelector((state: State) => state.movies);
+  const currentMovie = useSelector((state: State) => state.currentMovie);
   const auth = useSelector((state: State) => state.authorizationStatus);
 
   const { id }: ParamsType = useParams();
-  const movie = movies.filter((item) => item.id.toString() === id)[0];
+
   const {
     name,
     'poster_image': posterImage,
     'background_image': backgroundImage,
-  } = movie;
+  } = currentMovie!;
 
   return (
     <section className="film-card film-card--full">

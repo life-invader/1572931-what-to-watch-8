@@ -6,6 +6,8 @@ import {
 } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { reducer } from './store/reducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import App from './components/app/app';
@@ -34,6 +36,7 @@ const promoMovieInfo = {
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
+      <ToastContainer limit={1} />
       <App promoMovieInfo={promoMovieInfo} />
     </Provider>
   </React.StrictMode>,

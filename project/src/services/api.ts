@@ -6,7 +6,7 @@ import axios, {
 } from 'axios';
 import { getToken } from './token';
 
-const URL = 'https://8.react.pages.academy/wtw';
+export const URL = 'https://8.react.pages.academy/wtw';
 const TIMEOUT = 5000;
 
 enum HttpCode {

@@ -17,3 +17,8 @@ export type MoviesType = {
   'released': number,
   'is_favorite': boolean,
 }
+
+export type CommentType = {
+  'rating': number,
+  'comment': string,
+}
