@@ -2,7 +2,7 @@ import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { AxiosInstance } from 'axios';
 import { ActionType, AuthStatus } from '../const';
 import type { MoviesType } from '../types/movies';
-import { requireAuthorization, requireLogout, loadMovies, redirectToRoute } from './action';
+import { requireAuthorization, requireLogout, loadMovies, redirectToRoute, loadCurrentMovie } from './action';
 
 export type AuthData = {
   email: string,
@@ -19,13 +19,14 @@ export type setDefaultGenreAction = {
   payload: string,
 }
 
-export type Action = setGenreAction | setDefaultGenreAction | ReturnType<typeof requireAuthorization> | ReturnType<typeof requireLogout> | ReturnType<typeof loadMovies> | ReturnType<typeof redirectToRoute>;
+export type Action = setGenreAction | setDefaultGenreAction | ReturnType<typeof requireAuthorization> | ReturnType<typeof requireLogout> | ReturnType<typeof loadMovies> | ReturnType<typeof redirectToRoute> | ReturnType<typeof loadCurrentMovie>;
 
 export type State = {
   genre: string,
   movies: MoviesType[],
   defaultMovies: MoviesType[],
   authorizationStatus: AuthStatus,
+  currentMovie: MoviesType | null,
 }
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;

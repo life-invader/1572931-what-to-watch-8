@@ -1,22 +1,46 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Link,
-  useParams
+  useParams,
+  useHistory
 } from 'react-router-dom';
+import axios from 'axios';
 import UserBlockLoggedIn from '../user-block/user-block-logged-in';
 import UserBlockNotLoggedIn from '../user-block/user-block-not-logged-in';
-import { AppRoutes, AuthStatus } from '../../const';
+import { loadCurrentMovie } from '../../store/action';
+import { URL } from '../../services/api';
+import { AppRoutes, APIRoute, AuthStatus } from '../../const';
 import type { ParamsType } from './type';
 import type { State } from '../../store/type';
+import type { MoviesType, CommentType } from '../../types/movies';
 
-function Movie(): JSX.Element {
+function Movie(): JSX.Element | null {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const currentMovie = useSelector((state: State) => state.currentMovie);
   const auth = useSelector((state: State) => state.authorizationStatus);
-
-  const movies = useSelector((state: State) => state.movies);
+  const [currentMovieComments, setCurrentMovieComments] = useState<CommentType[] | null>(null); // Комменты не используются, т.к. нет компонента-таба, который их показывает;
+  const [similarMovies, setSimilarMovies] = useState<MoviesType[] | null>(null); // Похожие фильмы не используются, т.к. нет компонента-списка фильмов, который их показывает, это делается в другом задании;
   const { id }: ParamsType = useParams();
 
-  const movie = movies.filter((item) => item.id.toString() === id)[0];
+  useEffect(() => {
+    axios.get(`${URL}${APIRoute.Films}/${id}`)
+      .then((response) => dispatch(loadCurrentMovie(response.data)))
+      .catch(() => history.push('/404'));
+
+    axios.get(`${URL}${APIRoute.Comments}/${id}`)
+      .then((response) => setCurrentMovieComments(response.data));
+
+    axios.get(`${URL}${APIRoute.Films}/${id}/similar`)
+      .then((response) => setSimilarMovies(response.data));
+  }, []);
+
+  if (!currentMovie) {
+    return null;
+  }
+
   const {
     released,
     genre,
@@ -27,7 +51,7 @@ function Movie(): JSX.Element {
     starring,
     'poster_image': posterImage,
     'background_image': backgroundImage,
-  } = movie;
+  } = currentMovie;
 
   return (
     <React.Fragment>
@@ -72,7 +96,7 @@ function Movie(): JSX.Element {
                   </svg>
                   <span>My list</span>
                 </button>
-                <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>
+                {auth === AuthStatus.Auth ? <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link> : ''}
               </div>
             </div>
           </div>
@@ -172,7 +196,7 @@ function Movie(): JSX.Element {
           </div>
 
           <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
+            <p>© 2021 What to watch Ltd.</p>
           </div>
         </footer>
       </div>

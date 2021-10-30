@@ -1,19 +1,62 @@
-import React from 'react';
+import { useRef, useState } from 'react';
+import { toast } from 'react-toastify';
+import { useParams } from 'react-router-dom';
+import { createAPI } from '../../services/api';
+import { useDispatch } from 'react-redux';
+import { redirectToRoute } from '../../store/action';
+// import { AppRoutes } from '../../const';
 
 function AddComment(): JSX.Element {
-  const [value, setValue] = React.useState('');
-  const [rating, setRating] = React.useState('');
+  const api = createAPI(() => toast.error('Ошибка авторизации', { position: toast.POSITION.TOP_LEFT }));
 
-  function handleMessageChange(evt:  React.ChangeEvent<HTMLTextAreaElement>) {
-    setValue(evt.target.value);
-  }
+  const form = useRef<HTMLFormElement | null>(null);
+  const submitButton = useRef<HTMLButtonElement | null>(null);
+  const [comment, setComment] = useState('');
+  const [rating, setRating] = useState('');
+  const { id } = useParams<{ id: string }>();
+  const dispatch = useDispatch();
 
-  function handleChangeRating(evt:  React.ChangeEvent<HTMLInputElement>) {
+  const handleMessageChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setComment(evt.target.value);
+  };
+
+  const handleChangeRating = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setRating(evt.currentTarget.value);
-  }
+  };
+
+  const checkForm = () => {
+    if (!rating) {
+      toast.warn('Поставьте оценку', { position: toast.POSITION.TOP_LEFT, hideProgressBar: false });
+      return false;
+    }
+
+    if ((comment.length > 400 || comment.length <= 40)) {
+      toast.warn('Комментарий должен быть не короче 50 символов и не длиннее 400 символов', { position: toast.POSITION.TOP_LEFT, hideProgressBar: false });
+      return false;
+    }
+
+    return true;
+  };
+
+  const onFormSubmitHandler = (evt: React.FormEvent) => {
+    evt.preventDefault();
+
+    if (!checkForm()) {
+      return;
+    }
+
+    api.post(`https://8.react.pages.academy/wtw/comments/${id}`, { rating, comment })
+      .then(() => {
+        toast.success('Успешно отправлено!', { position: toast.POSITION.TOP_LEFT });
+        setComment('');
+        setRating('');
+        dispatch(redirectToRoute(`/films/${id}`));
+      })
+      .catch(() => toast.error('Что-то пошло не так!', { position: toast.POSITION.TOP_LEFT }));
+  };
 
   return (
-    <form action="#" className="add-review__form" onSubmit={(evt) => evt.preventDefault()} >
+    <form action="#" className="add-review__form" ref={form} onSubmit={onFormSubmitHandler}>
       <div className="rating">
         <div className="rating__stars">
           <input className="rating__input" id="star-10" type="radio" name="rating" value="10" checked={rating === '10'} onChange={handleChangeRating} />
@@ -49,9 +92,9 @@ function AddComment(): JSX.Element {
       </div>
 
       <div className="add-review__text">
-        <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" onChange={handleMessageChange} value={value}></textarea>
+        <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" minLength={50} maxLength={400} onChange={handleMessageChange} value={comment}></textarea>
         <div className="add-review__submit">
-          <button className="add-review__btn" type="submit">Post</button>
+          <button className="add-review__btn" type="submit" ref={submitButton}>Post</button>
         </div>
 
       </div>
