@@ -9,20 +9,27 @@ import {
 import axios from 'axios';
 import UserBlockLoggedIn from '../user-block/user-block-logged-in';
 import UserBlockNotLoggedIn from '../user-block/user-block-not-logged-in';
+import TabContainer from '../tabs/tab-container';
+import OverviewTab from '../tabs/overview-tab';
+import DetailsTab from '../tabs/details-tab';
+import ReviewTab from '../tabs/reviews';
+import MovieList from '../movie-list/movie-list';
 import { loadCurrentMovie } from '../../store/action';
 import { URL } from '../../services/api';
-import { AppRoutes, APIRoute, AuthStatus } from '../../const';
+import { AppRoutes, APIRoute, AuthStatus, Tabs } from '../../const';
 import type { ParamsType } from './type';
 import type { State } from '../../store/type';
-import type { MoviesType, CommentType } from '../../types/movies';
+import type { MoviesType, UserCommentType } from '../../types/movies';
+
+const SIMILAR_MOVIES_COUNT = 4;
 
 function Movie(): JSX.Element | null {
   const history = useHistory();
   const dispatch = useDispatch();
   const currentMovie = useSelector((state: State) => state.currentMovie);
   const auth = useSelector((state: State) => state.authorizationStatus);
-  const [currentMovieComments, setCurrentMovieComments] = useState<CommentType[] | null>(null); // Комменты не используются, т.к. нет компонента-таба, который их показывает;
-  const [similarMovies, setSimilarMovies] = useState<MoviesType[] | null>(null); // Похожие фильмы не используются, т.к. нет компонента-списка фильмов, который их показывает, это делается в другом задании;
+  const [currentMovieComments, setCurrentMovieComments] = useState<UserCommentType[]>([]);
+  const [similarMovies, setSimilarMovies] = useState<MoviesType[]>([]);
   const { id }: ParamsType = useParams();
 
   useEffect(() => {
@@ -37,7 +44,7 @@ function Movie(): JSX.Element | null {
       .then((response) => setSimilarMovies(response.data));
   }, [dispatch, history, id]);
 
-  if (!currentMovie) {
+  if (Object.keys(currentMovie).length === 0) {
     return null;
   }
 
@@ -109,35 +116,13 @@ function Movie(): JSX.Element | null {
             </div>
 
             <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <a href="#" className="film-nav__link">Overview</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Details</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
 
-              <div className="film-rating">
-                <div className="film-rating__score">{rating}</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">Very good</span>
-                  <span className="film-rating__count">240 ratings</span>
-                </p>
-              </div>
+              <TabContainer >
+                <OverviewTab title={Tabs.Overview} currentMovie={currentMovie} currentMovieComments={currentMovieComments} />
+                <DetailsTab title={Tabs.Details} currentMovie={currentMovie} />
+                <ReviewTab title={Tabs.Reviews} currentMovieComments={currentMovieComments} />
+              </TabContainer>
 
-              <div className="film-card__text">
-                <p>{description}</p>
-
-                <p className="film-card__director"><strong>Director: {director}</strong></p>
-
-                <p className="film-card__starring"><strong>Starring: {starring.join(', ')}</strong></p>
-              </div>
             </div>
           </div>
         </div>
@@ -147,43 +132,8 @@ function Movie(): JSX.Element | null {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <div className="catalog__films-list">
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Fantastic Beasts: The Crimes of Grindelwald</a>
-              </h3>
-            </article>
+          <MovieList movies={similarMovies} moviesCount={SIMILAR_MOVIES_COUNT} />
 
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Bohemian Rhapsody</a>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/macbeth.jpg" alt="Macbeth" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Macbeth</a>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/aviator.jpg" alt="Aviator" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Aviator</a>
-              </h3>
-            </article>
-          </div>
         </section>
 
         <footer className="page-footer">

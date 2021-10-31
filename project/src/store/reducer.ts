@@ -4,12 +4,13 @@ import type {
   Action,
   State
 } from './type';
+import type { MoviesType } from '../types/movies';
 
 const defaultState = {
   genre: Genres.AllGenres,
   movies: [],
   defaultMovies: [],
-  currentMovie: null,
+  currentMovie: {} as MoviesType,
   authorizationStatus: AuthStatus.Unknown,
 };
 

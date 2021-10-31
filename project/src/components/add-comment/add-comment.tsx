@@ -13,8 +13,8 @@ const MAX_COMMENT_LENGTH = 400;
 function AddComment(): JSX.Element {
   const api = createAPI(() => toast.error('Ошибка авторизации', { position: toast.POSITION.TOP_LEFT }));
 
-  const form = useRef<HTMLFormElement | null>(null);
-  const submitButton = useRef<HTMLButtonElement | null>(null);
+  const formRef = useRef<HTMLFormElement | null>(null);
+  const submitButtonRef = useRef<HTMLButtonElement | null>(null);
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState('');
   const { id } = useParams<{ id: string }>();
@@ -49,7 +49,7 @@ function AddComment(): JSX.Element {
       return;
     }
 
-    api.post(`${URL}/${id}`, { rating, comment })
+    api.post(`${URL}/comments/${id}`, { rating, comment })
       .then(() => {
         toast.success('Успешно отправлено!', { position: toast.POSITION.TOP_LEFT });
         setComment('');
@@ -60,7 +60,7 @@ function AddComment(): JSX.Element {
   };
 
   return (
-    <form action="#" className="add-review__form" ref={form} onSubmit={onFormSubmitHandler}>
+    <form action="#" className="add-review__form" ref={formRef} onSubmit={onFormSubmitHandler}>
       <div className="rating">
         <div className="rating__stars">
           <input className="rating__input" id="star-10" type="radio" name="rating" value="10" checked={rating === '10'} onChange={handleChangeRating} />
@@ -98,7 +98,7 @@ function AddComment(): JSX.Element {
       <div className="add-review__text">
         <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" minLength={50} maxLength={400} onChange={handleMessageChange} value={comment}></textarea>
         <div className="add-review__submit">
-          <button className="add-review__btn" type="submit" ref={submitButton}>Post</button>
+          <button className="add-review__btn" type="submit" ref={submitButtonRef}>Post</button>
         </div>
 
       </div>

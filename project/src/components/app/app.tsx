@@ -12,10 +12,7 @@ import Player from '../player/player';
 import PrivateRoute from '../private-route/private-route';
 import SignIn from '../sign-in/sign-in';
 import browserHistory from '../../browser-history';
-import {
-  AppRoutes,
-  AuthStatus
-} from '../../const';
+import { AppRoutes } from '../../const';
 import type { AppMovieCardProps } from './type';
 
 function App({ promoMovieInfo }: AppMovieCardProps): JSX.Element {
@@ -34,13 +31,13 @@ function App({ promoMovieInfo }: AppMovieCardProps): JSX.Element {
         <Route exact path={AppRoutes.SignIn}>
           <SignIn />
         </Route>
-        <PrivateRoute exact path={AppRoutes.MyList} AuthorizationStatus={AuthStatus.Auth}>
+        <PrivateRoute exact path={AppRoutes.MyList} >
           <MyList />
         </PrivateRoute>
         <Route exact path={AppRoutes.Movie}>
           <Movie />
         </Route>
-        <PrivateRoute exact path={AppRoutes.AddReview} AuthorizationStatus={AuthStatus.Auth}>
+        <PrivateRoute exact path={AppRoutes.AddReview} >
           <AddReview />
         </PrivateRoute>
         <Route exact path={AppRoutes.Player}>

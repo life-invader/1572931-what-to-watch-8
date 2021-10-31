@@ -26,7 +26,7 @@ export type State = {
   movies: MoviesType[],
   defaultMovies: MoviesType[],
   authorizationStatus: AuthStatus,
-  currentMovie: MoviesType | null,
+  currentMovie: MoviesType,
 }
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;

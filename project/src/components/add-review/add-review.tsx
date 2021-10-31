@@ -23,7 +23,7 @@ function AddReview(): JSX.Element {
     name,
     'poster_image': posterImage,
     'background_image': backgroundImage,
-  } = currentMovie!;
+  } = currentMovie;
 
   return (
     <section className="film-card film-card--full">
