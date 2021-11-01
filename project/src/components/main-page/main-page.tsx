@@ -9,6 +9,8 @@ import { AuthStatus } from '../../const';
 import type { MainPageMovieCardProps } from './type';
 import type { State } from '../../store/type';
 
+const MAIN_PAGE_MOVIES_COUNT = 8;
+
 function MainPage({ name, release, genre }: MainPageMovieCardProps): JSX.Element {
   const movies = useSelector((state: State) => state.movies);
   const auth = useSelector((state: State) => state.authorizationStatus);
@@ -72,7 +74,7 @@ function MainPage({ name, release, genre }: MainPageMovieCardProps): JSX.Element
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <GenreLinks />
-          {movies.length > 0 ? <MovieList movies={movies} /> : <Spinner />}
+          {movies.length > 0 ? <MovieList movies={movies} moviesCount={MAIN_PAGE_MOVIES_COUNT} /> : <Spinner />}
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
           </div>

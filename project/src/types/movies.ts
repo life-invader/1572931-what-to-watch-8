@@ -22,3 +22,14 @@ export type CommentType = {
   'rating': number,
   'comment': string,
 }
+
+export type UserCommentType = {
+  'id': number,
+  'rating': number,
+  'comment': string,
+  'date': Date,
+  'user': {
+    'id': number,
+    'name': string,
+  },
+}

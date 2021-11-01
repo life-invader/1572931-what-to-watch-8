@@ -42,3 +42,9 @@ export const Genres = {
   SciFi: 'Sci-fi',
   Thrillers: 'Thrillers',
 };
+
+export const Tabs = {
+  Overview: 'Overview',
+  Details: 'Details',
+  Reviews: 'Reviews',
+};
