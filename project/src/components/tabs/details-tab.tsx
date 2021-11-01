@@ -1,14 +1,11 @@
-/* eslint-disable react/no-unused-prop-types */
-import type { MoviesType } from '../../types/movies';
 import { formatRuntime } from '../../utils/utils';
+import { DetailsTabType } from './type';
 
-
-type Type = {
-  title: string,  //TS ругается на неиспользуемую пременную, но она используется не здесь, а в <TabContainer /> в children.map();
-  currentMovie: MoviesType,
+export interface TabTypeProps extends DetailsTabType {
+  title?: string;
 }
 
-function DetailsTab({ currentMovie }: Type): JSX.Element {
+function DetailsTab({ currentMovie }: TabTypeProps): JSX.Element {
   const {
     'run_time': runtime,
     director,

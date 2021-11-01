@@ -1,13 +1,10 @@
-/* eslint-disable react/no-unused-prop-types */
-import type { MoviesType, UserCommentType } from '../../types/movies';
+import { OverviewTabType } from './type';
 
-type Type = {
-  title: string, //TS ругается на неиспользуемую пременную, но она используется не здесь, а в <TabContainer /> в children.map();
-  currentMovie: MoviesType,
-  currentMovieComments: UserCommentType[]
+export interface TabTypeProps extends OverviewTabType {
+  title?: string;
 }
 
-function OverviewTab({ currentMovie, currentMovieComments }: Type): JSX.Element {
+function OverviewTab({ currentMovie, currentMovieComments }: TabTypeProps): JSX.Element {
   const reviewsCount = currentMovieComments.length;
   const {
     rating,
