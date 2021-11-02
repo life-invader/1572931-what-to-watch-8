@@ -1,19 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import MovieList from '../movie-list/movie-list';
 import GenreLinks from '../genre-links/genre-links';
 import Spinner from '../spinner/spinner';
 import UserBlockLoggedIn from '../user-block/user-block-logged-in';
 import UserBlockNotLoggedIn from '../user-block/user-block-not-logged-in';
+import MainPageShowMoreButton from '../main-page-show-more-button/main-page-show-more-button';
 import { AuthStatus } from '../../const';
 import type { MainPageMovieCardProps } from './type';
 import type { State } from '../../store/type';
 
 const MAIN_PAGE_MOVIES_COUNT = 8;
+const SHOW_MORE_BUTTON_STEP = 8;
 
 function MainPage({ name, release, genre }: MainPageMovieCardProps): JSX.Element {
   const movies = useSelector((state: State) => state.movies);
   const auth = useSelector((state: State) => state.authorizationStatus);
+  const [currentAmout, setCurrentAmount] = useState(MAIN_PAGE_MOVIES_COUNT);
+  const isMoreButtonVisible = movies.length > currentAmout;
+
+  const showMoreButtonClickHandler = () => {
+    setCurrentAmount((prevState) => prevState + SHOW_MORE_BUTTON_STEP);
+  };
+
+  const resetCurrentAmout = () => {
+    setCurrentAmount(MAIN_PAGE_MOVIES_COUNT);
+  };
 
   return (
     <React.Fragment>
@@ -73,11 +85,12 @@ function MainPage({ name, release, genre }: MainPageMovieCardProps): JSX.Element
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenreLinks />
-          {movies.length > 0 ? <MovieList movies={movies} moviesCount={MAIN_PAGE_MOVIES_COUNT} /> : <Spinner />}
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          <GenreLinks resetCurrentAmout={resetCurrentAmout} />
+
+          {movies.length > 0 ? <MovieList movies={movies} moviesCount={currentAmout} /> : <Spinner />}
+
+          {isMoreButtonVisible && <MainPageShowMoreButton showMoreButtonClickHandler={showMoreButtonClickHandler} />}
+
         </section>
 
         <footer className="page-footer">
