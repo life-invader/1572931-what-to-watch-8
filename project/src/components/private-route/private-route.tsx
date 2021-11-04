@@ -11,7 +11,7 @@ import {
 import type { PrivateRouteType } from './type';
 
 function PrivateRoute(props: PrivateRouteType): JSX.Element {
-  const auth = useSelector((store: State) => store.authorizationStatus);
+  const auth = useSelector(({ User }: State) => User.authorizationStatus);
   const { children, exact, path } = props;
 
   return (

@@ -3,7 +3,7 @@ import MovieList from '../movie-list/movie-list';
 import type { State } from '../../store/type';
 
 function MyList(): JSX.Element {
-  const movies = useSelector((state: State) => state.movies);
+  const movies = useSelector(({ Data }: State) => Data.movies);
   const favouriteMovies = movies.filter((movie) => movie['is_favorite'] === true);
 
   return (

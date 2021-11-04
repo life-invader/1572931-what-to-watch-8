@@ -7,13 +7,14 @@ import {
   setDefaultGenre
 } from '../../store/action';
 import type { MoviesType } from '../../types/movies';
-import type { RootState, GenreLinksType } from './type';
+import type { GenreLinksType } from './type';
+import type { State } from '../../store/type';
 import { Genres } from '../../const';
 
 function GenreLinks({ resetCurrentAmout }: GenreLinksType): JSX.Element {
   const dispatch = useDispatch();
-  const currentGenre = useSelector((state: RootState) => state.genre);
-  const defaultMovies = useSelector((state: RootState) => state.defaultMovies);
+  const currentGenre = useSelector(({ Data }: State) => Data.genre);
+  const defaultMovies = useSelector(({ Data }: State) => Data.defaultMovies);
   const genres = [...new Set(defaultMovies.map((movie: MoviesType) => movie.genre))]; // Уникальные жанры без повторений
 
   const defaultGenreClickHandler = (evt: React.MouseEvent<HTMLElement>) => {

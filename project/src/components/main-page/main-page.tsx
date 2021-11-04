@@ -14,8 +14,8 @@ const MAIN_PAGE_MOVIES_COUNT = 8;
 const SHOW_MORE_BUTTON_STEP = 8;
 
 function MainPage({ name, release, genre }: MainPageMovieCardProps): JSX.Element {
-  const movies = useSelector((state: State) => state.movies);
-  const auth = useSelector((state: State) => state.authorizationStatus);
+  const movies = useSelector(({ Data }: State) => Data.movies);
+  const auth = useSelector(({ User }: State) => User.authorizationStatus);
   const [currentAmout, setCurrentAmount] = useState(MAIN_PAGE_MOVIES_COUNT);
   const isMoreButtonVisible = movies.length > currentAmout;
 

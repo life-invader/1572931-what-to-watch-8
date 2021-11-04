@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -26,8 +25,8 @@ const SIMILAR_MOVIES_COUNT = 4;
 function Movie(): JSX.Element | null {
   const history = useHistory();
   const dispatch = useDispatch();
-  const currentMovie = useSelector((state: State) => state.currentMovie);
-  const auth = useSelector((state: State) => state.authorizationStatus);
+  const currentMovie = useSelector(({ Data }: State) => Data.currentMovie);
+  const auth = useSelector(({ User }: State) => User.authorizationStatus);
   const [currentMovieComments, setCurrentMovieComments] = useState<UserCommentType[]>([]);
   const [similarMovies, setSimilarMovies] = useState<MoviesType[]>([]);
   const { id }: ParamsType = useParams();
@@ -52,10 +51,6 @@ function Movie(): JSX.Element | null {
     released,
     genre,
     name,
-    rating,
-    description,
-    director,
-    starring,
     'poster_image': posterImage,
     'background_image': backgroundImage,
   } = currentMovie;

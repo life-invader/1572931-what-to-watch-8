@@ -14,8 +14,8 @@ import {
 } from '../../const';
 
 function AddReview(): JSX.Element {
-  const currentMovie = useSelector((state: State) => state.currentMovie);
-  const auth = useSelector((state: State) => state.authorizationStatus);
+  const currentMovie = useSelector(({ Data }: State) => Data.currentMovie);
+  const auth = useSelector(({ User }: State) => User.authorizationStatus);
 
   const { id }: ParamsType = useParams();
 

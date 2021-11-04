@@ -30,18 +30,18 @@ export enum ActionType {
   Redirect = 'redirect',
 }
 
-export const Genres = {
-  AllGenres: 'All genres',
-  Comedies: 'Comedy',
-  Crime: 'Crime',
-  Documentary: 'Documentary',
-  Dramas: 'Dramas',
-  Horror: 'Horror',
-  KidsNFamily: 'Kids & family',
-  Romance: 'Romance',
-  SciFi: 'Sci-fi',
-  Thrillers: 'Thrillers',
-};
+export enum Genres {
+  AllGenres = 'All genres',
+  Comedies = 'Comedy',
+  Crime = 'Crime',
+  Documentary = 'Documentary',
+  Drama = 'Dramas',
+  Horror = 'Horror',
+  KidsNFamily = 'Kids & family',
+  Romance = 'Romance',
+  SciFi = 'Sci-fi',
+  Thrillers = 'Thrillers',
+}
 
 export const Tabs = {
   Overview: 'Overview',
