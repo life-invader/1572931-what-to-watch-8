@@ -11,3 +11,5 @@ export const rootReducer = combineReducers({
   [NameSpace.Data]: movieData,
   [NameSpace.User]: userProcess,
 });
+
+export type RootState = ReturnType<typeof rootReducer>;
