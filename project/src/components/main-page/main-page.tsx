@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { createSelector } from 'reselect';
 import MovieList from '../movie-list/movie-list';
 import GenreLinks from '../genre-links/genre-links';
 import Spinner from '../spinner/spinner';
@@ -8,18 +9,15 @@ import UserBlockNotLoggedIn from '../user-block/user-block-not-logged-in';
 import MainPageShowMoreButton from '../main-page-show-more-button/main-page-show-more-button';
 import { getMovies } from '../../store/selectors/movie-data';
 import { getAuthorizationStatus } from '../../store/selectors/user-process';
+import { getCurrentGenre } from '../../store/selectors/movie-data';
 import { AuthStatus, Genres } from '../../const';
 import type { MainPageMovieCardProps } from './type';
-import { createSelector } from 'reselect';
-import { getCurrentGenre } from '../../store/selectors/movie-data';
 
 const MAIN_PAGE_MOVIES_COUNT = 8;
 const SHOW_MORE_BUTTON_STEP = 8;
 
 function MainPage({ name, release, genre }: MainPageMovieCardProps): JSX.Element {
-  const currentGenre = useSelector(getCurrentGenre);
-
-  const selectFilteredMovies = createSelector(getMovies, (defaultMovies) => {
+  const selectFilteredMovies = createSelector(getMovies, getCurrentGenre, (defaultMovies, currentGenre) => {
     if (currentGenre === Genres.AllGenres) {
       return defaultMovies;
     }
@@ -28,7 +26,6 @@ function MainPage({ name, release, genre }: MainPageMovieCardProps): JSX.Element
   });
 
   const movies = useSelector(selectFilteredMovies);
-
   const auth = useSelector(getAuthorizationStatus);
   const [currentAmout, setCurrentAmount] = useState(MAIN_PAGE_MOVIES_COUNT);
   const isMoreButtonVisible = movies.length > currentAmout;

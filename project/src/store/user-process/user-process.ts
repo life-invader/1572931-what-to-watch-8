@@ -12,7 +12,7 @@ export const userProcess = createReducer(defaultState, (builder) => {
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload.authStatus;
     })
-    .addCase(requireLogout, (state, action) => {
+    .addCase(requireLogout, (state) => {
       state.authorizationStatus = AuthStatus.NoAuth;
     });
 });

@@ -1,6 +1,5 @@
-import type {MoviesType} from '../../types/movies';
+import type { MoviesType } from '../../types/movies';
 
 export type MovieCardType = {
   movie: MoviesType,
-  handleActiveMovie: (id: number) => void,
 }

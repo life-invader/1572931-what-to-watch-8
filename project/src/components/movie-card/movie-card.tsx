@@ -9,7 +9,7 @@ import { MovieCardType } from './type';
 
 const TIMER_DELAY = 1000;
 
-function MovieCard({ movie, handleActiveMovie }: MovieCardType): JSX.Element {
+function MovieCard({ movie }: MovieCardType): JSX.Element {
   const { 'preview_image': previewImage, name, id, 'preview_video_link': previewVideoLink } = movie;
   const [play, setPlay] = useState(false);
   const [hover, setHover] = useState(false);
@@ -36,7 +36,6 @@ function MovieCard({ movie, handleActiveMovie }: MovieCardType): JSX.Element {
   return (
     <article className="small-film-card catalog__films-card"
       onMouseEnter={() => {
-        handleActiveMovie(id);
         setHover(true);
       }}
       onMouseLeave={() => setHover(false)}
