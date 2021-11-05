@@ -6,16 +6,17 @@ import { useSelector } from 'react-redux';
 import AddComment from '../add-comment/add-comment';
 import UserBlockLoggedIn from '../user-block/user-block-logged-in';
 import UserBlockNotLoggedIn from '../user-block/user-block-not-logged-in';
+import { getCurrentMovie } from '../../store/selectors/movie-data';
+import { getAuthorizationStatus } from '../../store/selectors/user-process';
 import type { ParamsType } from './type';
-import type { State } from '../../store/type';
 import {
   AppRoutes,
   AuthStatus
 } from '../../const';
 
 function AddReview(): JSX.Element {
-  const currentMovie = useSelector((state: State) => state.currentMovie);
-  const auth = useSelector((state: State) => state.authorizationStatus);
+  const currentMovie = useSelector(getCurrentMovie);
+  const auth = useSelector(getAuthorizationStatus);
 
   const { id }: ParamsType = useParams();
 

@@ -1,21 +1,32 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { createSelector } from 'reselect';
 import MovieList from '../movie-list/movie-list';
 import GenreLinks from '../genre-links/genre-links';
 import Spinner from '../spinner/spinner';
 import UserBlockLoggedIn from '../user-block/user-block-logged-in';
 import UserBlockNotLoggedIn from '../user-block/user-block-not-logged-in';
 import MainPageShowMoreButton from '../main-page-show-more-button/main-page-show-more-button';
-import { AuthStatus } from '../../const';
+import { getMovies } from '../../store/selectors/movie-data';
+import { getAuthorizationStatus } from '../../store/selectors/user-process';
+import { getCurrentGenre } from '../../store/selectors/movie-data';
+import { AuthStatus, Genres } from '../../const';
 import type { MainPageMovieCardProps } from './type';
-import type { State } from '../../store/type';
 
 const MAIN_PAGE_MOVIES_COUNT = 8;
 const SHOW_MORE_BUTTON_STEP = 8;
 
 function MainPage({ name, release, genre }: MainPageMovieCardProps): JSX.Element {
-  const movies = useSelector((state: State) => state.movies);
-  const auth = useSelector((state: State) => state.authorizationStatus);
+  const selectFilteredMovies = createSelector(getMovies, getCurrentGenre, (defaultMovies, currentGenre) => {
+    if (currentGenre === Genres.AllGenres) {
+      return defaultMovies;
+    }
+
+    return defaultMovies.filter((movie) => movie.genre === currentGenre);
+  });
+
+  const movies = useSelector(selectFilteredMovies);
+  const auth = useSelector(getAuthorizationStatus);
   const [currentAmout, setCurrentAmount] = useState(MAIN_PAGE_MOVIES_COUNT);
   const isMoreButtonVisible = movies.length > currentAmout;
 
@@ -28,7 +39,7 @@ function MainPage({ name, release, genre }: MainPageMovieCardProps): JSX.Element
   };
 
   return (
-    <React.Fragment>
+    <>
       <section className="film-card">
         <div className="film-card__bg">
           <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
@@ -107,7 +118,7 @@ function MainPage({ name, release, genre }: MainPageMovieCardProps): JSX.Element
           </div>
         </footer>
       </div>
-    </React.Fragment>
+    </>
   );
 }
 

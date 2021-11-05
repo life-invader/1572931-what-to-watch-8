@@ -1,15 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {
-  createStore,
-  applyMiddleware
-} from 'redux';
 import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
+import { configureStore } from '@reduxjs/toolkit';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { reducer } from './store/reducer';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { rootReducer } from './store/root-reducer';
 import App from './components/app/app';
 import { createAPI } from './services/api';
 import { requireAuthorization } from './store/action';
@@ -19,13 +14,20 @@ import {
 } from './store/api-action';
 import { redirect } from './store/middleware';
 import { AuthStatus } from './const';
-import type { ThunkAppDispatch } from './store/type';
 
 const api = createAPI(() => store.dispatch(requireAuthorization(AuthStatus.NoAuth)));
-const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api)), applyMiddleware(redirect)));
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      thunk: {
+        extraArgument: api,
+      },
+    }).concat(redirect),
+});
 
-(store.dispatch as ThunkAppDispatch)(fetchMovies());
-(store.dispatch as ThunkAppDispatch)(checkAuth());
+store.dispatch(fetchMovies());
+store.dispatch(checkAuth());
 
 const promoMovieInfo = {
   name: 'The Grand Budapest Hotel',

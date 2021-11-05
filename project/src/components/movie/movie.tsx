@@ -1,6 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import {
+  useDispatch,
+  useSelector
+} from 'react-redux';
 import {
   Link,
   useParams,
@@ -14,20 +16,29 @@ import OverviewTab from '../tabs/overview-tab';
 import DetailsTab from '../tabs/details-tab';
 import ReviewTab from '../tabs/reviews';
 import MovieList from '../movie-list/movie-list';
+import { getCurrentMovie } from '../../store/selectors/movie-data';
+import { getAuthorizationStatus } from '../../store/selectors/user-process';
 import { loadCurrentMovie } from '../../store/action';
 import { URL } from '../../services/api';
-import { AppRoutes, APIRoute, AuthStatus, Tabs } from '../../const';
+import {
+  AppRoutes,
+  APIRoute,
+  AuthStatus,
+  Tabs
+} from '../../const';
 import type { ParamsType } from './type';
-import type { State } from '../../store/type';
-import type { MoviesType, UserCommentType } from '../../types/movies';
+import type {
+  MoviesType,
+  UserCommentType
+} from '../../types/movies';
 
 const SIMILAR_MOVIES_COUNT = 4;
 
 function Movie(): JSX.Element | null {
   const history = useHistory();
   const dispatch = useDispatch();
-  const currentMovie = useSelector((state: State) => state.currentMovie);
-  const auth = useSelector((state: State) => state.authorizationStatus);
+  const currentMovie = useSelector(getCurrentMovie);
+  const auth = useSelector(getAuthorizationStatus);
   const [currentMovieComments, setCurrentMovieComments] = useState<UserCommentType[]>([]);
   const [similarMovies, setSimilarMovies] = useState<MoviesType[]>([]);
   const { id }: ParamsType = useParams();
@@ -52,16 +63,12 @@ function Movie(): JSX.Element | null {
     released,
     genre,
     name,
-    rating,
-    description,
-    director,
-    starring,
     'poster_image': posterImage,
     'background_image': backgroundImage,
   } = currentMovie;
 
   return (
-    <React.Fragment>
+    <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
@@ -150,7 +157,7 @@ function Movie(): JSX.Element | null {
           </div>
         </footer>
       </div>
-    </React.Fragment>
+    </>
   );
 }
 
