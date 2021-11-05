@@ -16,13 +16,12 @@ import {
   Genres
 } from '../../const';
 import type { MainPageMovieCardProps } from './type';
-import { AppRoutes } from '../../const';
 
 const MAIN_PAGE_MOVIES_COUNT = 8;
 const SHOW_MORE_BUTTON_STEP = 8;
 
 function MainPage({ promoMovie }: MainPageMovieCardProps): JSX.Element {
-  const { name, released, genre, 'poster_image': posterImage, 'background_image': backgroundImage } = promoMovie;
+  const { name, released, genre, 'poster_image': posterImage, 'background_image': backgroundImage, id } = promoMovie;
 
   const history = useHistory();
   const selectFilteredMovies = createSelector(getMovies, getCurrentGenre, (defaultMovies, currentGenre) => {
@@ -82,7 +81,7 @@ function MainPage({ promoMovie }: MainPageMovieCardProps): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button" onClick={() => history.push(AppRoutes.Player)}>
+                <button className="btn btn--play film-card__button" type="button" onClick={() => history.push(`player/${id}`)}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>

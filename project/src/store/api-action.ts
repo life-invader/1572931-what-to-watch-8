@@ -28,10 +28,10 @@ export const logOut = (): ThunkActionResult => async (dispatch, _getState, api) 
 };
 
 export const fetchMovie = (id: string): ThunkActionResult => async (dispatch, _getState, api) => {
-  const { data } = await api.get(`${APIRoute.Films}/${id}`);
   try {
+    const { data } = await api.get(`${APIRoute.Films}/${id}`);
     dispatch(loadCurrentMovie(data));
   } catch {
-    dispatch(redirectToRoute(AppRoutes.NotFount));
+    dispatch(redirectToRoute(AppRoutes.NotFound));
   }
 };

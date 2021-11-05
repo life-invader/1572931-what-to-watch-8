@@ -46,8 +46,9 @@ function Movie(): JSX.Element | null {
   useEffect(() => {
     dispatch(fetchMovie(id));
 
-    // Используется обычный axios вместо его сконфигурированного инстанса 'api', как получить до него доступ ?
-    // через thunk, куда доп. аргументом прокитывается 'api'? Тогда придется юзать dispatch(), а мне нужно эти данные записать в локальный стейт, а не стор.
+    // Как лучше выстроить работу с запросами к серверу ?
+    // Здесь используется обычный axios вместо его сконфигурированного в файле api инстанса 'api', как получить до него доступ ?
+    // через thunk, куда доп. аргументом прокитывается 'api'? Тогда придется юзать dispatch(), а мне нужно эти данные вернуть наружу и записать в локальный стейт, а не стор.
     // Как тогда быть ? Просто импортировать 'api' ?
     axios.get(`${URL}${APIRoute.Comments}/${id}`)
       .then((response) => setCurrentMovieComments(response.data));
@@ -100,7 +101,7 @@ function Movie(): JSX.Element | null {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
+                <button className="btn btn--play film-card__button" type="button" onClick={() => history.push(`/player/${id}`)}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>

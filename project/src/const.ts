@@ -5,7 +5,7 @@ export enum AppRoutes {
   Movie = '/films/:id',
   AddReview = '/films/:id/review',
   Player = '/player/:id',
-  NotFount = '/404',
+  NotFound = '/404',
 }
 
 export enum APIRoute {
