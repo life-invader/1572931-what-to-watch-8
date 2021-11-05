@@ -1,4 +1,4 @@
-import { OverviewTabType } from './type';
+import { OverviewTabType } from '../type';
 
 export interface TabTypeProps extends OverviewTabType {
   title?: string;

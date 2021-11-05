@@ -5,6 +5,7 @@ export enum AppRoutes {
   Movie = '/films/:id',
   AddReview = '/films/:id/review',
   Player = '/player/:id',
+  NotFount = '/404',
 }
 
 export enum APIRoute {
@@ -12,6 +13,7 @@ export enum APIRoute {
   Comments = '/comments',
   Login = '/login',
   Logout = '/logout',
+  similar = '/similar'
 }
 
 export enum AuthStatus {
@@ -22,29 +24,20 @@ export enum AuthStatus {
 
 export enum ActionType {
   ChangeGenre = 'change-genre',
-  DefaultGenre = 'all-genres',
   SetCurrentMovie = 'set-current-movie',
   LoadMovies = 'load-movies',
   RequireAuthorization = 'require-authoization',
   RequireLogout = 'require-logout',
   Redirect = 'redirect',
+  GetData = 'get-data',
 }
 
 export enum Genres {
   AllGenres = 'All genres',
-  Comedies = 'Comedy',
-  Crime = 'Crime',
-  Documentary = 'Documentary',
-  Drama = 'Dramas',
-  Horror = 'Horror',
-  KidsNFamily = 'Kids & family',
-  Romance = 'Romance',
-  SciFi = 'Sci-fi',
-  Thrillers = 'Thrillers',
 }
 
-export const Tabs = {
-  Overview: 'Overview',
-  Details: 'Details',
-  Reviews: 'Reviews',
-};
+export enum Tabs {
+  Overview = 'Overview',
+  Details = 'Details',
+  Reviews = 'Reviews',
+}

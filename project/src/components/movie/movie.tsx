@@ -11,14 +11,13 @@ import {
 import axios from 'axios';
 import UserBlockLoggedIn from '../user-block/user-block-logged-in';
 import UserBlockNotLoggedIn from '../user-block/user-block-not-logged-in';
-import TabContainer from '../tabs/tab-container';
-import OverviewTab from '../tabs/overview-tab';
-import DetailsTab from '../tabs/details-tab';
-import ReviewTab from '../tabs/reviews';
+import TabContainer from '../tabs/tab-container/tab-container';
+import OverviewTab from '../tabs/overview-tab/overview-tab';
+import DetailsTab from '../tabs/details-tab/details-tab';
+import ReviewTab from '../tabs/reviews/reviews';
 import MovieList from '../movie-list/movie-list';
 import { getCurrentMovie } from '../../store/selectors/movie-data';
 import { getAuthorizationStatus } from '../../store/selectors/user-process';
-import { loadCurrentMovie } from '../../store/action';
 import { URL } from '../../services/api';
 import {
   AppRoutes,
@@ -31,6 +30,7 @@ import type {
   MoviesType,
   UserCommentType
 } from '../../types/movies';
+import { fetchMovie } from '../../store/api-action';
 
 const SIMILAR_MOVIES_COUNT = 4;
 
@@ -44,15 +44,17 @@ function Movie(): JSX.Element | null {
   const { id }: ParamsType = useParams();
 
   useEffect(() => {
-    axios.get(`${URL}${APIRoute.Films}/${id}`)
-      .then((response) => dispatch(loadCurrentMovie(response.data)))
-      .catch(() => history.push('/404'));
+    dispatch(fetchMovie(id));
 
+    // Используется обычный axios вместо его сконфигурированного инстанса 'api', как получить до него доступ ?
+    // через thunk, куда доп. аргументом прокитывается 'api'? Тогда придется юзать dispatch(), а мне нужно эти данные записать в локальный стейт, а не стор.
+    // Как тогда быть ? Просто импортировать 'api' ?
     axios.get(`${URL}${APIRoute.Comments}/${id}`)
       .then((response) => setCurrentMovieComments(response.data));
 
-    axios.get(`${URL}${APIRoute.Films}/${id}/similar`)
+    axios.get(`${URL}${APIRoute.Films}/${id}${APIRoute.similar}`)
       .then((response) => setSimilarMovies(response.data));
+
   }, [dispatch, history, id]);
 
   if (Object.keys(currentMovie).length === 0) {

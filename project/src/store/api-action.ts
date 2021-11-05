@@ -1,7 +1,6 @@
-import { loadMovies, requireAuthorization, requireLogout } from './action';
+import { loadMovies, requireAuthorization, requireLogout, redirectToRoute, loadCurrentMovie } from './action';
 import { AppRoutes, APIRoute, AuthStatus } from '../const';
 import { setToken, dropToken } from '../services/token';
-import { redirectToRoute } from './action';
 import type { MoviesType } from '../types/movies';
 import type { ThunkActionResult, AuthData } from './type';
 
@@ -26,4 +25,13 @@ export const logOut = (): ThunkActionResult => async (dispatch, _getState, api) 
   await api.delete(APIRoute.Logout);
   dropToken();
   dispatch(requireLogout());
+};
+
+export const fetchMovie = (id: string): ThunkActionResult => async (dispatch, _getState, api) => {
+  const { data } = await api.get(`${APIRoute.Films}/${id}`);
+  try {
+    dispatch(loadCurrentMovie(data));
+  } catch {
+    dispatch(redirectToRoute(AppRoutes.NotFount));
+  }
 };

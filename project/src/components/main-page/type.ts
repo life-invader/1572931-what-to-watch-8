@@ -1,9 +1,7 @@
-import type {MoviesType} from '../../types/movies';
+import type { MoviesType } from '../../types/movies';
 
 export type MainPageMovieCardProps = {
-  name: string,
-  release: number,
-  genre: string,
+  promoMovie: MoviesType,
 };
 
 export type RootState = {

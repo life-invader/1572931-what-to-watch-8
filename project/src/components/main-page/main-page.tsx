@@ -1,5 +1,6 @@
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
+import { useState } from 'react';
 import { createSelector } from 'reselect';
 import MovieList from '../movie-list/movie-list';
 import GenreLinks from '../genre-links/genre-links';
@@ -10,13 +11,20 @@ import MainPageShowMoreButton from '../main-page-show-more-button/main-page-show
 import { getMovies } from '../../store/selectors/movie-data';
 import { getAuthorizationStatus } from '../../store/selectors/user-process';
 import { getCurrentGenre } from '../../store/selectors/movie-data';
-import { AuthStatus, Genres } from '../../const';
+import {
+  AuthStatus,
+  Genres
+} from '../../const';
 import type { MainPageMovieCardProps } from './type';
+import { AppRoutes } from '../../const';
 
 const MAIN_PAGE_MOVIES_COUNT = 8;
 const SHOW_MORE_BUTTON_STEP = 8;
 
-function MainPage({ name, release, genre }: MainPageMovieCardProps): JSX.Element {
+function MainPage({ promoMovie }: MainPageMovieCardProps): JSX.Element {
+  const { name, released, genre, 'poster_image': posterImage, 'background_image': backgroundImage } = promoMovie;
+
+  const history = useHistory();
   const selectFilteredMovies = createSelector(getMovies, getCurrentGenre, (defaultMovies, currentGenre) => {
     if (currentGenre === Genres.AllGenres) {
       return defaultMovies;
@@ -42,7 +50,7 @@ function MainPage({ name, release, genre }: MainPageMovieCardProps): JSX.Element
     <>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={backgroundImage} alt={name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -63,18 +71,18 @@ function MainPage({ name, release, genre }: MainPageMovieCardProps): JSX.Element
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={posterImage} alt={name} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
               <h2 className="film-card__title">{name}</h2>
               <p className="film-card__meta">
                 <span className="film-card__genre">{genre}</span>
-                <span className="film-card__year">{release}</span>
+                <span className="film-card__year">{released}</span>
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
+                <button className="btn btn--play film-card__button" type="button" onClick={() => history.push(AppRoutes.Player)}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>

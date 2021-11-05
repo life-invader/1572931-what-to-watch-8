@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import TabTitle from './tab-title';
-import type { TabContainerType } from './type';
+import TabTitle from '../tab-title/tab-title';
+import type { TabContainerType } from '../type';
 
 function TabContainer({ children }: TabContainerType): JSX.Element {
   const [selectedTab, setSelectedTab] = useState<number>(0);

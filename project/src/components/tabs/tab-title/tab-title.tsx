@@ -1,4 +1,5 @@
-import type { TabTitleType } from './type';
+import React from 'react';
+import type { TabTitleType } from '../type';
 
 function TabTitle({ title, selectedTab, setSelectedTab, index }: TabTitleType): JSX.Element {
   const tabClickHandler = (evt: React.MouseEvent) => {

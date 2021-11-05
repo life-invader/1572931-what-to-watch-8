@@ -1,6 +1,6 @@
-import { formatHumanizedDate, formatDatetime } from '../../utils/utils';
-import type { UserCommentType } from '../../types/movies';
-import { ReviewsTabType } from './type';
+import { formatHumanizedDate, formatDatetime } from '../../../utils/utils';
+import type { UserCommentType } from '../../../types/movies';
+import { ReviewsTabType } from '../type';
 
 export interface TabTypeProps extends ReviewsTabType {
   title?: string;

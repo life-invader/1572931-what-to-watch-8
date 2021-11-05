@@ -4,7 +4,7 @@ import { getMovies } from '../../store/selectors/movie-data';
 
 function MyList(): JSX.Element {
   const movies = useSelector(getMovies);
-  const favouriteMovies = movies.filter((movie) => movie['is_favorite'] === true);
+  const favouriteMovies = movies.filter((movie) => movie['is_favorite']);
 
   return (
     <div className="user-page">
