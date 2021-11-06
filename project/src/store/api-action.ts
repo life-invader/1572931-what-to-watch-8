@@ -1,14 +1,24 @@
-import { loadMovies, requireAuthorization, requireLogout, redirectToRoute, loadCurrentMovie, loadComments, loadSimilarMovies, loadPromoMovie } from './action';
+import { loadMovies, requireAuthorization, requireLogout, redirectToRoute, loadCurrentMovie, loadComments, loadSimilarMovies, loadPromoMovie, loadFavouriteMovies } from './action';
 import { AppRoutes, APIRoute, AuthStatus } from '../const';
 import { setToken, dropToken } from '../services/token';
 import { toast } from 'react-toastify';
 import { NameSpace } from './root-reducer';
 import type { MoviesType } from '../types/movies';
 import type { ThunkActionResult, AuthData } from './type';
+import type { CommentType } from '../types/movies';
 
 export const fetchMovies = (): ThunkActionResult => async (dispatch, _getState, api): Promise<void> => {
   const { data } = await api.get<MoviesType[]>(APIRoute.Films);
   dispatch(loadMovies(data));
+};
+
+export const fetchFavouriteMovies = (): ThunkActionResult => async (dispatch, _getState, api): Promise<void> => {
+  try {
+    const { data } = await api.get<MoviesType[]>(APIRoute.Favourite);
+    dispatch(loadFavouriteMovies(data));
+  } catch {
+    toast.error('Не удалось загрузить любимые фильмы!', { position: toast.POSITION.TOP_LEFT });
+  }
 };
 
 export const fetchPromoMovie = (): ThunkActionResult => async (dispatch, _getState, api): Promise<void> => {
@@ -22,10 +32,14 @@ export const checkAuth = (): ThunkActionResult => async (dispatch, _getState, ap
 };
 
 export const logIn = ({ email, password }: AuthData): ThunkActionResult => async (dispatch, _getState, api) => {
-  const { data: { token } } = await api.post(APIRoute.Login, { email, password });
-  setToken(token);
-  dispatch(requireAuthorization(AuthStatus.Auth));
-  dispatch(redirectToRoute(AppRoutes.MainPage));
+  try {
+    const { data: { token } } = await api.post(APIRoute.Login, { email, password });
+    setToken(token);
+    dispatch(requireAuthorization(AuthStatus.Auth));
+    dispatch(redirectToRoute(AppRoutes.MainPage));
+  } catch {
+    toast.error('Ошибка авторизации', { position: toast.POSITION.TOP_LEFT });
+  }
 };
 
 export const logOut = (): ThunkActionResult => async (dispatch, _getState, api) => {
@@ -49,6 +63,16 @@ export const fetchComments = (id: string): ThunkActionResult => async (dispatch,
     dispatch(loadComments(data));
   } catch {
     toast.error('Не удалось загрузить комментарии!', { position: toast.POSITION.TOP_LEFT });
+  }
+};
+
+export const postComment = (id: string, newComment: CommentType): ThunkActionResult => async (dispatch, _getState, api) => {
+  try {
+    const { data } = await api.post(`${APIRoute.Comments}/${id}`, newComment);
+    dispatch(loadComments(data));
+    dispatch(redirectToRoute(`${APIRoute.Films}/${id}`));
+  } catch {
+    toast.error('Не удалось отправить комментарий!', { position: toast.POSITION.TOP_LEFT });
   }
 };
 

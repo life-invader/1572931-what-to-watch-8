@@ -1,34 +1,34 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import UserBlockLoggedIn from '../user-block/user-block-logged-in';
 import MovieList from '../movie-list/movie-list';
-import { getMovies } from '../../store/selectors/movie-data';
+import { getFavouriteMovies } from '../../store/selectors/movie-data';
+import { AppRoutes } from '../../const';
+import { fetchFavouriteMovies } from '../../store/api-action';
 
 function MyList(): JSX.Element {
-  const movies = useSelector(getMovies);
-  const favouriteMovies = movies.filter((movie) => movie['is_favorite']);
+  const dispatch = useDispatch();
+  const favouriteMovies = useSelector(getFavouriteMovies);
+
+  useEffect(() => {
+    dispatch(fetchFavouriteMovies());
+  }, [dispatch]);
 
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
         <div className="logo">
-          <a href="main.html" className="logo__link">
+          <Link to={AppRoutes.MainPage} className="logo__link">
             <span className="logo__letter logo__letter--1">W</span>
             <span className="logo__letter logo__letter--2">T</span>
             <span className="logo__letter logo__letter--3">W</span>
-          </a>
+          </Link>
         </div>
 
         <h1 className="page-title user-page__title">My list</h1>
 
-        <ul className="user-block">
-          <li className="user-block__item">
-            <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-            </div>
-          </li>
-          <li className="user-block__item">
-            <a className="user-block__link">Sign out</a>
-          </li>
-        </ul>
+        <UserBlockLoggedIn />
       </header>
 
       <section className="catalog">
@@ -41,11 +41,11 @@ function MyList(): JSX.Element {
 
       <footer className="page-footer">
         <div className="logo">
-          <a href="main.html" className="logo__link logo__link--light">
+          <Link to={AppRoutes.MainPage} className="logo__link logo__link--light">
             <span className="logo__letter logo__letter--1">W</span>
             <span className="logo__letter logo__letter--2">T</span>
             <span className="logo__letter logo__letter--3">W</span>
-          </a>
+          </Link>
         </div>
 
         <div className="copyright">

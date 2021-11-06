@@ -29,6 +29,7 @@ export enum ActionType {
   ChangeGenre = 'change-genre',
   SetCurrentMovie = 'set-current-movie',
   LoadMovies = 'load-movies',
+  LoadFavouriteMovies = 'load-favourite-movies',
   LoadPromoMovie = 'load-promo-movie',
   LoadSimilarMovies = 'load-similar-movies',
   LoadComments = 'load-comments',

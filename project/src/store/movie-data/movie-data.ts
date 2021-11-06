@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setGenre, loadMovies, loadCurrentMovie, loadComments, loadSimilarMovies, loadPromoMovie } from '../action';
+import { setGenre, loadMovies, loadCurrentMovie, loadComments, loadSimilarMovies, loadPromoMovie, loadFavouriteMovies } from '../action';
 import { Genres } from '../../const';
 import type { MoviesType } from '../../types/movies';
 import type { MovieData } from './type';
@@ -7,6 +7,7 @@ import type { MovieData } from './type';
 const defaultState: MovieData = {
   genre: Genres.AllGenres,
   movies: [],
+  favouriteMovies: [],
   promoMovie: {} as MoviesType,
   currentMovie: {} as MoviesType,
   similarMovies: [],
@@ -20,6 +21,9 @@ export const movieData = createReducer(defaultState, (builder) => {
     })
     .addCase(loadMovies, (state, action) => {
       state.movies = action.payload.movies;
+    })
+    .addCase(loadFavouriteMovies, (state, action) => {
+      state.favouriteMovies = action.payload.favouriteMovies;
     })
     .addCase(loadPromoMovie, (state, action) => {
       state.promoMovie = action.payload.promoMovie;

@@ -19,7 +19,7 @@ export type MoviesType = {
 }
 
 export type CommentType = {
-  'rating': number,
+  'rating': string,
   'comment': string,
 }
 

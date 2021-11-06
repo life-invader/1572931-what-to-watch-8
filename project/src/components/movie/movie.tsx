@@ -13,8 +13,9 @@ import UserBlockNotLoggedIn from '../user-block/user-block-not-logged-in';
 import TabContainer from '../tabs/tab-container/tab-container';
 import OverviewTab from '../tabs/overview-tab/overview-tab';
 import DetailsTab from '../tabs/details-tab/details-tab';
-import ReviewTab from '../tabs/reviews/reviews';
+import ReviewTab from '../tabs/reviews/review-tab';
 import MovieList from '../movie-list/movie-list';
+import AddToMyListButton from '../add-to-my-list-button/add-to-my-list-button';
 import { fetchMovie, fetchComments, fetchSimilarMovies } from '../../store/api-action';
 import { getCurrentMovie, getComments, getSimilarMovies } from '../../store/selectors/movie-data';
 import { getAuthorizationStatus } from '../../store/selectors/user-process';
@@ -92,12 +93,9 @@ function Movie(): JSX.Element | null {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
+
+                <AddToMyListButton movie={currentMovie} />
+
                 {auth === AuthStatus.Auth ? <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link> : ''}
               </div>
             </div>
@@ -113,7 +111,7 @@ function Movie(): JSX.Element | null {
             <div className="film-card__desc">
 
               <TabContainer >
-                <OverviewTab title={Tabs.Overview} currentMovie={currentMovie} currentMovieComments={comments} />
+                <OverviewTab title={Tabs.Overview} currentMovie={currentMovie} />
                 <DetailsTab title={Tabs.Details} currentMovie={currentMovie} />
                 <ReviewTab title={Tabs.Reviews} currentMovieComments={comments} />
               </TabContainer>

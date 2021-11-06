@@ -16,6 +16,12 @@ export const loadMovies = createAction(ActionType.LoadMovies, (movies: MoviesTyp
   },
 }));
 
+export const loadFavouriteMovies = createAction(ActionType.LoadFavouriteMovies, (favouriteMovies: MoviesType[]) => ({
+  payload: {
+    favouriteMovies,
+  },
+}));
+
 export const loadPromoMovie = createAction(ActionType.LoadPromoMovie, (promoMovie: MoviesType) => ({
   payload: {
     promoMovie,

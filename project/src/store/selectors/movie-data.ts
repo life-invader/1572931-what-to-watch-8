@@ -3,6 +3,7 @@ import type { State } from '../../store/type';
 import type { MoviesType, UserCommentType } from '../../types/movies';
 
 export const getMovies = (state: State): MoviesType[] => state[NameSpace.Data].movies;
+export const getFavouriteMovies = (state: State): MoviesType[] => state[NameSpace.Data].favouriteMovies;
 export const getCurrentMovie = (state: State): MoviesType => state[NameSpace.Data].currentMovie;
 export const getPromoMovie = (state: State): MoviesType => state[NameSpace.Data].promoMovie;
 export const getSimilarMovies = (state: State): MoviesType[] => state[NameSpace.Data].similarMovies;

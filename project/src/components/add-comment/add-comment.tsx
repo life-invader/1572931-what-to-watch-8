@@ -1,17 +1,13 @@
 import { useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';
-import { createAPI } from '../../services/api';
 import { useDispatch } from 'react-redux';
-import { redirectToRoute } from '../../store/action';
-import { URL } from '../../services/api';
-import { APIRoute } from '../../const';
+import { postComment } from '../../store/api-action';
 
 const MIN_COMMENT_LENGTH = 50;
 const MAX_COMMENT_LENGTH = 400;
 
 function AddComment(): JSX.Element {
-  const api = createAPI(() => toast.error('Ошибка авторизации', { position: toast.POSITION.TOP_LEFT }));
 
   const formRef = useRef<HTMLFormElement | null>(null);
   const submitButtonRef = useRef<HTMLButtonElement | null>(null);
@@ -49,14 +45,8 @@ function AddComment(): JSX.Element {
       return;
     }
 
-    api.post(`${URL}/comments/${id}`, { rating, comment })
-      .then(() => {
-        toast.success('Успешно отправлено!', { position: toast.POSITION.TOP_LEFT });
-        setComment('');
-        setRating('');
-        dispatch(redirectToRoute(`${APIRoute.Films}/${id}`));
-      })
-      .catch(() => toast.error('Что-то пошло не так!', { position: toast.POSITION.TOP_LEFT }));
+    const commentData = { rating, comment };
+    dispatch(postComment(id, commentData));
   };
 
   return (

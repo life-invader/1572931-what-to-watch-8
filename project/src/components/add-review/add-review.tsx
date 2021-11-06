@@ -2,12 +2,14 @@ import {
   Link,
   useParams
 } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import AddComment from '../add-comment/add-comment';
 import UserBlockLoggedIn from '../user-block/user-block-logged-in';
 import UserBlockNotLoggedIn from '../user-block/user-block-not-logged-in';
 import { getCurrentMovie } from '../../store/selectors/movie-data';
 import { getAuthorizationStatus } from '../../store/selectors/user-process';
+import { fetchMovie } from '../../store/api-action';
 import type { ParamsType } from './type';
 import {
   AppRoutes,
@@ -15,22 +17,27 @@ import {
 } from '../../const';
 
 function AddReview(): JSX.Element {
+  const dispatch = useDispatch();
   const currentMovie = useSelector(getCurrentMovie);
   const auth = useSelector(getAuthorizationStatus);
-
   const { id }: ParamsType = useParams();
+
+  useEffect(() => {
+    dispatch(fetchMovie(id));
+  }, [dispatch, id]);
 
   const {
     name,
     'poster_image': posterImage,
     'background_image': backgroundImage,
+    'background_color': backgroundColor,
   } = currentMovie;
 
   return (
-    <section className="film-card film-card--full">
+    <section className="film-card film-card--full" style={{ backgroundColor: backgroundColor }} >
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src={backgroundImage} alt="The Grand Budapest Hotel" />
+          <img src={backgroundImage} alt={name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -60,7 +67,7 @@ function AddReview(): JSX.Element {
         </header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src={posterImage} alt="The Grand Budapest Hotel poster" width="218" height="327" />
+          <img src={posterImage} alt={name} width="218" height="327" />
         </div>
       </div>
 
@@ -68,7 +75,7 @@ function AddReview(): JSX.Element {
         <AddComment />
       </div>
 
-    </section>
+    </ section>
   );
 }
 
