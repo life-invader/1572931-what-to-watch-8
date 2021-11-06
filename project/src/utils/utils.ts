@@ -8,8 +8,7 @@ export const formatRuntime = (runtime: number): string => dayjs.duration(runtime
 export const formatDatetime = (date: Date): string => dayjs(date).format('YYYY-MM-DD');
 export const formatHumanizedDate = (date: Date): string => dayjs(date).format('MMMM D, YYYY');
 
-
-export const formatElapsedTime = (elapsedTime: number): string => {
-  const format = elapsedTime >= HOUR ? '-HH:mm:ss' : '-mm:ss';
-  return dayjs.duration(elapsedTime, 'seconds').format(format);
+export const formatRemainingTime = (remainingTime: number): string => {
+  const format = remainingTime >= HOUR ? '-HH:mm:ss' : '-mm:ss';
+  return dayjs.duration(remainingTime, 'seconds').format(format);
 };
