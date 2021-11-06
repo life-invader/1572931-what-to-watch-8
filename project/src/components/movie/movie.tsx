@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import {
   useDispatch,
   useSelector
@@ -8,7 +8,6 @@ import {
   useParams,
   useHistory
 } from 'react-router-dom';
-import axios from 'axios';
 import UserBlockLoggedIn from '../user-block/user-block-logged-in';
 import UserBlockNotLoggedIn from '../user-block/user-block-not-logged-in';
 import TabContainer from '../tabs/tab-container/tab-container';
@@ -16,21 +15,15 @@ import OverviewTab from '../tabs/overview-tab/overview-tab';
 import DetailsTab from '../tabs/details-tab/details-tab';
 import ReviewTab from '../tabs/reviews/reviews';
 import MovieList from '../movie-list/movie-list';
-import { getCurrentMovie } from '../../store/selectors/movie-data';
+import { fetchMovie, fetchComments, fetchSimilarMovies } from '../../store/api-action';
+import { getCurrentMovie, getComments, getSimilarMovies } from '../../store/selectors/movie-data';
 import { getAuthorizationStatus } from '../../store/selectors/user-process';
-import { URL } from '../../services/api';
 import {
   AppRoutes,
-  APIRoute,
   AuthStatus,
   Tabs
 } from '../../const';
 import type { ParamsType } from './type';
-import type {
-  MoviesType,
-  UserCommentType
-} from '../../types/movies';
-import { fetchMovie } from '../../store/api-action';
 
 const SIMILAR_MOVIES_COUNT = 4;
 
@@ -38,24 +31,15 @@ function Movie(): JSX.Element | null {
   const history = useHistory();
   const dispatch = useDispatch();
   const currentMovie = useSelector(getCurrentMovie);
+  const similarMovies = useSelector(getSimilarMovies);
+  const comments = useSelector(getComments);
   const auth = useSelector(getAuthorizationStatus);
-  const [currentMovieComments, setCurrentMovieComments] = useState<UserCommentType[]>([]);
-  const [similarMovies, setSimilarMovies] = useState<MoviesType[]>([]);
   const { id }: ParamsType = useParams();
 
   useEffect(() => {
     dispatch(fetchMovie(id));
-
-    // Как лучше выстроить работу с запросами к серверу ?
-    // Здесь используется обычный axios вместо его сконфигурированного в файле api инстанса 'api', как получить до него доступ ?
-    // через thunk, куда доп. аргументом прокитывается 'api'? Тогда придется юзать dispatch(), а мне нужно эти данные вернуть наружу и записать в локальный стейт, а не стор.
-    // Как тогда быть ? Просто импортировать 'api' ?
-    axios.get(`${URL}${APIRoute.Comments}/${id}`)
-      .then((response) => setCurrentMovieComments(response.data));
-
-    axios.get(`${URL}${APIRoute.Films}/${id}${APIRoute.similar}`)
-      .then((response) => setSimilarMovies(response.data));
-
+    dispatch(fetchComments(id));
+    dispatch(fetchSimilarMovies(id));
   }, [dispatch, history, id]);
 
   if (Object.keys(currentMovie).length === 0) {
@@ -68,11 +52,12 @@ function Movie(): JSX.Element | null {
     name,
     'poster_image': posterImage,
     'background_image': backgroundImage,
+    'background_color': backgroundColor,
   } = currentMovie;
 
   return (
     <>
-      <section className="film-card film-card--full">
+      <section className="film-card film-card--full" style={{ backgroundColor: backgroundColor }}>
         <div className="film-card__hero">
           <div className="film-card__bg">
             <img src={backgroundImage} alt="The Grand Budapest Hotel" />
@@ -128,9 +113,9 @@ function Movie(): JSX.Element | null {
             <div className="film-card__desc">
 
               <TabContainer >
-                <OverviewTab title={Tabs.Overview} currentMovie={currentMovie} currentMovieComments={currentMovieComments} />
+                <OverviewTab title={Tabs.Overview} currentMovie={currentMovie} currentMovieComments={comments} />
                 <DetailsTab title={Tabs.Details} currentMovie={currentMovie} />
-                <ReviewTab title={Tabs.Reviews} currentMovieComments={currentMovieComments} />
+                <ReviewTab title={Tabs.Reviews} currentMovieComments={comments} />
               </TabContainer>
 
             </div>

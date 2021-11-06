@@ -1,10 +1,13 @@
+/* eslint-disable no-console */
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { fetchMovie } from '../../store/api-action';
 import { getCurrentMovie } from '../../store/selectors/movie-data';
 import { ParamsType } from '../add-review/type';
 import { formatElapsedTime } from '../../utils/utils';
+
+const PERCENT_100 = 100;
 
 function Player(): JSX.Element {
   const dispatch = useDispatch();
@@ -16,7 +19,8 @@ function Player(): JSX.Element {
   const [movieDuration, setMovieDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const progressBarRef = useRef<any>(null);
+  const progressBarRef = useRef<HTMLProgressElement>(null);
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(fetchMovie(id));
@@ -47,8 +51,8 @@ function Player(): JSX.Element {
   };
 
   const videoProgressHandler = () => {
-    if (videoRef && videoRef.current) {
-      const currentProgress = Math.round((videoRef.current.currentTime / videoRef.current.duration) * 100);
+    if (videoRef && videoRef.current && progressBarRef && progressBarRef.current) {
+      const currentProgress = Math.round((videoRef.current.currentTime / videoRef.current.duration) * PERCENT_100);
       progressBarRef.current.value = currentProgress;
       setProgress(currentProgress);
       setCurrentTime(videoRef.current?.currentTime);
@@ -72,7 +76,7 @@ function Player(): JSX.Element {
     <div className="player">
       <video preload='metadata' src={videoLink} className="player__video" poster={previewImage} ref={videoRef} onTimeUpdate={videoProgressHandler} onCanPlay={onCanPlayChecker}></video>
 
-      <button type="button" className="player__exit">Exit</button>
+      <button type="button" className="player__exit" onClick={() => history.go(-1)}>Exit</button>
 
       <div className="player__controls">
         <div className="player__controls-row">

@@ -8,22 +8,22 @@ import Spinner from '../spinner/spinner';
 import UserBlockLoggedIn from '../user-block/user-block-logged-in';
 import UserBlockNotLoggedIn from '../user-block/user-block-not-logged-in';
 import MainPageShowMoreButton from '../main-page-show-more-button/main-page-show-more-button';
-import { getMovies } from '../../store/selectors/movie-data';
+import AddToMyListButton from '../add-to-my-list-button/add-to-my-list-button';
+import { getMovies, getPromoMovie } from '../../store/selectors/movie-data';
 import { getAuthorizationStatus } from '../../store/selectors/user-process';
 import { getCurrentGenre } from '../../store/selectors/movie-data';
 import {
+  APIRoute,
   AuthStatus,
   Genres
 } from '../../const';
-import type { MainPageMovieCardProps } from './type';
 
 const MAIN_PAGE_MOVIES_COUNT = 8;
 const SHOW_MORE_BUTTON_STEP = 8;
 
-function MainPage({ promoMovie }: MainPageMovieCardProps): JSX.Element {
-  const { name, released, genre, 'poster_image': posterImage, 'background_image': backgroundImage, id } = promoMovie;
-
+function MainPage(): JSX.Element {
   const history = useHistory();
+
   const selectFilteredMovies = createSelector(getMovies, getCurrentGenre, (defaultMovies, currentGenre) => {
     if (currentGenre === Genres.AllGenres) {
       return defaultMovies;
@@ -32,10 +32,13 @@ function MainPage({ promoMovie }: MainPageMovieCardProps): JSX.Element {
     return defaultMovies.filter((movie) => movie.genre === currentGenre);
   });
 
+  const promoMovie = useSelector(getPromoMovie);
   const movies = useSelector(selectFilteredMovies);
   const auth = useSelector(getAuthorizationStatus);
   const [currentAmout, setCurrentAmount] = useState(MAIN_PAGE_MOVIES_COUNT);
   const isMoreButtonVisible = movies.length > currentAmout;
+
+  const { name, released, genre, 'poster_image': posterImage, 'background_image': backgroundImage, id } = promoMovie;
 
   const showMoreButtonClickHandler = () => {
     setCurrentAmount((prevState) => prevState + SHOW_MORE_BUTTON_STEP);
@@ -81,18 +84,15 @@ function MainPage({ promoMovie }: MainPageMovieCardProps): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button" onClick={() => history.push(`player/${id}`)}>
+                <button className="btn btn--play film-card__button" type="button" onClick={() => history.push(`${APIRoute.Player}/${id}`)}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
+
+                <AddToMyListButton movie={promoMovie} />
+
               </div>
             </div>
           </div>

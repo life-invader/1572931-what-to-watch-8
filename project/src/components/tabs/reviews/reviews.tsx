@@ -7,8 +7,8 @@ export interface TabTypeProps extends ReviewsTabType {
 }
 
 function ReviewTab({ currentMovieComments }: TabTypeProps): JSX.Element {
-  const firstColumnReviews = currentMovieComments.slice().splice(0, currentMovieComments.length / 2 + 1);
-  const secondColumnReviews = currentMovieComments.slice().splice(currentMovieComments.length / 2 + 1);
+  const middleIndex = Math.ceil(currentMovieComments.length / 2);
+  const [firstColumnReviews, secondColumnReviews] = [currentMovieComments.slice(0, middleIndex), currentMovieComments.slice(middleIndex)];
 
   return (
     <div className="film-card__reviews film-card__row">

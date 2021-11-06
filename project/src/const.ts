@@ -11,9 +11,12 @@ export enum AppRoutes {
 export enum APIRoute {
   Films = '/films',
   Comments = '/comments',
+  Favourite = '/favorite',
+  Promo = '/promo',
   Login = '/login',
   Logout = '/logout',
-  similar = '/similar'
+  Similar = '/similar',
+  Player = '/player',
 }
 
 export enum AuthStatus {
@@ -26,6 +29,9 @@ export enum ActionType {
   ChangeGenre = 'change-genre',
   SetCurrentMovie = 'set-current-movie',
   LoadMovies = 'load-movies',
+  LoadPromoMovie = 'load-promo-movie',
+  LoadSimilarMovies = 'load-similar-movies',
+  LoadComments = 'load-comments',
   RequireAuthorization = 'require-authoization',
   RequireLogout = 'require-logout',
   Redirect = 'redirect',
