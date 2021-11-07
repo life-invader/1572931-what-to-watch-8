@@ -8,5 +8,13 @@ export type AuthData = {
   password: string,
 };
 
+export type UserInfo = {
+  id: number,
+  email: string,
+  name: string,
+  'avatar_url': string,
+  token: string,
+}
+
 export type State = RootState;
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;

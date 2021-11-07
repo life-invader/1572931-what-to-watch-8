@@ -1,10 +1,15 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import {
+  useDispatch,
+  useSelector
+} from 'react-redux';
 import { useHistory } from 'react-router';
-import { logOut } from '../../store/api-action';
-import { AppRoutes } from '../../const';
+import { logOut } from '../../../store/api-action';
+import { AppRoutes } from '../../../const';
+import { getAvatar } from '../../../store/selectors/user-process';
 
 function UserBlockLoggedIn(): JSX.Element {
+  const userAvatar = useSelector(getAvatar);
+
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -14,10 +19,10 @@ function UserBlockLoggedIn(): JSX.Element {
   };
 
   return (
-    <ul className="user-block">
+    <ul className="user-block" >
       <li className="user-block__item">
         <div className="user-block__avatar" onClick={() => history.push(AppRoutes.MyList())}>
-          <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+          <img src={userAvatar} alt="User avatar" width="63" height="63" />
         </div>
       </li>
       <li className="user-block__item">

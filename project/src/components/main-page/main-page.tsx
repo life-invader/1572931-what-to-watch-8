@@ -5,19 +5,16 @@ import { createSelector } from 'reselect';
 import MovieList from '../movie-list/movie-list';
 import GenreLinks from '../genre-links/genre-links';
 import SpinnerMainPage from '../spinner/spinner-main-page/spinner-main-page';
-import UserBlockLoggedIn from '../user-block/user-block-logged-in';
-import UserBlockNotLoggedIn from '../user-block/user-block-not-logged-in';
+import UserBlock from '../user-block/user-block/user-block';
 import MainPageShowMoreButton from '../main-page-show-more-button/main-page-show-more-button';
 import AddToMyListButton from '../add-to-my-list-button/add-to-my-list-button';
 import {
   getMovies,
   getPromoMovie
 } from '../../store/selectors/movie-data';
-import { getAuthorizationStatus } from '../../store/selectors/user-process';
 import { getCurrentGenre } from '../../store/selectors/movie-data';
 import {
   AppRoutes,
-  AuthStatus,
   Genres
 } from '../../const';
 
@@ -37,7 +34,6 @@ function MainPage(): JSX.Element {
 
   const promoMovie = useSelector(getPromoMovie);
   const movies = useSelector(selectFilteredMovies);
-  const auth = useSelector(getAuthorizationStatus);
   const [currentAmout, setCurrentAmount] = useState(MAIN_PAGE_MOVIES_COUNT);
   const isMoreButtonVisible = movies.length > currentAmout;
 
@@ -69,7 +65,7 @@ function MainPage(): JSX.Element {
             </a>
           </div>
 
-          {auth === AuthStatus.Auth ? <UserBlockLoggedIn /> : <UserBlockNotLoggedIn />}
+          <UserBlock />
 
         </header>
 

@@ -8,21 +8,15 @@ import {
   useSelector
 } from 'react-redux';
 import AddComment from '../add-comment/add-comment';
-import UserBlockLoggedIn from '../user-block/user-block-logged-in';
-import UserBlockNotLoggedIn from '../user-block/user-block-not-logged-in';
+import UserBlock from '../user-block/user-block/user-block';
 import { getCurrentMovie } from '../../store/selectors/movie-data';
-import { getAuthorizationStatus } from '../../store/selectors/user-process';
 import { fetchMovie } from '../../store/api-action';
 import type { ParamsType } from './type';
-import {
-  AppRoutes,
-  AuthStatus
-} from '../../const';
+import { AppRoutes } from '../../const';
 
 function AddReview(): JSX.Element {
   const dispatch = useDispatch();
   const currentMovie = useSelector(getCurrentMovie);
-  const auth = useSelector(getAuthorizationStatus);
   const { id }: ParamsType = useParams();
 
   useEffect(() => {
@@ -65,7 +59,7 @@ function AddReview(): JSX.Element {
             </ul>
           </nav>
 
-          {auth === AuthStatus.Auth ? <UserBlockLoggedIn /> : <UserBlockNotLoggedIn />}
+          <UserBlock />
 
         </header>
 

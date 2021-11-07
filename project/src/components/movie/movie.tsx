@@ -8,8 +8,7 @@ import {
   useParams,
   useHistory
 } from 'react-router-dom';
-import UserBlockLoggedIn from '../user-block/user-block-logged-in';
-import UserBlockNotLoggedIn from '../user-block/user-block-not-logged-in';
+import UserBlock from '../user-block/user-block/user-block';
 import TabContainer from '../tabs/tab-container/tab-container';
 import OverviewTab from '../tabs/overview-tab/overview-tab';
 import DetailsTab from '../tabs/details-tab/details-tab';
@@ -83,7 +82,8 @@ function Movie(): JSX.Element | null {
               </Link>
             </div>
 
-            {auth === AuthStatus.Auth ? <UserBlockLoggedIn /> : <UserBlockNotLoggedIn />}
+            <UserBlock />
+
           </header>
 
           <div className="film-card__wrap">

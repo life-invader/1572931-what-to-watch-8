@@ -39,6 +39,7 @@ export enum ActionType {
   Redirect = 'redirect',
   GetData = 'get-data',
   SetNewCommentStatus = 'set-new-comment-status',
+  SetUserInfo = 'set-user-info',
 }
 
 export enum Genres {

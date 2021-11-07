@@ -1,10 +1,33 @@
-import { loadMovies, requireAuthorization, requireLogout, redirectToRoute, loadCurrentMovie, loadComments, loadSimilarMovies, loadPromoMovie, loadFavouriteMovies, setNewCommentStatus } from './action';
-import { AppRoutes, APIRoute, AuthStatus, NewComemntStatus } from '../const';
-import { setToken, dropToken } from '../services/token';
+import {
+  loadMovies,
+  requireAuthorization,
+  requireLogout,
+  redirectToRoute,
+  loadCurrentMovie,
+  loadComments,
+  loadSimilarMovies,
+  loadPromoMovie,
+  loadFavouriteMovies,
+  setNewCommentStatus,
+  setUserInfo
+} from './action';
+import {
+  AppRoutes,
+  APIRoute,
+  AuthStatus,
+  NewComemntStatus
+} from '../const';
+import {
+  setToken,
+  dropToken
+} from '../services/token';
 import { toast } from 'react-toastify';
 import { NameSpace } from './root-reducer';
 import type { MoviesType } from '../types/movies';
-import type { ThunkActionResult, AuthData } from './type';
+import type {
+  ThunkActionResult,
+  AuthData
+} from './type';
 import type { CommentType } from '../types/movies';
 
 export const fetchMovies = (): ThunkActionResult => async (dispatch, _getState, api): Promise<void> => {
@@ -27,8 +50,13 @@ export const fetchPromoMovie = (): ThunkActionResult => async (dispatch, _getSta
 };
 
 export const checkAuth = (): ThunkActionResult => async (dispatch, _getState, api) => {
-  await api.get(APIRoute.Login());
-  dispatch(requireAuthorization(AuthStatus.Auth));
+  try {
+    const { data } = await api.get(APIRoute.Login());
+    dispatch(setUserInfo(data));
+    dispatch(requireAuthorization(AuthStatus.Auth));
+  } catch {
+    dispatch(requireAuthorization(AuthStatus.NoAuth));
+  }
 };
 
 export const logIn = ({ email, password }: AuthData): ThunkActionResult => async (dispatch, _getState, api) => {

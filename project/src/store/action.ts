@@ -1,6 +1,15 @@
 import { createAction } from '@reduxjs/toolkit';
-import { ActionType, AuthStatus, AppRoutes, NewComemntStatus } from '../const';
-import type { MoviesType, UserCommentType } from '../types/movies';
+import {
+  ActionType,
+  AuthStatus,
+  AppRoutes,
+  NewComemntStatus
+} from '../const';
+import type {
+  MoviesType,
+  UserCommentType
+} from '../types/movies';
+import type { UserInfo } from './type';
 
 export const redirectToRoute = (url: typeof AppRoutes | string) => ({ type: ActionType.Redirect, payload: url }) as const;
 
@@ -58,5 +67,11 @@ export const requireLogout = createAction(ActionType.RequireLogout);
 export const setNewCommentStatus = createAction(ActionType.SetNewCommentStatus, (status: NewComemntStatus) => ({
   payload: {
     status,
+  },
+}));
+
+export const setUserInfo = createAction(ActionType.SetUserInfo, (userInfo: UserInfo) => ({
+  payload: {
+    userInfo,
   },
 }));

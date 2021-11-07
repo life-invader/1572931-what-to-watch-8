@@ -4,7 +4,7 @@ import {
   useDispatch,
   useSelector
 } from 'react-redux';
-import UserBlockLoggedIn from '../user-block/user-block-logged-in';
+import UserBlock from '../user-block/user-block/user-block';
 import MovieList from '../movie-list/movie-list';
 import { getFavouriteMovies } from '../../store/selectors/movie-data';
 import { AppRoutes } from '../../const';
@@ -31,7 +31,8 @@ function MyList(): JSX.Element {
 
         <h1 className="page-title user-page__title">My list</h1>
 
-        <UserBlockLoggedIn />
+        <UserBlock />
+
       </header>
 
       <section className="catalog">
