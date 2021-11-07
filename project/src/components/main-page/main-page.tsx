@@ -1,22 +1,36 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import {
+  useDispatch,
+  useSelector
+} from 'react-redux';
+import { useHistory } from 'react-router';
+import { useEffect, useState } from 'react';
 import { createSelector } from 'reselect';
 import MovieList from '../movie-list/movie-list';
 import GenreLinks from '../genre-links/genre-links';
-import Spinner from '../spinner/spinner';
-import UserBlockLoggedIn from '../user-block/user-block-logged-in';
-import UserBlockNotLoggedIn from '../user-block/user-block-not-logged-in';
+import SpinnerMainPage from '../spinner/spinner-main-page/spinner-main-page';
+import UserBlock from '../user-block/user-block/user-block';
 import MainPageShowMoreButton from '../main-page-show-more-button/main-page-show-more-button';
-import { getMovies } from '../../store/selectors/movie-data';
-import { getAuthorizationStatus } from '../../store/selectors/user-process';
+import AddToMyListButton from '../add-to-my-list-button/add-to-my-list-button';
+import {
+  getMovies,
+  getPromoMovie
+} from '../../store/selectors/movie-data';
 import { getCurrentGenre } from '../../store/selectors/movie-data';
-import { AuthStatus, Genres } from '../../const';
-import type { MainPageMovieCardProps } from './type';
+import {
+  AppRoutes,
+  Genres
+} from '../../const';
+import { fetchPromoMovie } from '../../store/api-action';
+import { getAuthorizationStatus } from '../../store/selectors/user-process';
 
 const MAIN_PAGE_MOVIES_COUNT = 8;
 const SHOW_MORE_BUTTON_STEP = 8;
 
-function MainPage({ name, release, genre }: MainPageMovieCardProps): JSX.Element {
+function MainPage(): JSX.Element {
+  const auth = useSelector(getAuthorizationStatus);
+  const history = useHistory();
+  const dispatch = useDispatch();
+
   const selectFilteredMovies = createSelector(getMovies, getCurrentGenre, (defaultMovies, currentGenre) => {
     if (currentGenre === Genres.AllGenres) {
       return defaultMovies;
@@ -25,10 +39,12 @@ function MainPage({ name, release, genre }: MainPageMovieCardProps): JSX.Element
     return defaultMovies.filter((movie) => movie.genre === currentGenre);
   });
 
+  const promoMovie = useSelector(getPromoMovie);
   const movies = useSelector(selectFilteredMovies);
-  const auth = useSelector(getAuthorizationStatus);
   const [currentAmout, setCurrentAmount] = useState(MAIN_PAGE_MOVIES_COUNT);
   const isMoreButtonVisible = movies.length > currentAmout;
+
+  const { name, released, genre, 'poster_image': posterImage, 'background_image': backgroundImage, id } = promoMovie;
 
   const showMoreButtonClickHandler = () => {
     setCurrentAmount((prevState) => prevState + SHOW_MORE_BUTTON_STEP);
@@ -38,11 +54,15 @@ function MainPage({ name, release, genre }: MainPageMovieCardProps): JSX.Element
     setCurrentAmount(MAIN_PAGE_MOVIES_COUNT);
   };
 
+  useEffect(() => {
+    dispatch(fetchPromoMovie());
+  }, [auth]);
+
   return (
     <>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={backgroundImage} alt={name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -56,36 +76,33 @@ function MainPage({ name, release, genre }: MainPageMovieCardProps): JSX.Element
             </a>
           </div>
 
-          {auth === AuthStatus.Auth ? <UserBlockLoggedIn /> : <UserBlockNotLoggedIn />}
+          <UserBlock />
 
         </header>
 
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={posterImage} alt={name} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
               <h2 className="film-card__title">{name}</h2>
               <p className="film-card__meta">
                 <span className="film-card__genre">{genre}</span>
-                <span className="film-card__year">{release}</span>
+                <span className="film-card__year">{released}</span>
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
+                <button className="btn btn--play film-card__button" type="button" onClick={() => history.push(AppRoutes.Player(id))}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
+
+                <AddToMyListButton movie={promoMovie} />
+
               </div>
             </div>
           </div>
@@ -98,7 +115,7 @@ function MainPage({ name, release, genre }: MainPageMovieCardProps): JSX.Element
 
           <GenreLinks resetCurrentAmout={resetCurrentAmout} />
 
-          {movies.length > 0 ? <MovieList movies={movies} moviesCount={currentAmout} /> : <Spinner />}
+          {movies.length > 0 ? <MovieList movies={movies} moviesCount={currentAmout} /> : <SpinnerMainPage />}
 
           {isMoreButtonVisible && <MainPageShowMoreButton showMoreButtonClickHandler={showMoreButtonClickHandler} />}
 

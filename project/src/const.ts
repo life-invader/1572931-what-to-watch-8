@@ -1,18 +1,24 @@
-export enum AppRoutes {
-  MainPage = '/',
-  SignIn = '/login',
-  MyList = '/mylist',
-  Movie = '/films/:id',
-  AddReview = '/films/:id/review',
-  Player = '/player/:id',
-}
+export const AppRoutes = {
+  MainPage: (): string => '/',
+  SignIn: (): string => '/login',
+  MyList: (): string => '/mylist',
+  Movie: (id: string | number = ':id'): string => `/films/${id}`,
+  AddReview: (id: string | number = ':id'): string => `/films/${id}/review`,
+  Player: (id: string | number = ':id'): string => `/player/${id}`,
+  NotFound: (): string => '/404',
+} as const;
 
-export enum APIRoute {
-  Films = '/films',
-  Comments = '/comments',
-  Login = '/login',
-  Logout = '/logout',
-}
+export const APIRoute = {
+  Film: (id: string | number): string => `/films/${id}`,
+  Films: (): string => '/films',
+  Comments: (id: string | number): string => `/comments/${id}`,
+  Favourite: (): string => '/favorite',
+  FavouriteStatus: (id: string | number, status: number): string => `/favorite/${id}/${status}`,
+  Promo: (): string => '/promo',
+  Login: (): string => '/login',
+  Logout: (): string => '/logout',
+  Similar: (id: string | number): string => `/films/${id}/similar`,
+};
 
 export enum AuthStatus {
   Auth = 'AUTH',
@@ -22,29 +28,37 @@ export enum AuthStatus {
 
 export enum ActionType {
   ChangeGenre = 'change-genre',
-  DefaultGenre = 'all-genres',
   SetCurrentMovie = 'set-current-movie',
   LoadMovies = 'load-movies',
+  LoadFavouriteMovies = 'load-favourite-movies',
+  LoadPromoMovie = 'load-promo-movie',
+  LoadSimilarMovies = 'load-similar-movies',
+  LoadComments = 'load-comments',
   RequireAuthorization = 'require-authoization',
   RequireLogout = 'require-logout',
   Redirect = 'redirect',
+  GetData = 'get-data',
+  SetNewCommentStatus = 'set-new-comment-status',
+  SetUserInfo = 'set-user-info',
 }
 
 export enum Genres {
   AllGenres = 'All genres',
-  Comedies = 'Comedy',
-  Crime = 'Crime',
-  Documentary = 'Documentary',
-  Drama = 'Dramas',
-  Horror = 'Horror',
-  KidsNFamily = 'Kids & family',
-  Romance = 'Romance',
-  SciFi = 'Sci-fi',
-  Thrillers = 'Thrillers',
 }
 
-export const Tabs = {
-  Overview: 'Overview',
-  Details: 'Details',
-  Reviews: 'Reviews',
-};
+export enum Tabs {
+  Overview = 'Overview',
+  Details = 'Details',
+  Reviews = 'Reviews',
+}
+
+
+export enum PrivateRouteActionType {
+  User = 'User',
+  Guest = 'Guest',
+}
+
+export enum NewComemntStatus {
+  Idle = 'Idle',
+  Loading = 'Loading',
+}

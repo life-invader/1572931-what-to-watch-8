@@ -13,7 +13,6 @@ export type TabTitleType = {
 
 export type OverviewTabType = {
   currentMovie: MoviesType,
-  currentMovieComments: UserCommentType[]
 }
 
 export type DetailsTabType = {

@@ -1,5 +1,5 @@
-import { formatRuntime } from '../../utils/utils';
-import { DetailsTabType } from './type';
+import { formatRuntime } from '../../../utils/utils';
+import { DetailsTabType } from '../type';
 
 export interface TabTypeProps extends DetailsTabType {
   title?: string;

@@ -6,19 +6,28 @@ import {
 import { getAuthorizationStatus } from '../../store/selectors/user-process';
 import {
   AppRoutes,
-  AuthStatus
+  AuthStatus,
+  PrivateRouteActionType
 } from '../../const';
 import type { PrivateRouteType } from './type';
 
-function PrivateRoute(props: PrivateRouteType): JSX.Element {
+function PrivateRoute({ children, exact, path, actionType }: PrivateRouteType): JSX.Element {
   const auth = useSelector(getAuthorizationStatus);
-  const { children, exact, path } = props;
 
-  return (
-    <Route exact={exact} path={path}>
-      {auth === AuthStatus.Auth ? children : <Redirect to={AppRoutes.SignIn} />}
-    </Route>
-  );
+  switch (actionType) {
+    case PrivateRouteActionType.User:
+      return (
+        <Route exact={exact} path={path}>
+          {auth === AuthStatus.Auth ? children : <Redirect to={AppRoutes.SignIn()} />}
+        </Route>
+      );
+    case PrivateRouteActionType.Guest:
+      return (
+        <Route exact={exact} path={path}>
+          {auth === AuthStatus.NoAuth ? children : <Redirect to={AppRoutes.MainPage()} />}
+        </Route>
+      );
+  }
 }
 
 export default PrivateRoute;

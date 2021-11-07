@@ -4,6 +4,7 @@ import {
   useState
 } from 'react';
 import { Link } from 'react-router-dom';
+import { AppRoutes } from '../../const';
 import VideoPlayer from '../video-player/video-player';
 import { MovieCardType } from './type';
 
@@ -49,7 +50,7 @@ function MovieCard({ movie }: MovieCardType): JSX.Element {
           </div>
       }
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`/films/${id}`}>{name}</Link>
+        <Link className="small-film-card__link" to={AppRoutes.Movie(id)}>{name}</Link>
       </h3>
     </article>
   );
