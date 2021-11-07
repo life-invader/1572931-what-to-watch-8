@@ -61,9 +61,10 @@ export const checkAuth = (): ThunkActionResult => async (dispatch, _getState, ap
 
 export const logIn = ({ email, password }: AuthData): ThunkActionResult => async (dispatch, _getState, api) => {
   try {
-    const { data: { token } } = await api.post(APIRoute.Login(), { email, password });
-    setToken(token);
+    const { data } = await api.post(APIRoute.Login(), { email, password });
+    setToken(data.token);
     dispatch(requireAuthorization(AuthStatus.Auth));
+    dispatch(setUserInfo(data));
     dispatch(redirectToRoute(AppRoutes.MainPage()));
   } catch {
     toast.error('Ошибка авторизации', { position: toast.POSITION.TOP_LEFT });

@@ -17,6 +17,7 @@ export const userProcess = createReducer(defaultState, (builder) => {
     })
     .addCase(requireLogout, (state) => {
       state.authorizationStatus = AuthStatus.NoAuth;
+      state.userInfo = {} as UserInfo;
     })
     .addCase(setNewCommentStatus, (state, action) => {
       state.newCommentStatus = action.payload.status;

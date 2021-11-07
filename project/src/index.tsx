@@ -10,7 +10,6 @@ import { createAPI } from './services/api';
 import { requireAuthorization } from './store/action';
 import {
   fetchMovies,
-  fetchPromoMovie,
   checkAuth
 } from './store/api-action';
 import { redirect } from './store/middleware';
@@ -30,7 +29,6 @@ const store = configureStore({
 });
 
 store.dispatch(checkAuth());
-store.dispatch(fetchPromoMovie());
 store.dispatch(fetchMovies());
 
 ReactDOM.render(

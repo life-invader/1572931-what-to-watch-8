@@ -48,7 +48,7 @@ function Movie(): JSX.Element | null {
     dispatch(fetchMovie(id));
     dispatch(fetchComments(id));
     dispatch(fetchSimilarMovies(id));
-  }, [dispatch, history, id]);
+  }, [dispatch, history, id, auth]);
 
   if (Object.keys(currentMovie).length === 0) {
     return null;

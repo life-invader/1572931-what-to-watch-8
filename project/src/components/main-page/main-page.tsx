@@ -1,6 +1,9 @@
-import { useSelector } from 'react-redux';
+import {
+  useDispatch,
+  useSelector
+} from 'react-redux';
 import { useHistory } from 'react-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createSelector } from 'reselect';
 import MovieList from '../movie-list/movie-list';
 import GenreLinks from '../genre-links/genre-links';
@@ -17,12 +20,16 @@ import {
   AppRoutes,
   Genres
 } from '../../const';
+import { fetchPromoMovie } from '../../store/api-action';
+import { getAuthorizationStatus } from '../../store/selectors/user-process';
 
 const MAIN_PAGE_MOVIES_COUNT = 8;
 const SHOW_MORE_BUTTON_STEP = 8;
 
 function MainPage(): JSX.Element {
+  const auth = useSelector(getAuthorizationStatus);
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const selectFilteredMovies = createSelector(getMovies, getCurrentGenre, (defaultMovies, currentGenre) => {
     if (currentGenre === Genres.AllGenres) {
@@ -46,6 +53,10 @@ function MainPage(): JSX.Element {
   const resetCurrentAmout = () => {
     setCurrentAmount(MAIN_PAGE_MOVIES_COUNT);
   };
+
+  useEffect(() => {
+    dispatch(fetchPromoMovie());
+  }, [auth]);
 
   return (
     <>
