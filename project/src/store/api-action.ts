@@ -8,13 +8,13 @@ import type { ThunkActionResult, AuthData } from './type';
 import type { CommentType } from '../types/movies';
 
 export const fetchMovies = (): ThunkActionResult => async (dispatch, _getState, api): Promise<void> => {
-  const { data } = await api.get<MoviesType[]>(APIRoute.Films);
+  const { data } = await api.get<MoviesType[]>(APIRoute.Films());
   dispatch(loadMovies(data));
 };
 
 export const fetchFavouriteMovies = (): ThunkActionResult => async (dispatch, _getState, api): Promise<void> => {
   try {
-    const { data } = await api.get<MoviesType[]>(APIRoute.Favourite);
+    const { data } = await api.get<MoviesType[]>(APIRoute.Favourite());
     dispatch(loadFavouriteMovies(data));
   } catch {
     toast.error('Не удалось загрузить любимые фильмы!', { position: toast.POSITION.TOP_LEFT });
@@ -22,18 +22,18 @@ export const fetchFavouriteMovies = (): ThunkActionResult => async (dispatch, _g
 };
 
 export const fetchPromoMovie = (): ThunkActionResult => async (dispatch, _getState, api): Promise<void> => {
-  const { data } = await api.get<MoviesType>(APIRoute.Promo);
+  const { data } = await api.get<MoviesType>(APIRoute.Promo());
   dispatch(loadPromoMovie(data));
 };
 
 export const checkAuth = (): ThunkActionResult => async (dispatch, _getState, api) => {
-  await api.get(APIRoute.Login);
+  await api.get(APIRoute.Login());
   dispatch(requireAuthorization(AuthStatus.Auth));
 };
 
 export const logIn = ({ email, password }: AuthData): ThunkActionResult => async (dispatch, _getState, api) => {
   try {
-    const { data: { token } } = await api.post(APIRoute.Login, { email, password });
+    const { data: { token } } = await api.post(APIRoute.Login(), { email, password });
     setToken(token);
     dispatch(requireAuthorization(AuthStatus.Auth));
     dispatch(redirectToRoute(AppRoutes.MainPage()));
@@ -43,14 +43,14 @@ export const logIn = ({ email, password }: AuthData): ThunkActionResult => async
 };
 
 export const logOut = (): ThunkActionResult => async (dispatch, _getState, api) => {
-  await api.delete(APIRoute.Logout);
+  await api.delete(APIRoute.Logout());
   dropToken();
   dispatch(requireLogout());
 };
 
 export const fetchMovie = (id: string): ThunkActionResult => async (dispatch, _getState, api) => {
   try {
-    const { data } = await api.get(`${APIRoute.Films}/${id}`);
+    const { data } = await api.get(APIRoute.Film(id));
     dispatch(loadCurrentMovie(data));
   } catch {
     dispatch(redirectToRoute(AppRoutes.NotFound()));
@@ -59,7 +59,7 @@ export const fetchMovie = (id: string): ThunkActionResult => async (dispatch, _g
 
 export const fetchComments = (id: string): ThunkActionResult => async (dispatch, _getState, api) => {
   try {
-    const { data } = await api.get(`${APIRoute.Comments}/${id}`);
+    const { data } = await api.get(APIRoute.Comments(id));
     dispatch(loadComments(data));
   } catch {
     toast.error('Не удалось загрузить комментарии!', { position: toast.POSITION.TOP_LEFT });
@@ -70,10 +70,10 @@ export const postComment = (id: string, newComment: CommentType): ThunkActionRes
   dispatch(setNewCommentStatus(NewComemntStatus.Loading));
 
   try {
-    const { data } = await api.post(`${APIRoute.Comments}/${id}`, newComment);
+    const { data } = await api.post(APIRoute.Comments(id), newComment);
     dispatch(loadComments(data));
     dispatch(setNewCommentStatus(NewComemntStatus.Idle));
-    dispatch(redirectToRoute(`${APIRoute.Films}/${id}`));
+    dispatch(redirectToRoute(APIRoute.Film(id)));
   } catch {
     dispatch(setNewCommentStatus(NewComemntStatus.Idle));
     toast.error('Не удалось отправить комментарий!', { position: toast.POSITION.TOP_LEFT });
@@ -82,7 +82,7 @@ export const postComment = (id: string, newComment: CommentType): ThunkActionRes
 
 export const fetchSimilarMovies = (id: string): ThunkActionResult => async (dispatch, _getState, api) => {
   try {
-    const { data } = await api.get(`${APIRoute.Films}/${id}${APIRoute.Similar}`);
+    const { data } = await api.get(APIRoute.Similar(id));
     dispatch(loadSimilarMovies(data));
   } catch {
     toast.error('Не удалось загрузить похожие фильмы!', { position: toast.POSITION.TOP_LEFT });
@@ -91,7 +91,7 @@ export const fetchSimilarMovies = (id: string): ThunkActionResult => async (disp
 
 export const changeFavouriteKeyStatus = (id: number, status: number): ThunkActionResult => async (dispatch, getState, api) => {
   try {
-    const { data } = await api.post(`${APIRoute.Favourite}/${id}/${status}`);
+    const { data } = await api.post(APIRoute.FavouriteStatus(id, status));
 
     if (getState()[NameSpace.Data].promoMovie.id === id) {
       dispatch(loadPromoMovie(data));

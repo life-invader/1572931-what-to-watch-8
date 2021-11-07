@@ -8,16 +8,17 @@ export const AppRoutes = {
   NotFound: (): string => '/404',
 } as const;
 
-export enum APIRoute {
-  Films = '/films',
-  Comments = '/comments',
-  Favourite = '/favorite',
-  Promo = '/promo',
-  Login = '/login',
-  Logout = '/logout',
-  Similar = '/similar',
-  Player = '/player',
-}
+export const APIRoute = {
+  Film: (id: string | number): string => `/films/${id}`,
+  Films: (): string => '/films',
+  Comments: (id: string | number): string => `/comments/${id}`,
+  Favourite: (): string => '/favorite',
+  FavouriteStatus: (id: string | number, status: number): string => `/favorite/${id}/${status}`,
+  Promo: (): string => '/promo',
+  Login: (): string => '/login',
+  Logout: (): string => '/logout',
+  Similar: (id: string | number): string => `/films/${id}/similar`,
+};
 
 export enum AuthStatus {
   Auth = 'AUTH',

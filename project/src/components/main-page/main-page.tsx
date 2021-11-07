@@ -16,7 +16,7 @@ import {
 import { getAuthorizationStatus } from '../../store/selectors/user-process';
 import { getCurrentGenre } from '../../store/selectors/movie-data';
 import {
-  APIRoute,
+  AppRoutes,
   AuthStatus,
   Genres
 } from '../../const';
@@ -87,7 +87,7 @@ function MainPage(): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button" onClick={() => history.push(`${APIRoute.Player}/${id}`)}>
+                <button className="btn btn--play film-card__button" type="button" onClick={() => history.push(AppRoutes.Player(id))}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
