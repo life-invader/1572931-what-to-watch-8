@@ -12,16 +12,16 @@ import Page404 from '../page-404/page-404';
 import Player from '../player/player';
 import PrivateRoute from '../private-route/private-route';
 import SignIn from '../sign-in/sign-in';
+import SpinnerMainPage from '../spinner/spinner-main-page/spinner-main-page';
 import browserHistory from '../../browser-history';
-import { AppRoutes, AuthStatus } from '../../const';
+import { AppRoutes, AuthStatus, PrivateRouteActionType } from '../../const';
 import { getAuthorizationStatus } from '../../store/selectors/user-process';
-import Spinner from '../spinner/spinner';
 
 function App(): JSX.Element {
   const authorizationStatus = useSelector(getAuthorizationStatus);
 
   if (authorizationStatus === AuthStatus.Unknown) {
-    return <Spinner />;
+    return <SpinnerMainPage />;
   }
 
   return (
@@ -30,16 +30,16 @@ function App(): JSX.Element {
         <Route exact path={AppRoutes.MainPage}>
           <MainPage />
         </Route>
-        <Route exact path={AppRoutes.SignIn}>
+        <PrivateRoute exact path={AppRoutes.SignIn} actionType={PrivateRouteActionType.Guest} >
           <SignIn />
-        </Route>
-        <PrivateRoute exact path={AppRoutes.MyList} >
+        </PrivateRoute>
+        <PrivateRoute exact path={AppRoutes.MyList} actionType={PrivateRouteActionType.User} >
           <MyList />
         </PrivateRoute>
         <Route exact path={AppRoutes.Movie}>
           <Movie />
         </Route>
-        <PrivateRoute exact path={AppRoutes.AddReview} >
+        <PrivateRoute exact path={AppRoutes.AddReview} actionType={PrivateRouteActionType.User} >
           <AddReview />
         </PrivateRoute>
         <Route exact path={AppRoutes.Player}>

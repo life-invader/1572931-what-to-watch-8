@@ -8,7 +8,7 @@ body {
 .return {
   position: absolute;
   text-decoration: none;
-  color: #000;
+  color: rgba(255, 255, 255, 0.37);
   font-size: 25px;
   font-weight: bold;
   top: 5%;

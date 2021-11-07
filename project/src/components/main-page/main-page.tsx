@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { createSelector } from 'reselect';
 import MovieList from '../movie-list/movie-list';
 import GenreLinks from '../genre-links/genre-links';
-import Spinner from '../spinner/spinner';
+import SpinnerMainPage from '../spinner/spinner-main-page/spinner-main-page';
 import UserBlockLoggedIn from '../user-block/user-block-logged-in';
 import UserBlockNotLoggedIn from '../user-block/user-block-not-logged-in';
 import MainPageShowMoreButton from '../main-page-show-more-button/main-page-show-more-button';
@@ -105,7 +105,7 @@ function MainPage(): JSX.Element {
 
           <GenreLinks resetCurrentAmout={resetCurrentAmout} />
 
-          {movies.length > 0 ? <MovieList movies={movies} moviesCount={currentAmout} /> : <Spinner />}
+          {movies.length > 0 ? <MovieList movies={movies} moviesCount={currentAmout} /> : <SpinnerMainPage />}
 
           {isMoreButtonVisible && <MainPageShowMoreButton showMoreButtonClickHandler={showMoreButtonClickHandler} />}
 

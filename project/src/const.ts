@@ -37,6 +37,7 @@ export enum ActionType {
   RequireLogout = 'require-logout',
   Redirect = 'redirect',
   GetData = 'get-data',
+  SetNewCommentStatus = 'set-new-comment-status',
 }
 
 export enum Genres {
@@ -47,4 +48,15 @@ export enum Tabs {
   Overview = 'Overview',
   Details = 'Details',
   Reviews = 'Reviews',
+}
+
+
+export enum PrivateRouteActionType {
+  User = 'User',
+  Guest = 'Guest',
+}
+
+export enum NewComemntStatus {
+  Idle = 'Idle',
+  Loading = 'Loading',
 }

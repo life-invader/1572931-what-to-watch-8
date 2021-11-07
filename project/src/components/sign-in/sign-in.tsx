@@ -1,19 +1,75 @@
-import React, { useRef } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { logIn } from '../../store/api-action';
 import { AppRoutes } from '../../const';
 import { useDispatch } from 'react-redux';
 
+// Одна буква и одна цифра
+const regExpPassword = /[A-Za-z0-9]{2}/;
+const regExpEmail = /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,2}$/;
+
+const EMAIL_ERROR =
+  (
+    <div className="sign-in__message">
+      <p>Please enter a valid email address</p>
+    </div>
+  );
+
+const PASSWORD_ERROR =
+  (
+    <div className="sign-in__message">
+      <p>Password must contain at least 1 letter and 1 digit</p>
+    </div>
+  );
+
+enum ErrorTypes {
+  PasswordError = 'Password-error',
+  EmailError = 'Email-error',
+  NoError = 'No-error',
+}
+
 function SignIn(): JSX.Element {
-  const emailRef = useRef<HTMLInputElement | null>(null);
-  const passwordRef = useRef<HTMLInputElement | null>(null);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorType, setErrorType] = useState<ErrorTypes>(ErrorTypes.NoError);
   const dispatch = useDispatch();
 
-  const handleSubmit = (evt: React.MouseEvent<HTMLFormElement>) => {
-    evt.preventDefault();
+  const checkPassword = (inputPassword: string) => regExpPassword.test(inputPassword);
+  const checkEmail = (inputEmail: string) => regExpEmail.test(inputEmail);
 
-    if (emailRef.current && passwordRef.current) {
-      dispatch(logIn({ email: emailRef.current.value, password: passwordRef.current.value }));
+  const formSubmitHandler = (evt: React.MouseEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    setErrorType(ErrorTypes.NoError);
+
+    if (!checkEmail(email)) {
+      setErrorType(ErrorTypes.EmailError);
+      return;
+    }
+
+    if (!checkPassword(password)) {
+      setErrorType(ErrorTypes.PasswordError);
+      return;
+    }
+
+    dispatch(logIn({ email, password }));
+  };
+
+  const inputEmailHandler = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    const inputEmail = evt.target.value;
+    setEmail(inputEmail);
+  };
+
+  const inputPasswordHandler = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    const inputPassword = evt.target.value;
+    setPassword(inputPassword);
+  };
+
+  const renderError = () => {
+    if (errorType === ErrorTypes.EmailError) {
+      return EMAIL_ERROR;
+    }
+    if (errorType === ErrorTypes.PasswordError) {
+      return PASSWORD_ERROR;
     }
   };
 
@@ -32,15 +88,20 @@ function SignIn(): JSX.Element {
       </header>
 
       <div className="sign-in user-page__content">
-        <form action="#" className="sign-in__form" onSubmit={handleSubmit}>
+        <form action="#" className="sign-in__form" onSubmit={formSubmitHandler}>
+
+          {
+            renderError()
+          }
+
           <div className="sign-in__fields">
-            <div className="sign-in__field">
-              <input className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" ref={emailRef} />
-              <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
+            <div className={`sign-in__field ${errorType === ErrorTypes.EmailError ? 'sign-in__field--error' : ''}`}>
+              <input className="sign-in__input" required type="email" placeholder="Email address" value={email} name="email" id="user-email" onChange={inputEmailHandler} />
+              <label className="sign-in__label visually-hidden" htmlFor="email">Email address</label>
             </div>
-            <div className="sign-in__field">
-              <input className="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password" ref={passwordRef} />
-              <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
+            <div className={`sign-in__field ${errorType === ErrorTypes.PasswordError ? 'sign-in__field--error' : ''}`}>
+              <input className="sign-in__input" required type="password" placeholder="Password" value={password} name="password" id="user-password" onChange={inputPasswordHandler} />
+              <label className="sign-in__label visually-hidden" htmlFor="password">Password</label>
             </div>
           </div>
           <div className="sign-in__submit">

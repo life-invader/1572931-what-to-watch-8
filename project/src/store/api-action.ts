@@ -1,5 +1,5 @@
-import { loadMovies, requireAuthorization, requireLogout, redirectToRoute, loadCurrentMovie, loadComments, loadSimilarMovies, loadPromoMovie, loadFavouriteMovies } from './action';
-import { AppRoutes, APIRoute, AuthStatus } from '../const';
+import { loadMovies, requireAuthorization, requireLogout, redirectToRoute, loadCurrentMovie, loadComments, loadSimilarMovies, loadPromoMovie, loadFavouriteMovies, setNewCommentStatus } from './action';
+import { AppRoutes, APIRoute, AuthStatus, NewComemntStatus } from '../const';
 import { setToken, dropToken } from '../services/token';
 import { toast } from 'react-toastify';
 import { NameSpace } from './root-reducer';
@@ -67,11 +67,15 @@ export const fetchComments = (id: string): ThunkActionResult => async (dispatch,
 };
 
 export const postComment = (id: string, newComment: CommentType): ThunkActionResult => async (dispatch, _getState, api) => {
+  dispatch(setNewCommentStatus(NewComemntStatus.Loading));
+
   try {
     const { data } = await api.post(`${APIRoute.Comments}/${id}`, newComment);
     dispatch(loadComments(data));
+    dispatch(setNewCommentStatus(NewComemntStatus.Idle));
     dispatch(redirectToRoute(`${APIRoute.Films}/${id}`));
   } catch {
+    dispatch(setNewCommentStatus(NewComemntStatus.Idle));
     toast.error('Не удалось отправить комментарий!', { position: toast.POSITION.TOP_LEFT });
   }
 };

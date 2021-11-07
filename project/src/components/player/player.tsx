@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router';
+import SpinnerPlayer from '../spinner/spinner-player/spinner-player';
 import { fetchMovie } from '../../store/api-action';
 import { getCurrentMovie } from '../../store/selectors/movie-data';
 import { ParamsType } from '../add-review/type';
 import { formatRemainingTime } from '../../utils/utils';
 
 const PERCENT_100 = 100;
-const VIDEO_4 = 'https://cdn.crello.com/api/media/small/213185836/stock-video-partial-view-young-businesswoman-getting'; // Их видео не работают, взял это
 
 function Player(): JSX.Element {
   const dispatch = useDispatch();
@@ -65,7 +65,7 @@ function Player(): JSX.Element {
   }, [isPlay, videoElement]);
 
   const {
-    // 'video_link': videoLink, // Их видео не работают
+    'video_link': videoLink, // Их видео не работают
     'preview_image': previewImage,
   } = currentMovie;
 
@@ -103,7 +103,9 @@ function Player(): JSX.Element {
   return (
     <div className="player">
 
-      <video preload='metadata' src={VIDEO_4} className="player__video" poster={previewImage} ref={videoRef}
+      {!isReady && <SpinnerPlayer />}
+
+      <video preload='metadata' src={videoLink} className="player__video" poster={previewImage} ref={videoRef}
         onTimeUpdate={videoProgressHandler}
         onLoadedData={videoLoadedDataHandler}
       />
