@@ -1,6 +1,9 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import {
+  useDispatch,
+  useSelector
+} from 'react-redux';
 import UserBlockLoggedIn from '../user-block/user-block-logged-in';
 import MovieList from '../movie-list/movie-list';
 import { getFavouriteMovies } from '../../store/selectors/movie-data';
@@ -19,7 +22,7 @@ function MyList(): JSX.Element {
     <div className="user-page">
       <header className="page-header user-page__head">
         <div className="logo">
-          <Link to={AppRoutes.MainPage} className="logo__link">
+          <Link to={AppRoutes.MainPage()} className="logo__link">
             <span className="logo__letter logo__letter--1">W</span>
             <span className="logo__letter logo__letter--2">T</span>
             <span className="logo__letter logo__letter--3">W</span>
@@ -41,7 +44,7 @@ function MyList(): JSX.Element {
 
       <footer className="page-footer">
         <div className="logo">
-          <Link to={AppRoutes.MainPage} className="logo__link logo__link--light">
+          <Link to={AppRoutes.MainPage()} className="logo__link logo__link--light">
             <span className="logo__letter logo__letter--1">W</span>
             <span className="logo__letter logo__letter--2">T</span>
             <span className="logo__letter logo__letter--3">W</span>

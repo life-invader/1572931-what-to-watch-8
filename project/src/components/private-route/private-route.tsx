@@ -18,13 +18,13 @@ function PrivateRoute({ children, exact, path, actionType }: PrivateRouteType): 
     case PrivateRouteActionType.User:
       return (
         <Route exact={exact} path={path}>
-          {auth === AuthStatus.Auth ? children : <Redirect to={AppRoutes.SignIn} />}
+          {auth === AuthStatus.Auth ? children : <Redirect to={AppRoutes.SignIn()} />}
         </Route>
       );
     case PrivateRouteActionType.Guest:
       return (
         <Route exact={exact} path={path}>
-          {auth === AuthStatus.NoAuth ? children : <Redirect to={AppRoutes.MainPage} />}
+          {auth === AuthStatus.NoAuth ? children : <Redirect to={AppRoutes.MainPage()} />}
         </Route>
       );
   }

@@ -27,22 +27,22 @@ function App(): JSX.Element {
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
-        <Route exact path={AppRoutes.MainPage}>
+        <Route exact path={AppRoutes.MainPage()}>
           <MainPage />
         </Route>
-        <PrivateRoute exact path={AppRoutes.SignIn} actionType={PrivateRouteActionType.Guest} >
+        <PrivateRoute exact path={AppRoutes.SignIn()} actionType={PrivateRouteActionType.Guest} >
           <SignIn />
         </PrivateRoute>
-        <PrivateRoute exact path={AppRoutes.MyList} actionType={PrivateRouteActionType.User} >
+        <PrivateRoute exact path={AppRoutes.MyList()} actionType={PrivateRouteActionType.User} >
           <MyList />
         </PrivateRoute>
-        <Route exact path={AppRoutes.Movie}>
+        <Route exact path={AppRoutes.Movie()}>
           <Movie />
         </Route>
-        <PrivateRoute exact path={AppRoutes.AddReview} actionType={PrivateRouteActionType.User} >
+        <PrivateRoute exact path={AppRoutes.AddReview()} actionType={PrivateRouteActionType.User} >
           <AddReview />
         </PrivateRoute>
-        <Route exact path={AppRoutes.Player}>
+        <Route exact path={AppRoutes.Player()}>
           <Player />
         </Route>
         <Route>

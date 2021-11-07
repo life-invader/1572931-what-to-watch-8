@@ -1,7 +1,13 @@
-import { useRef, useState } from 'react';
+import {
+  useRef,
+  useState
+} from 'react';
 import { toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import {
+  useDispatch,
+  useSelector
+} from 'react-redux';
 import { postComment } from '../../store/api-action';
 import { getFormLoadingStatus } from '../../store/selectors/user-process';
 

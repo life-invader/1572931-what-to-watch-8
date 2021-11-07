@@ -36,7 +36,7 @@ export const logIn = ({ email, password }: AuthData): ThunkActionResult => async
     const { data: { token } } = await api.post(APIRoute.Login, { email, password });
     setToken(token);
     dispatch(requireAuthorization(AuthStatus.Auth));
-    dispatch(redirectToRoute(AppRoutes.MainPage));
+    dispatch(redirectToRoute(AppRoutes.MainPage()));
   } catch {
     toast.error('Ошибка авторизации', { position: toast.POSITION.TOP_LEFT });
   }
@@ -53,7 +53,7 @@ export const fetchMovie = (id: string): ThunkActionResult => async (dispatch, _g
     const { data } = await api.get(`${APIRoute.Films}/${id}`);
     dispatch(loadCurrentMovie(data));
   } catch {
-    dispatch(redirectToRoute(AppRoutes.NotFound));
+    dispatch(redirectToRoute(AppRoutes.NotFound()));
   }
 };
 

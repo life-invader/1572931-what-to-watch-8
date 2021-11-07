@@ -16,7 +16,7 @@ function UserBlockLoggedIn(): JSX.Element {
   return (
     <ul className="user-block">
       <li className="user-block__item">
-        <div className="user-block__avatar" onClick={() => history.push(AppRoutes.MyList)}>
+        <div className="user-block__avatar" onClick={() => history.push(AppRoutes.MyList())}>
           <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
         </div>
       </li>

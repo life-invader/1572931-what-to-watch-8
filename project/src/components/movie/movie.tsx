@@ -16,8 +16,16 @@ import DetailsTab from '../tabs/details-tab/details-tab';
 import ReviewTab from '../tabs/reviews/review-tab';
 import MovieList from '../movie-list/movie-list';
 import AddToMyListButton from '../add-to-my-list-button/add-to-my-list-button';
-import { fetchMovie, fetchComments, fetchSimilarMovies } from '../../store/api-action';
-import { getCurrentMovie, getComments, getSimilarMovies } from '../../store/selectors/movie-data';
+import {
+  fetchMovie,
+  fetchComments,
+  fetchSimilarMovies
+} from '../../store/api-action';
+import {
+  getCurrentMovie,
+  getComments,
+  getSimilarMovies
+} from '../../store/selectors/movie-data';
 import { getAuthorizationStatus } from '../../store/selectors/user-process';
 import {
   AppRoutes,
@@ -68,7 +76,7 @@ function Movie(): JSX.Element | null {
 
           <header className="page-header film-card__head">
             <div className="logo">
-              <Link to={AppRoutes.MainPage} className="logo__link">
+              <Link to={AppRoutes.MainPage()} className="logo__link">
                 <span className="logo__letter logo__letter--1">W</span>
                 <span className="logo__letter logo__letter--2">T</span>
                 <span className="logo__letter logo__letter--3">W</span>
@@ -96,7 +104,7 @@ function Movie(): JSX.Element | null {
 
                 <AddToMyListButton movie={currentMovie} />
 
-                {auth === AuthStatus.Auth ? <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link> : ''}
+                {auth === AuthStatus.Auth ? <Link to={AppRoutes.AddReview(id)} className="btn film-card__button">Add review</Link> : ''}
               </div>
             </div>
           </div>

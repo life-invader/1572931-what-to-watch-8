@@ -1,12 +1,12 @@
-export enum AppRoutes {
-  MainPage = '/',
-  SignIn = '/login',
-  MyList = '/mylist',
-  Movie = '/films/:id',
-  AddReview = '/films/:id/review',
-  Player = '/player/:id',
-  NotFound = '/404',
-}
+export const AppRoutes = {
+  MainPage: (): string => '/',
+  SignIn: (): string => '/login',
+  MyList: (): string => '/mylist',
+  Movie: (id: string | number = ':id'): string => `/films/${id}`,
+  AddReview: (id: string | number = ':id'): string => `/films/${id}/review`,
+  Player: (id: string | number = ':id'): string => `/player/${id}`,
+  NotFound: (): string => '/404',
+} as const;
 
 export enum APIRoute {
   Films = '/films',

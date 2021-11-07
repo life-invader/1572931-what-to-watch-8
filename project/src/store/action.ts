@@ -2,7 +2,7 @@ import { createAction } from '@reduxjs/toolkit';
 import { ActionType, AuthStatus, AppRoutes, NewComemntStatus } from '../const';
 import type { MoviesType, UserCommentType } from '../types/movies';
 
-export const redirectToRoute = (url: AppRoutes | string) => ({ type: ActionType.Redirect, payload: url }) as const;
+export const redirectToRoute = (url: typeof AppRoutes | string) => ({ type: ActionType.Redirect, payload: url }) as const;
 
 export const setGenre = createAction(ActionType.ChangeGenre, (genre: string) => ({
   payload: {

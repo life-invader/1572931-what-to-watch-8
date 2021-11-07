@@ -9,7 +9,10 @@ import UserBlockLoggedIn from '../user-block/user-block-logged-in';
 import UserBlockNotLoggedIn from '../user-block/user-block-not-logged-in';
 import MainPageShowMoreButton from '../main-page-show-more-button/main-page-show-more-button';
 import AddToMyListButton from '../add-to-my-list-button/add-to-my-list-button';
-import { getMovies, getPromoMovie } from '../../store/selectors/movie-data';
+import {
+  getMovies,
+  getPromoMovie
+} from '../../store/selectors/movie-data';
 import { getAuthorizationStatus } from '../../store/selectors/user-process';
 import { getCurrentGenre } from '../../store/selectors/movie-data';
 import {

@@ -1,4 +1,7 @@
-import { formatHumanizedDate, formatDatetime } from '../../../utils/utils';
+import {
+  formatHumanizedDate,
+  formatDatetime
+} from '../../../utils/utils';
 import type { UserCommentType } from '../../../types/movies';
 import { ReviewsTabType } from '../type';
 
