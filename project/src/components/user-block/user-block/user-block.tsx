@@ -7,13 +7,6 @@ import UserBlockNotLoggedIn from '../user-block-not-logged-in/user-block-not-log
 function UserBlock(): JSX.Element {
   const auth = useSelector(getAuthorizationStatus);
 
-  // Почему switch-case ? Сначала хотел так:
-  // return (
-  //   {auth === AuthStatus.Auth ? <UserBlockLoggedIn /> : <UserBlockNotLoggedIn />}
-  // )
-  //
-  // Выдал ошибку: This condition will always return 'false' since the types have no overlap. Откуда берется, хз.
-
   switch (auth) {
     case AuthStatus.Auth:
       return (
