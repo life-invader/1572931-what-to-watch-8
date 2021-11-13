@@ -132,6 +132,7 @@ export const changeFavouriteKeyStatus = (id: number, status: number): ThunkActio
   } catch {
     if (status) {
       toast.error('Не удалось добавить в избранное', { position: toast.POSITION.TOP_LEFT });
+      return;
     }
     toast.error('Не удалось удалить из избранного', { position: toast.POSITION.TOP_LEFT });
   }

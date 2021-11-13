@@ -4,7 +4,7 @@ import { AuthStatus, NewComemntStatus } from '../../const';
 import type { UserProcess } from './type';
 import type { UserInfo } from '../type';
 
-const defaultState: UserProcess = {
+export const defaultState: UserProcess = {
   authorizationStatus: AuthStatus.Unknown,
   newCommentStatus: NewComemntStatus.Idle,
   userInfo: {} as UserInfo,

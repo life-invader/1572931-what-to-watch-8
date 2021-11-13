@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import { movieData } from './movie-data/movie-data';
-import { userProcess } from './user-process/user-process';
+import { movieData } from './movie-data/movie-data-reducer';
+import { userProcess } from './user-process/user-process-reducer';
 
 export enum NameSpace {
   Data = 'Data',

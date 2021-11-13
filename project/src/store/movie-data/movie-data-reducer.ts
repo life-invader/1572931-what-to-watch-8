@@ -4,7 +4,7 @@ import { Genres } from '../../const';
 import type { MoviesType } from '../../types/movies';
 import type { MovieData } from './type';
 
-const defaultState: MovieData = {
+export const defaultState: MovieData = {
   genre: Genres.AllGenres,
   movies: [],
   favouriteMovies: [],
