@@ -1,5 +1,13 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setGenre, loadMovies, loadCurrentMovie, loadComments, loadSimilarMovies, loadPromoMovie, loadFavouriteMovies } from '../action';
+import {
+  setGenre,
+  loadMovies,
+  loadCurrentMovie,
+  loadComments,
+  loadSimilarMovies,
+  loadPromoMovie,
+  loadFavouriteMovies
+} from '../action';
 import { Genres } from '../../const';
 import type { MoviesType } from '../../types/movies';
 import type { MovieData } from './type';

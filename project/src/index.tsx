@@ -12,7 +12,7 @@ import {
   fetchMovies,
   checkAuth
 } from './store/api-action';
-import { redirect } from './store/middleware';
+import { redirect } from './store/middleware/redirect';
 import { AuthStatus } from './const';
 
 const TOASTS_LIMIT = 1;
