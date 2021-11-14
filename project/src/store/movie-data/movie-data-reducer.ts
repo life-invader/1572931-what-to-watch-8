@@ -22,7 +22,7 @@ export const defaultState: MovieData = {
   comments: [],
 };
 
-export const movieData = createReducer(defaultState, (builder) => {
+export const movieDataReducer = createReducer(defaultState, (builder) => {
   builder
     .addCase(setGenre, (state, action) => {
       state.genre = action.payload.genre;

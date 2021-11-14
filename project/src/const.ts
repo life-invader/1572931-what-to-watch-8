@@ -58,7 +58,7 @@ export enum PrivateRouteActionType {
   Guest = 'Guest',
 }
 
-export enum NewComemntStatus {
+export enum NewCommentStatus {
   Idle = 'Idle',
   Loading = 'Loading',
 }

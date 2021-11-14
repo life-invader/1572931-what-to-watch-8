@@ -1,16 +1,16 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { requireAuthorization, requireLogout, setNewCommentStatus, setUserInfo } from '../action';
-import { AuthStatus, NewComemntStatus } from '../../const';
+import { AuthStatus, NewCommentStatus } from '../../const';
 import type { UserProcess } from './type';
 import type { UserInfo } from '../type';
 
 export const defaultState: UserProcess = {
   authorizationStatus: AuthStatus.Unknown,
-  newCommentStatus: NewComemntStatus.Idle,
+  newCommentStatus: NewCommentStatus.Idle,
   userInfo: {} as UserInfo,
 };
 
-export const userProcess = createReducer(defaultState, (builder) => {
+export const userProcessReducer = createReducer(defaultState, (builder) => {
   builder
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload.authStatus;

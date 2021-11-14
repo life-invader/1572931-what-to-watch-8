@@ -3,7 +3,7 @@ import {
   ActionType,
   AuthStatus,
   AppRoutes,
-  NewComemntStatus
+  NewCommentStatus
 } from '../const';
 import type {
   MoviesType,
@@ -64,7 +64,7 @@ export const requireAuthorization = createAction(ActionType.RequireAuthorization
 
 export const requireLogout = createAction(ActionType.RequireLogout);
 
-export const setNewCommentStatus = createAction(ActionType.SetNewCommentStatus, (status: NewComemntStatus) => ({
+export const setNewCommentStatus = createAction(ActionType.SetNewCommentStatus, (status: NewCommentStatus) => ({
   payload: {
     status,
   },

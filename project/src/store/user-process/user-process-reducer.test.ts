@@ -1,14 +1,14 @@
-import { userProcess, defaultState } from './user-process-reducer';
+import { userProcessReducer, defaultState } from './user-process-reducer';
 import { requireAuthorization, requireLogout, setNewCommentStatus, setUserInfo } from '../action';
-import { AuthStatus, NewComemntStatus } from '../../const';
+import { AuthStatus, NewCommentStatus } from '../../const';
 import { createMockUserinfo } from '../../mocks/user-data';
 
-const mockCommetnStatus = NewComemntStatus.Idle;
+const mockCommetnStatus = NewCommentStatus.Idle;
 const mockuserInfo = createMockUserinfo();
 
 describe('Test for user actions reducer', () => {
   it('Should return current authorization status', () => {
-    expect(userProcess(defaultState, requireAuthorization(AuthStatus.Auth)))
+    expect(userProcessReducer(defaultState, requireAuthorization(AuthStatus.Auth)))
       .toEqual({
         ...defaultState,
         authorizationStatus: AuthStatus.Auth,
@@ -16,7 +16,7 @@ describe('Test for user actions reducer', () => {
   });
 
   it('Should return "NoAuth" authorization status and clear userinfo', () => {
-    expect(userProcess(defaultState, requireLogout()))
+    expect(userProcessReducer(defaultState, requireLogout()))
       .toEqual({
         ...defaultState,
         authorizationStatus: AuthStatus.NoAuth,
@@ -25,7 +25,7 @@ describe('Test for user actions reducer', () => {
   });
 
   it('Should return comment status: idle or loading', () => {
-    expect(userProcess(defaultState, setNewCommentStatus(mockCommetnStatus)))
+    expect(userProcessReducer(defaultState, setNewCommentStatus(mockCommetnStatus)))
       .toEqual({
         ...defaultState,
         newCommentStatus: mockCommetnStatus,
@@ -33,7 +33,7 @@ describe('Test for user actions reducer', () => {
   });
 
   it('Should set userinfo', () => {
-    expect(userProcess(defaultState, setUserInfo(mockuserInfo)))
+    expect(userProcessReducer(defaultState, setUserInfo(mockuserInfo)))
       .toEqual({
         ...defaultState,
         userInfo: mockuserInfo,

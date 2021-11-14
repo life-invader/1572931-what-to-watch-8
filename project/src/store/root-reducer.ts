@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import { movieData } from './movie-data/movie-data-reducer';
-import { userProcess } from './user-process/user-process-reducer';
+import { movieDataReducer } from './movie-data/movie-data-reducer';
+import { userProcessReducer } from './user-process/user-process-reducer';
 
 export enum NameSpace {
   Data = 'Data',
@@ -8,8 +8,8 @@ export enum NameSpace {
 }
 
 export const rootReducer = combineReducers({
-  [NameSpace.Data]: movieData,
-  [NameSpace.User]: userProcess,
+  [NameSpace.Data]: movieDataReducer,
+  [NameSpace.User]: userProcessReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

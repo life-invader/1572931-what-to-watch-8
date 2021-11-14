@@ -1,5 +1,5 @@
 import {
-  movieData,
+  movieDataReducer,
   defaultState
 } from './movie-data-reducer';
 import {
@@ -24,7 +24,7 @@ const mockComments = createMockComments();
 
 describe('Tests for movie data reducers', () => {
   it('should set current genre', () => {
-    expect(movieData(defaultState, setGenre(mockGenre)))
+    expect(movieDataReducer(defaultState, setGenre(mockGenre)))
       .toEqual({
         ...defaultState,
         genre: mockGenre,
@@ -32,7 +32,7 @@ describe('Tests for movie data reducers', () => {
   });
 
   it('should set all movies', () => {
-    expect(movieData(defaultState, loadMovies(mockMovies)))
+    expect(movieDataReducer(defaultState, loadMovies(mockMovies)))
       .toEqual({
         ...defaultState,
         movies: mockMovies,
@@ -40,7 +40,7 @@ describe('Tests for movie data reducers', () => {
   });
 
   it('should set favourite movies', () => {
-    expect(movieData(defaultState, loadFavouriteMovies(mockMovies)))
+    expect(movieDataReducer(defaultState, loadFavouriteMovies(mockMovies)))
       .toEqual({
         ...defaultState,
         favouriteMovies: mockMovies,
@@ -48,7 +48,7 @@ describe('Tests for movie data reducers', () => {
   });
 
   it('should set promo movie', () => {
-    expect(movieData(defaultState, loadPromoMovie(mockMovie)))
+    expect(movieDataReducer(defaultState, loadPromoMovie(mockMovie)))
       .toEqual({
         ...defaultState,
         promoMovie: mockMovie,
@@ -56,7 +56,7 @@ describe('Tests for movie data reducers', () => {
   });
 
   it('should set current movie', () => {
-    expect(movieData(defaultState, loadCurrentMovie(mockMovie)))
+    expect(movieDataReducer(defaultState, loadCurrentMovie(mockMovie)))
       .toEqual({
         ...defaultState,
         currentMovie: mockMovie,
@@ -64,7 +64,7 @@ describe('Tests for movie data reducers', () => {
   });
 
   it('should set similar movies', () => {
-    expect(movieData(defaultState, loadSimilarMovies(mockMovies)))
+    expect(movieDataReducer(defaultState, loadSimilarMovies(mockMovies)))
       .toEqual({
         ...defaultState,
         similarMovies: mockMovies,
@@ -72,7 +72,7 @@ describe('Tests for movie data reducers', () => {
   });
 
   it('should set current movie comments', () => {
-    expect(movieData(defaultState, loadComments(mockComments)))
+    expect(movieDataReducer(defaultState, loadComments(mockComments)))
       .toEqual({
         ...defaultState,
         comments: mockComments,

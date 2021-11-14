@@ -15,7 +15,7 @@ import {
   AppRoutes,
   APIRoute,
   AuthStatus,
-  NewComemntStatus
+  NewCommentStatus
 } from '../const';
 import {
   setToken,
@@ -77,7 +77,7 @@ export const logOut = (): ThunkActionResult => async (dispatch, _getState, api) 
   dispatch(requireLogout());
 };
 
-export const fetchMovie = (id: string): ThunkActionResult => async (dispatch, _getState, api) => {
+export const fetchMovie = (id: string | number): ThunkActionResult => async (dispatch, _getState, api) => {
   try {
     const { data } = await api.get(APIRoute.Film(id));
     dispatch(loadCurrentMovie(data));
@@ -86,7 +86,7 @@ export const fetchMovie = (id: string): ThunkActionResult => async (dispatch, _g
   }
 };
 
-export const fetchComments = (id: string): ThunkActionResult => async (dispatch, _getState, api) => {
+export const fetchComments = (id: string | number): ThunkActionResult => async (dispatch, _getState, api) => {
   try {
     const { data } = await api.get(APIRoute.Comments(id));
     dispatch(loadComments(data));
@@ -95,21 +95,21 @@ export const fetchComments = (id: string): ThunkActionResult => async (dispatch,
   }
 };
 
-export const postComment = (id: string, newComment: CommentType): ThunkActionResult => async (dispatch, _getState, api) => {
-  dispatch(setNewCommentStatus(NewComemntStatus.Loading));
+export const postComment = (id: string | number, newComment: CommentType): ThunkActionResult => async (dispatch, _getState, api) => {
+  dispatch(setNewCommentStatus(NewCommentStatus.Loading));
 
   try {
     const { data } = await api.post(APIRoute.Comments(id), newComment);
     dispatch(loadComments(data));
-    dispatch(setNewCommentStatus(NewComemntStatus.Idle));
+    dispatch(setNewCommentStatus(NewCommentStatus.Idle));
     dispatch(redirectToRoute(APIRoute.Film(id)));
   } catch {
-    dispatch(setNewCommentStatus(NewComemntStatus.Idle));
+    dispatch(setNewCommentStatus(NewCommentStatus.Idle));
     toast.error('Не удалось отправить комментарий!', { position: toast.POSITION.TOP_LEFT });
   }
 };
 
-export const fetchSimilarMovies = (id: string): ThunkActionResult => async (dispatch, _getState, api) => {
+export const fetchSimilarMovies = (id: string | number): ThunkActionResult => async (dispatch, _getState, api) => {
   try {
     const { data } = await api.get(APIRoute.Similar(id));
     dispatch(loadSimilarMovies(data));
@@ -118,7 +118,7 @@ export const fetchSimilarMovies = (id: string): ThunkActionResult => async (disp
   }
 };
 
-export const changeFavouriteKeyStatus = (id: number, status: number): ThunkActionResult => async (dispatch, getState, api) => {
+export const changeFavouriteKeyStatus = (id: string | number, status: number): ThunkActionResult => async (dispatch, getState, api) => {
   try {
     const { data } = await api.post(APIRoute.FavouriteStatus(id, status));
 
