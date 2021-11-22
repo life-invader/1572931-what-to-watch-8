@@ -1,5 +1,4 @@
 import {
-  Router as BrowserRouter,
   Route,
   Switch
 } from 'react-router-dom';
@@ -13,7 +12,6 @@ import Player from '../player/player';
 import PrivateRoute from '../private-route/private-route';
 import SignIn from '../sign-in/sign-in';
 import SpinnerMainPage from '../spinner/spinner-main-page/spinner-main-page';
-import browserHistory from '../../browser-history';
 import { AppRoutes, AuthStatus, PrivateRouteActionType } from '../../const';
 import { getAuthorizationStatus } from '../../store/selectors/user-process';
 
@@ -25,31 +23,29 @@ function App(): JSX.Element {
   }
 
   return (
-    <BrowserRouter history={browserHistory}>
-      <Switch>
-        <Route exact path={AppRoutes.MainPage()}>
-          <MainPage />
-        </Route>
-        <PrivateRoute exact path={AppRoutes.SignIn()} actionType={PrivateRouteActionType.Guest} >
-          <SignIn />
-        </PrivateRoute>
-        <PrivateRoute exact path={AppRoutes.MyList()} actionType={PrivateRouteActionType.User} >
-          <MyList />
-        </PrivateRoute>
-        <Route exact path={AppRoutes.Movie()}>
-          <Movie />
-        </Route>
-        <PrivateRoute exact path={AppRoutes.AddReview()} actionType={PrivateRouteActionType.User} >
-          <AddReview />
-        </PrivateRoute>
-        <Route exact path={AppRoutes.Player()}>
-          <Player />
-        </Route>
-        <Route>
-          <Page404 />
-        </Route>
-      </Switch>
-    </BrowserRouter>
+    <Switch>
+      <Route exact path={AppRoutes.MainPage()}>
+        <MainPage />
+      </Route>
+      <PrivateRoute exact path={AppRoutes.SignIn()} actionType={PrivateRouteActionType.Guest} >
+        <SignIn />
+      </PrivateRoute>
+      <PrivateRoute exact path={AppRoutes.MyList()} actionType={PrivateRouteActionType.User} >
+        <MyList />
+      </PrivateRoute>
+      <Route exact path={AppRoutes.Movie()}>
+        <Movie />
+      </Route>
+      <PrivateRoute exact path={AppRoutes.AddReview()} actionType={PrivateRouteActionType.User} >
+        <AddReview />
+      </PrivateRoute>
+      <Route exact path={AppRoutes.Player()}>
+        <Player />
+      </Route>
+      <Route>
+        <Page404 />
+      </Route>
+    </Switch>
   );
 }
 

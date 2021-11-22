@@ -14,6 +14,8 @@ import {
 } from './store/api-action';
 import { redirect } from './store/middleware/redirect';
 import { AuthStatus } from './const';
+import { Router as BrowserRouter } from 'react-router-dom';
+import browserHistory from './browser-history';
 
 const TOASTS_LIMIT = 1;
 
@@ -34,8 +36,10 @@ store.dispatch(fetchMovies());
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ToastContainer limit={TOASTS_LIMIT} />
-      <App />
+      <BrowserRouter history={browserHistory}>
+        <ToastContainer limit={TOASTS_LIMIT} />
+        <App />
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'));
