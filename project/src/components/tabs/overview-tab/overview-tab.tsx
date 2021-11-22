@@ -33,7 +33,7 @@ function OverviewTab({ currentMovie }: TabTypeProps): JSX.Element {
 
   return (
     <>
-      <div className="film-rating">
+      <div className="film-rating" data-testid='overview-tab'>
         <div className="film-rating__score">{rating}</div>
         <p className="film-rating__meta">
           <span className="film-rating__level">{getRatingDescription(rating)}</span>
@@ -44,7 +44,7 @@ function OverviewTab({ currentMovie }: TabTypeProps): JSX.Element {
       <div className="film-card__text">
         <p>{description}</p>
 
-        <p className="film-card__director"><strong>Director: {director}</strong></p>
+        <p className="film-card__director" data-testid='director'><strong>Director: {director}</strong></p>
 
         <p className="film-card__starring"><strong>Starring: {starring.join(', ')}</strong></p>
       </div>

@@ -14,14 +14,14 @@ function ReviewTab({ currentMovieComments }: TabTypeProps): JSX.Element {
   const [firstColumnReviews, secondColumnReviews] = [currentMovieComments.slice(0, middleIndex), currentMovieComments.slice(middleIndex)];
 
   return (
-    <div className="film-card__reviews film-card__row">
+    <div className="film-card__reviews film-card__row" data-testid='details-tab'>
       <div className="film-card__reviews-col">
 
         {firstColumnReviews.map((review: UserCommentType) => {
           const { comment, date, id, rating, user: { name } } = review;
 
           return (
-            <div className="review" key={id}>
+            <div className="review" data-testid='review' key={id}>
               <blockquote className="review__quote">
                 <p className="review__text">{comment}</p>
 
@@ -44,7 +44,7 @@ function ReviewTab({ currentMovieComments }: TabTypeProps): JSX.Element {
           const { comment, date, id, rating, user: { name } } = review;
 
           return (
-            <div className="review" key={id}>
+            <div className="review" data-testid='review' key={id}>
               <blockquote className="review__quote">
                 <p className="review__text">{comment}</p>
 

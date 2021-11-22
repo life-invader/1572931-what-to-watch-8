@@ -15,11 +15,11 @@ function DetailsTab({ currentMovie }: TabTypeProps): JSX.Element {
   } = currentMovie;
 
   return (
-    <div className="film-card__text film-card__row">
+    <div className="film-card__text film-card__row" data-testid='details-tab'>
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Director</strong>
-          <span className="film-card__details-value">{director}</span>
+          <span className="film-card__details-value" data-testid='director'>{director}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Starring</strong>

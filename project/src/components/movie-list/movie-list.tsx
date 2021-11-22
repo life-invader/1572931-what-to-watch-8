@@ -4,7 +4,7 @@ import type { MovieListType } from './type';
 
 function MovieList({ movies, moviesCount }: MovieListType): JSX.Element {
   return (
-    <div className="catalog__films-list">
+    <div className="catalog__films-list" data-testid='movie-list'>
       {movies.length ? movies.slice(0, moviesCount).map((movie) => <MovieCard key={movie.id} movie={movie} />) : ''}
     </div>
   );

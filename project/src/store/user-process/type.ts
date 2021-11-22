@@ -1,8 +1,8 @@
-import { AuthStatus, NewComemntStatus } from '../../const';
+import { AuthStatus, NewCommentStatus } from '../../const';
 import { UserInfo } from '../type';
 
 export type UserProcess = {
   authorizationStatus: AuthStatus,
-  newCommentStatus: NewComemntStatus,
+  newCommentStatus: NewCommentStatus,
   userInfo: UserInfo,
 }

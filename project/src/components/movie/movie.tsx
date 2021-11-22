@@ -12,7 +12,7 @@ import UserBlock from '../user-block/user-block/user-block';
 import TabContainer from '../tabs/tab-container/tab-container';
 import OverviewTab from '../tabs/overview-tab/overview-tab';
 import DetailsTab from '../tabs/details-tab/details-tab';
-import ReviewTab from '../tabs/reviews/review-tab';
+import ReviewTab from '../tabs/reviews-tab/review-tab';
 import MovieList from '../movie-list/movie-list';
 import AddToMyListButton from '../add-to-my-list-button/add-to-my-list-button';
 import {
@@ -65,7 +65,7 @@ function Movie(): JSX.Element | null {
 
   return (
     <>
-      <section className="film-card film-card--full" style={{ backgroundColor: backgroundColor }}>
+      <section className="film-card film-card--full" style={{ backgroundColor: backgroundColor }} data-testid='movie-page'>
         <div className="film-card__hero">
           <div className="film-card__bg">
             <img src={backgroundImage} alt="The Grand Budapest Hotel" />
