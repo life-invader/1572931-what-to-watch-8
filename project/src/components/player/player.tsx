@@ -105,7 +105,7 @@ function Player(): JSX.Element {
 
       {!isReady && <SpinnerPlayer />}
 
-      <video preload='metadata' src={videoLink} className="player__video" poster={previewImage} ref={videoRef}
+      <video preload='metadata' src={videoLink} className="player__video" data-testid='video-player' poster={previewImage} ref={videoRef}
         onTimeUpdate={videoProgressHandler}
         onLoadedData={videoLoadedDataHandler}
       />

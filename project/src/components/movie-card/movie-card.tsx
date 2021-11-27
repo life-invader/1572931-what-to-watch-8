@@ -35,7 +35,7 @@ function MovieCard({ movie }: MovieCardType): JSX.Element {
   }, [hover]);
 
   return (
-    <article className="small-film-card catalog__films-card"
+    <article data-testid='movie-card' className="small-film-card catalog__films-card"
       onMouseEnter={() => {
         setHover(true);
       }}
@@ -43,7 +43,7 @@ function MovieCard({ movie }: MovieCardType): JSX.Element {
     >
       {
         play ?
-          <VideoPlayer previewVideoLink={previewVideoLink} previewImage={previewImage} />
+          <VideoPlayer data-testid='player' previewVideoLink={previewVideoLink} previewImage={previewImage} />
           :
           <div className="small-film-card__image">
             <img src={previewImage} alt="Macbeth" width="280" height="175" />

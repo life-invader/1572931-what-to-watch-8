@@ -8,9 +8,22 @@ import { State } from '../../../store/type';
 import { AuthStatus } from '../../../const';
 
 const mockStore = configureMockStore<State>();
-const store = mockStore({
+const storeNotLoggedIn = mockStore({
   User: {
     authorizationStatus: AuthStatus.Unknown,
+    userInfo: {
+      id: 1,
+      email: 'mockfake@ya.ru',
+      name: 'jack',
+      'avatar_url': 'hfnsduft2342837',
+      token: '3873dfds',
+    },
+  },
+});
+
+const storeLoggedIn = mockStore({
+  User: {
+    authorizationStatus: AuthStatus.Auth,
     userInfo: {
       id: 1,
       email: 'mockfake@ya.ru',
@@ -24,7 +37,7 @@ const store = mockStore({
 describe('Component: UserBlock', () => {
   it('renders UserBlock component', () => {
     render(
-      <Provider store={store}>
+      <Provider store={storeNotLoggedIn}>
         <BrowserRouter history={browserHistory}>
           <UserBlock />
         </BrowserRouter>
@@ -34,10 +47,8 @@ describe('Component: UserBlock', () => {
   });
 
   it('renders UserBlock component when logged in', () => {
-    store.getState().User!.authorizationStatus = AuthStatus.Auth; // Надо было как-то изменить статус авторизации
-
     render(
-      <Provider store={store}>
+      <Provider store={storeLoggedIn}>
         <BrowserRouter history={browserHistory}>
           <UserBlock />
         </BrowserRouter>

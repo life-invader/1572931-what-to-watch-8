@@ -1,8 +1,8 @@
-import {VideoPlayerProps} from './type';
+import { VideoPlayerProps } from './type';
 
-function VideoPlayer({previewVideoLink, previewImage}: VideoPlayerProps): JSX.Element {
+function VideoPlayer({ previewVideoLink, previewImage }: VideoPlayerProps): JSX.Element {
   return (
-    <video autoPlay muted src={previewVideoLink} className="player__video" poster={previewImage}></video>
+    <video data-testid='video-player' autoPlay muted src={previewVideoLink} className="player__video" poster={previewImage}></video>
   );
 }
 

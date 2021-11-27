@@ -96,11 +96,11 @@ function SignIn(): JSX.Element {
 
           <div className="sign-in__fields">
             <div className={`sign-in__field ${errorType === ErrorTypes.EmailError ? 'sign-in__field--error' : ''}`}>
-              <input className="sign-in__input" required type="email" placeholder="Email address" value={email} name="email" id="user-email" onChange={inputEmailHandler} />
+              <input data-testid='test-email' className="sign-in__input" required type="email" placeholder="Email address" value={email} name="email" id="user-email" onChange={inputEmailHandler} />
               <label className="sign-in__label visually-hidden" htmlFor="email">Email address</label>
             </div>
             <div className={`sign-in__field ${errorType === ErrorTypes.PasswordError ? 'sign-in__field--error' : ''}`}>
-              <input className="sign-in__input" required type="password" placeholder="Password" value={password} name="password" id="user-password" onChange={inputPasswordHandler} />
+              <input data-testid='test-password' className="sign-in__input" required type="password" placeholder="Password" value={password} name="password" id="user-password" onChange={inputPasswordHandler} />
               <label className="sign-in__label visually-hidden" htmlFor="password">Password</label>
             </div>
           </div>

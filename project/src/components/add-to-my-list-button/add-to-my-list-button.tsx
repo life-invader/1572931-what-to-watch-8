@@ -30,7 +30,7 @@ function AddToMyListButton({ movie }: AddToMyListButtonType): JSX.Element {
   };
 
   return (
-    <button className="btn btn--list film-card__button" type="button" onClick={changeStatus}>
+    <button className="btn btn--list film-card__button" data-testid='favourite-button' type="button" onClick={changeStatus}>
       {!isFavourite ? notInListButton : inListButton}
       <span>My list</span>
     </button>
