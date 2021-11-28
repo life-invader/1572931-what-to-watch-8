@@ -56,7 +56,7 @@ function MainPage(): JSX.Element {
 
   useEffect(() => {
     dispatch(fetchPromoMovie());
-  }, [auth]);
+  }, [auth, dispatch]);
 
   return (
     <>

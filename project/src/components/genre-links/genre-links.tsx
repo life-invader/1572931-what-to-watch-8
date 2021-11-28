@@ -41,7 +41,7 @@ function GenreLinks({ resetCurrentAmout }: GenreLinksType): JSX.Element {
       {
         genres.map((genre, index) => (
           <li key={`${index + 1} ${genre}`} className={`catalog__genres-item ${currentGenre === genre ? 'catalog__genres-item--active' : ''}`}>
-            <a href="#" className='catalog__genres-link' data-genre={genre} onClick={genreClickHandler}>{genre}</a>
+            <a href="#" className='catalog__genres-link' data-testid='genre-test' data-genre={genre} onClick={genreClickHandler}>{genre}</a>
           </li>
         ))
       }

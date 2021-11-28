@@ -61,7 +61,7 @@ function AddComment(): JSX.Element {
     <form action="#" className="add-review__form" ref={formRef} onSubmit={onFormSubmitHandler}>
       <div className="rating">
         <div className="rating__stars">
-          <input className="rating__input" disabled={isFormLoading} id="star-10" type="radio" name="rating" value="10" checked={rating === '10'} onChange={handleChangeRating} />
+          <input className="rating__input" disabled={isFormLoading} data-testid='star-10' type="radio" name="rating" value="10" checked={rating === '10'} onChange={handleChangeRating} />
           <label className="rating__label" htmlFor="star-10">Rating 10</label>
 
           <input className="rating__input" disabled={isFormLoading} id="star-9" type="radio" name="rating" value="9" checked={rating === '9'} onChange={handleChangeRating} />
@@ -94,9 +94,9 @@ function AddComment(): JSX.Element {
       </div>
 
       <div className="add-review__text">
-        <textarea className="add-review__textarea" disabled={isFormLoading} name="review-text" id="review-text" placeholder="Review text" minLength={MIN_COMMENT_LENGTH} maxLength={MAX_COMMENT_LENGTH} onChange={handleMessageChange} value={comment}></textarea>
+        <textarea className="add-review__textarea" data-testid="comment" disabled={isFormLoading} name="review-text" id="review-text" placeholder="Review text" minLength={MIN_COMMENT_LENGTH} maxLength={MAX_COMMENT_LENGTH} onChange={handleMessageChange} value={comment}></textarea>
         <div className="add-review__submit">
-          <button className="add-review__btn" disabled={isFormLoading} type="submit" ref={submitButtonRef}>Post</button>
+          <button className="add-review__btn" data-testid='submit-button' disabled={isFormLoading} type="submit" ref={submitButtonRef}>Post</button>
         </div>
 
       </div>
