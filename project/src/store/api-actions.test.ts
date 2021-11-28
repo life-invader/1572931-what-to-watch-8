@@ -219,7 +219,7 @@ describe('Comments async actions', () => {
   const middleware = [thunk.withExtraArgument(api)];
   const mockStore = configureMockStore<State, Action, ThunkDispatch<State, typeof api, Action>>(middleware);
 
-  it.only('should get current movie comments', async () => {
+  it('should get current movie comments', async () => {
     const store = mockStore();
     mockApi
       .onGet(APIRoute.Comments(mockMovie.id))
