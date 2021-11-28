@@ -1,5 +1,15 @@
-import { datatype, name, image, internet, lorem, date } from 'faker';
-import { MoviesType, UserCommentType } from '../types/movies';
+import {
+  datatype,
+  name,
+  image,
+  internet,
+  lorem,
+  date
+} from 'faker';
+import {
+  MoviesType,
+  UserCommentType
+} from '../types/movies';
 
 export const mockGenre = datatype.string();
 
