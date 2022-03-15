@@ -1,5 +1,5 @@
 # Кинотеатр
-[Деплой на vercel](https://leontyev-accelerator-react-starter-pack.vercel.app/)
+[Деплой на vercel](https://leontyev-what-to-watch.vercel.app/)
 ---
 
 ---
